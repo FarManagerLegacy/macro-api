@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с диалогами</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-диалогами">Свойства и функции для работы с диалогами</h1>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>Dlg.ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>количество элементов диалога
+</dd>
+<dt><code>Dlg.CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>номер текущего (фокусного) элемента диалога
+</dd>
+<dt><code>Dlg.PrevPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>номер предыдущего фокусного элемента диалога
+</dd>
+<dt><code>Dlg.Id</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>строковое представление идентификатора текущего диалога в формате <code>&quot;{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}&quot;</code> (см. <a href="https://api.farmanager.com/ru/defs/guid.html">GUID объектов</a>)
+</dd>
+<dt><code>Dlg.Owner</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>строковое представление идентификатора плагина, который вызвал диалог
+</dd>
+<dt><code>Dlg.ItemType</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>тип фокусного элемента диалога</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>Ошибка, например, <code>Dlg.ItemType</code> вызван не в диалоге
+</dd>
+<dt><code>4</code></dt>
+<dd>Поле ввода
+</dd>
+<dt><code>5</code></dt>
+<dd>Поле ввода пароля
+</dd>
+<dt><code>6</code></dt>
+<dd>Поле ввода фиксированного размера
+</dd>
+<dt><code>7</code></dt>
+<dd>Кнопка (Button)
+</dd>
+<dt><code>8</code></dt>
+<dd>Контрольный переключатель (Check box)
+</dd>
+<dt><code>9</code></dt>
+<dd>Селекторная кнопка (Radio button)
+</dd>
+<dt><code>10</code></dt>
+<dd>Комбинированный список (Combo box)
+</dd>
+<dt><code>11</code></dt>
+<dd>Окно списка (List box)*
+</dd>
+<dt><code>255</code></dt>
+<dd>Элемент управления, определяемый программистом
+</dd>
+<dt><code>0x8004</code></dt>
+<dd>Выбор из истории поля ввода*
+</dd>
+<dt><code>0x800A</code></dt>
+<dd>Выбор из комбинированного списка*
+</dd>
+</dl>
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>V=Dlg.GetValue([Pos[,Type]])</code></dt>
+<dd><p>Получить различные значения текущего диалога.</p>
+<p><code>Pos</code> — номер элемента диалога (<code>0</code> — само диалоговое окно). Если параметр не указан или равен <code>-1</code>, то функция вернёт значение для текущего фокусного элемента.</p>
+<p><code>Type</code> — тип получаемой информации, зависит от типа элемента. Если параметр не указан, то подразумевается, что <code>Type=0</code>.</p>
+<p>Для самого диалога (<code>Pos=0</code>) допустимы следующие значения <code>Type</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Количество элементов диалога
+</dd>
+<dt><code>2</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>X1</code>
+</dd>
+<dt><code>3</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Y1</code>
+</dd>
+<dt><code>4</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>X2</code>
+</dd>
+<dt><code>5</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Y2</code>
+</dd>
+<dt><code>6</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Pos</code> текущего элемента, имеющего <a href="https://api.farmanager.com/ru/other/dict.html#keybfocus">клавиатурный фокус ввода</a>.
+</dd>
+</dl>
+<p>Для элементов диалога допустимы следующие значения <code>Type</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><code>number</code>/<code>string</code>
+</dd>
+<dd>Check box/Radio buttons: Состояние переключателя
+</dd>
+<dd>List box/Combo box: Значение текущего элемента списка
+</dd>
+<dd>Остальные: Текстовое значение (поле <a href="https://api.farmanager.com/ru/structures/fardialogitem.html"><code>FarDialogItem.Data</code></a>)
+</dd>
+<dt><code>1</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><a href="https://api.farmanager.com/ru/dialogapi/controls/index.html">Тип элемента</a>
+</dd>
+<dt><code>2</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>X1</code> относительно диалога
+</dd>
+<dt><code>3</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Y1</code> относительно диалога
+</dd>
+<dt><code>4</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>X2</code> относительно диалога
+</dd>
+<dt><code>5</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Y2</code> относительно диалога
+</dd>
+<dt><code>6</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>элемент в фокусе? (<code>0</code>/<code>1</code>)
+</dd>
+<dt><code>7</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Check box/Radio buttons: Состояние переключателя
+</dd>
+<dd>List box/Combo box: Текущая позиция в списке
+</dd>
+<dd>Остальные: <code>0</code>
+</dd>
+<dt><code>8</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><a href="https://api.farmanager.com/ru/dialogapi/flags/index.html">Флаги элемента</a>
+</dd>
+<dt><code>9</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Флаг, означающий, что данный элемент диалога является “элементом по умолчанию”
+</dd>
+<dt><code>10</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Остальные: Текстовое значение (поле <a href="https://api.farmanager.com/ru/structures/fardialogitem.html"><code>FarDialogItem.Data</code></a>)
+</dd>
+<dt><code>11</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>List box/Combo box: Количество элементов списка
+</dd>
+</dl>
+<p>Возвращает <code>-1</code>, если <code>Pos</code> больше количества элементов диалога или значение <code>Type</code> не поддерживается.</p>
+<p>Если текущий объект плагиновый диалог, то плагин может возвращать модифицированные данные (см. <a href="https://api.farmanager.com/ru/dialogapi/dmsg/dn_getvalue.html"><code>DN_GETVALUE</code></a>).</p>
+</dd>
+<dt><code>N=Dlg.SetFocus([ID])</code></dt>
+<dd><p>Функция позволяет установить фокус ввода на элемент с номером <code>ID</code>.</p>
+<p>Если параметр <code>ID</code> не указан или равен <code>0</code>, то возвращает номер текущего (фокусного) элемента.</p>
+<p>Функция возвращает <code>-1</code> (внутренняя ошибка или функция применена вне диалога), <code>0</code> (параметр <code>ID</code> содержит номер нефокусного элемента) или номер предыдущего фокусного элемента.</p>
+</dd>
+<dt><code>V=Editor.Sel(Action[,Opt])</code></dt>
+<dd><p>Функция позволяет производить некоторые операции с блоками в тексте (в редакторе, в строках ввода в диалогах, в командной строке).</p>
+<p>Подробности в описании <a href="editor.html">свойств и функций для редактора</a>.</p>
+</dd>
+<dt><code>Pos=Object.CheckHotkey(S[,StartPos])</code></dt>
+<dd><p>Функция позволяет проверить и получить позицию элемента, для которого назначена горячая клавиша <code>S</code>.</p>
+<p>Подробности в описании <a href="menus.html">cвойств и функций для меню и списков</a>.</p>
+</dd>
+</dl>
+</div>
+<h3 id="замечания">Замечания</h3>
+<ul>
+<li>Элементы диалога нумеруются с <code>1</code>.</li>
+<li>Элементы списков нумеруются с <code>1</code>.</li>
+<li><p>Для работы со списками можно использовать <a href="menus.html">cвойства и функции для меню и списков</a>.</p>
+<p>(Под <em>списками</em> понимаются такие элементы диалога, как <em>Окно списка</em>, <em>Выбор из истории поля ввода</em>, <em>Выбор из комбинированного списка</em>).</p></li>
+</ul>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

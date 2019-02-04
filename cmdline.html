@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с командной строкой</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-командной-строкой">Свойства и функции для работы с командной строкой</h1>
+<h2 id="логические-свойства-boolean">Логические свойства (<code>boolean</code>)</h2>
+<dl>
+<dt><span id="CmdLine.Bof"><code>CmdLine.Bof</code></span></dt>
+<dd>курсор в начале командной строки
+</dd>
+<dt><code>CmdLine.Eof</code></dt>
+<dd>курсор в конце командной строки
+</dd>
+<dt><code>CmdLine.Empty</code></dt>
+<dd>командная строка пуста
+</dd>
+<dt><code>CmdLine.Selected</code></dt>
+<dd>выделен блок в командной строке
+</dd>
+</dl>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>CmdLine.CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>текущая позиция курсора в командной строке
+</dd>
+<dt><code>CmdLine.ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>количество символов в командной строке
+</dd>
+<dt><code>CmdLine.Value</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержимое командной строки
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>V=Editor.Sel(Action[,Opt])</code></dt>
+<dd><p>Функция позволяет производить некоторые операции с блоками в тексте (в редакторе, в строках ввода в диалогах, в командной строке).</p>
+<p>Подробности в описании <a href="editor.html">свойств и функций для редактора</a>.</p>
+</dd>
+</dl>
+</div>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

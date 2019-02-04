@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с панелями</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-панелями">Свойства и функции для работы с панелями</h1>
+<p>Под “<em>панелями</em>” понимаются следующие области: файловые панели (<code>Shell</code>), информационная панель (<code>Info</code>), панель быстрого просмотра (<code>QView</code>), панель дерева папок (<code>Tree</code>).</p>
+<p>Все плагиновые панели относятся к файловым (<code>Shell</code>).</p>
+<div class="wrap">
+<h2 id="логические-свойства-boolean">Логические свойства (<code>boolean</code>)</h2>
+<h3 id="файловые-панели">Файловые панели</h3>
+<dl>
+<dt><code>APanel.Bof</code>, <code>PPanel.Bof</code></dt>
+<dd>текущий элемент панели в начале списка?
+</dd>
+<dt><code>APanel.Eof</code>, <code>PPanel.Eof</code></dt>
+<dd>текущий элемент панели в конце списка?
+</dd>
+<dt><code>APanel.Empty</code>, <code>PPanel.Empty</code></dt>
+<dd>панель пуста?
+</dd>
+<dt><code>APanel.Filter</code>, <code>PPanel.Filter</code></dt>
+<dd>на панели включён фильтр?
+</dd>
+<dt><code>APanel.Folder</code>, <code>PPanel.Folder</code></dt>
+<dd>текущий элемент панели — папка?
+</dd>
+<dt><code>APanel.LFN</code>, <code>PPanel.LFN</code></dt>
+<dd>на панели “длинные имена файлов”?
+</dd>
+<dt><code>APanel.Plugin</code>, <code>PPanel.Plugin</code></dt>
+<dd>плагиновая панель?
+</dd>
+<dt><code>APanel.Root</code>, <code>PPanel.Root</code></dt>
+<dd>на панели корневая папка?
+</dd>
+<dt><code>APanel.Selected</code>, <code>PPanel.Selected</code></dt>
+<dd>на панели есть отмеченные файлы/папки?
+</dd>
+</dl>
+<h3 id="все-панели">Все панели</h3>
+<dl>
+<dt><code>APanel.FilePanel</code>, <code>PPanel.FilePanel</code></dt>
+<dd>файловая панель?
+</dd>
+<dt><code>APanel.Left</code>, <code>PPanel.Left</code></dt>
+<dd>панель слева?
+</dd>
+<dt><code>APanel.Visible</code>, <code>PPanel.Visible</code></dt>
+<dd>панель видима?
+</dd>
+</dl>
+<h3 id="замечания">Замечания</h3>
+<p>Префикс <code>APanel.</code> относится к активной панели, <code>PPanel.</code> — к пассивной.</p>
+<h2 id="свойства">Свойства</h2>
+<h3 id="файловые-панели-1">Файловые панели</h3>
+<dl>
+<dt><code>APanel.ColumnCount</code>, <code>PPanel.ColumnCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>количество колонок на панели
+</dd>
+<dt><code>APanel.CurPos</code>, <code>PPanel.CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит порядковый номер файлового объекта на панели
+</dd>
+<dt><code>APanel.Current</code>, <code>PPanel.Current</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит имя файла под курсором
+</dd>
+<dt><code>APanel.DriveType</code>, <code>PPanel.DriveType</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>содержит тип привода на панели:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>Плагиновая панель
+</dd>
+<dt><code>0</code></dt>
+<dd>Не удалось определить тип привода
+</dd>
+<dt><code>2</code></dt>
+<dd>Сменный привод
+</dd>
+<dt><code>3</code></dt>
+<dd>Жёсткий диск
+</dd>
+<dt><code>4</code></dt>
+<dd>Сетевой подмапленный диск
+</dd>
+<dt><code>5</code></dt>
+<dd>CDROM
+</dd>
+<dt><code>6</code></dt>
+<dd>Виртуальный диск
+</dd>
+<dt><code>15</code></dt>
+<dd>SUBST-диск
+</dd>
+</dl>
+</dd>
+<dt><code>APanel.ItemCount</code>, <code>PPanel.ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит количество файловых объектов на панели
+</dd>
+<dt><code>APanel.Path</code>, <code>PPanel.Path</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит путь панели (без заключительного ‘<code>\</code>’)
+</dd>
+<dt><code>APanel.SelCount</code>, <code>PPanel.SelCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит количество выделенных файлов на панели
+</dd>
+<dt><code>APanel.UNCPath</code>, <code>PPanel.UNCPath</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит UNC-путь панели (без заключительного ‘<code>\</code>’); для плагиновой панели — <code>prefix:[hostfile/]path</code>
+</dd>
+</dl>
+<h3 id="файловые-панели-плагинов">Файловые панели плагинов</h3>
+<dl>
+<dt><code>APanel.Format</code>, <code>PPanel.Format</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит имя формата панели плагина
+</dd>
+<dt><code>APanel.HostFile</code>, <code>PPanel.HostFile</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит имя хост-файла панели плагина (или пусто)
+</dd>
+<dt><code>APanel.OPIFlags</code>, <code>PPanel.OPIFlags</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>набор битовых флагов, характеризующих свойства плагиновой панели:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>используется фильтр на панели
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd>используются группы сортировки на панели
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>используется раскраска файлов на панели
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>папки на панели плагина выбираются независимо от настроек FAR
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd><p>используется стандартная обработка файла FAR’ом, если запрошенная операция не поддерживается плагином;</p>
+<p>если этот флаг указан, элементы на панели плагина являются именами реальных файлов</p>
+</dd>
+<dt><code>0x00000040</code></dt>
+<dd>показаны имена без путей
+</dd>
+<dt><code>0x00000080</code></dt>
+<dd>имена файлов выровнены по правому краю
+</dd>
+<dt><code>0x00000100</code></dt>
+<dd><p>имена файлов показаны в оригинальном регистре (независимо от настроек FAR)</p>
+<p>Если панель не плагиновая, то значение будет = <code>0</code></p>
+</dd>
+</dl>
+</dd>
+<dt><code>APanel.Path0</code>, <code>PPanel.Path0</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит путь на реальной файловой системе, до вызова плагинов, создающих свою панель (без заключительного ‘<code>\</code>’)
+</dd>
+<dt><code>APanel.Prefix</code>, <code>PPanel.Prefix</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержит префикс плагина или пусто (или несколько префиксов, разделённых символом ‘<code>:</code>’)
+</dd>
+</dl>
+<h3 id="все-панели-1">Все панели</h3>
+<dl>
+<dt><code>APanel.Height</code>, <code>PPanel.Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит высоту панели
+</dd>
+<dt><code>APanel.Width</code>, <code>PPanel.Width</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит ширину панели
+</dd>
+<dt><code>APanel.Type</code>, <code>PPanel.Type</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>содержит тип панели:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>Файловая панель
+</dd>
+<dt><code>1</code></dt>
+<dd>Дерево папок
+</dd>
+<dt><code>2</code></dt>
+<dd>Панель быстрого просмотра
+</dd>
+<dt><code>3</code></dt>
+<dd>Информационная панель
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<h3 id="замечания-1">Замечания</h3>
+<p>Префикс <code>APanel.</code> относится к активной панели, <code>PPanel.</code> — к пассивной.</p>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>b=Panel.FAttr(panelType,S)</code></dt>
+<dd><p>Возвращает файловые атрибуты файла/папки <code>S</code> из активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd><code>FILE_ATTRIBUTE_READONLY</code>. Файл только для чтения.
+</dd>
+<dd>Приложения могут читать такой файл, но не могут записывать или удалять его.
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd><code>FILE_ATTRIBUTE_HIDDEN</code>. Файл скрыт.
+</dd>
+<dd>Такой файл не включается в обычный листинг папки.
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd><code>FILE_ATTRIBUTE_SYSTEM</code>. Этот файл — часть операционной системы.
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd><code>FILE_ATTRIBUTE_DIRECTORY</code>. Это папка.
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd><code>FILE_ATTRIBUTE_ARCHIVE</code>. Это архивный файл.
+</dd>
+<dd>Приложения должны использовать этот флаг для копирования, архивирования или удаления.
+</dd>
+<dt><code>0x00000080</code></dt>
+<dd><code>FILE_ATTRIBUTE_NORMAL</code>. У этого файла не установлены другие атрибуты.
+</dd>
+<dd>Это значение корректно только при использовании без остальных флагов.
+</dd>
+<dt><code>0x00000100</code></dt>
+<dd><code>FILE_ATTRIBUTE_TEMPORARY</code>. Это временный файл.
+</dd>
+<dd>Приложения должны записывать в такой файл только в крайней необходимости. Большая часть данных файла находится в памяти и не сбрасывается на диск, так как файл будет удалён.
+</dd>
+<dt><code>0x00000200</code></dt>
+<dd><code>FILE_ATTRIBUTE_SPARSE_FILE</code>. Файл является разрежённым.
+</dd>
+<dt><code>0x00000400</code></dt>
+<dd><code>FILE_ATTRIBUTE_REPARSE_POINT</code>. Папка является точкой повторной обработки.
+</dd>
+<dt><code>0x00000800</code></dt>
+<dd><code>FILE_ATTRIBUTE_COMPRESSED</code>. Файл или папка сжаты.
+</dd>
+<dd>Для файла это означает, что все данные его сжаты, для папки — что компрессия по умолчанию применяется ко всем её файлам и подпапкам.
+</dd>
+<dt><code>0x00001000</code></dt>
+<dd><code>FILE_ATTRIBUTE_OFFLINE</code>. Данные файла не доступны непосредственно.
+</dd>
+<dd>Означает, что реальные данные файла были физически перемещены на устройства хранения.
+</dd>
+<dt><code>0x00002000</code></dt>
+<dd><code>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</code>.
+</dd>
+<dd>Этот файл или папки не будут индексироваться службой индексирования.
+</dd>
+<dt><code>0x00004000</code></dt>
+<dd><code>FILE_ATTRIBUTE_ENCRYPTED</code>. Файл или папка зашифрованы.
+</dd>
+<dd>Для файла это означает, что все данные в файле зашифрованы. Для папки это означает, что шифрование является умолчанием для вновь созданных файлов и подпапок.
+</dd>
+<dt><code>0x00010000</code></dt>
+<dd><code>FILE_ATTRIBUTE_VIRTUAL</code>. Этот файл — виртуальный файл.
+</dd>
+</dl>
+<p>Если файловый объект не существует, функция возвращает <code>-1</code>.</p>
+<p>В параметре <code>S</code> допускается использование символов масок ‘<code>*</code>’ и ‘<code>?</code>’. В этом случае функция возвращает атрибуты для первого найденного файла/папки.</p>
+<p>В отличие от <code>mf.fattr()</code>, функция работает только с панелями.</p>
+</dd>
+<dt><code>itemIdx=Panel.FExist(panelType,S)</code></dt>
+<dd><p>Проверяет существование файла/папки <code>S</code> из активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<p>В параметре <code>S</code> допускается использование символов ‘<code>*</code>’ и ‘<code>?</code>’. В этом случае функция проверяет только первое вхождение файла/папки.</p>
+<p>Функция возвращает <code>0</code>, если такого объекта на панели нет, или индекс элемента.</p>
+<p>В отличие от <code>fexist()</code>, функция работает только с панелями.</p>
+</dd>
+<dt><code>V=Panel.Item(panelType,itemIdx,Property)</code></dt>
+<dd><p>Возвращает различную информацию для элемента панели <code>itemIdx</code> из активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<p>В зависимости от запрашиваемого <code>Property</code> функция возвращает следующие свойства элемента:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Имя файла/папки
+</dd>
+<dt><code>1</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Короткое имя
+</dd>
+<dt><code>2</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Файловые атрибуты
+</dd>
+<dt><code>3</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Дата/время создания
+</dd>
+<dt><code>15</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Дата/время создания
+</dd>
+<dt><code>4</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Дата/время последнего доступа
+</dd>
+<dt><code>16</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Дата/время последнего доступа
+</dd>
+<dt><code>5</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Дата/время модификации
+</dd>
+<dt><code>17</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Дата/время модификации
+</dd>
+<dt><code>20</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Дата/время последнего изменения
+</dd>
+<dt><code>21</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Дата/время последнего изменения
+</dd>
+<dt><code>6</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Размер
+</dd>
+<dt><code>7</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Выделенный размер
+</dd>
+<dt><code>8</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dd>“Выделен?”
+</dd>
+<dt><code>9</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Количество линков
+</dd>
+<dt><code>10</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>SortGroup
+</dd>
+<dt><code>11</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Diz-текст
+</dd>
+<dt><code>12</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Владелец
+</dd>
+<dt><code>13</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>CRC32
+</dd>
+<dt><code>14</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Позиция элемента в процессе чтения файловой системы
+</dd>
+<dt><code>18</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Количество потоков
+</dd>
+<dt><code>19</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Размер потоков
+</dd>
+<dt><code>22</code></dt>
+<dd>Var
+</dd>
+<dd>Значение Custom-колонки
+</dd>
+<dt><code>23</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Значение ReparseTag (актуально только для ссылок)
+</dd>
+</dl>
+<p>Для панели “<em>Дерево папок</em>” возвращается только имя файла (<code>Property=0</code>), остальные значения <code>Property</code> игнорируются.</p>
+<p>Для получения данных о текущем элементе (под курсором) <code>itemIdx</code> должен быть равен <code>0</code>.</p>
+<p>Дата/время могут возвращаться в форматах:</p>
+<ol type="1">
+<li>как строка вида <code>DD.MM.YYYY HH:MM:SS</code>. Разделители и порядок в дате зависят от региональных настроек.</li>
+<li>как 64-разрядное число. В старших 32-х битах — дата, в младших — время.</li>
+</ol>
+<p>Пример — выделить все файлы/папки новее текущего:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL<span class="ot">,</span>CUR_ITEM <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">0</span>  <span class="do">-- common</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> MOD_TIME <span class="ot">=</span> <span class="dv">17</span>          <span class="do">-- Panel.Item</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">local</span> SELECT<span class="ot">,</span>MODE_IDX <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">1</span>  <span class="do">-- Panel.Select</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;выделить все файлы/папки новее текущего&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftAdd&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">local</span> d <span class="ot">=</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>CUR_ITEM<span class="ot">,</span>MOD_TIME<span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>APanel<span class="ot">.</span>ItemCount <span class="kw">do</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw">if</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>MOD_TIME<span class="ot">)&gt;</span>d <span class="kw">then</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>SELECT<span class="ot">,</span>MODE_IDX<span class="ot">,</span>i<span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">      <span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="ot">}</span></a></code></pre></div>
+</dd>
+<dt><code>N=Panel.Select(panelType,Action[,Mode[,Items]])</code></dt>
+<dd><p>Операции с выделением элементов на активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<p><code>Action</code> может быть одним из следующих значений:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>снять выделение
+</dd>
+<dt><code>1</code></dt>
+<dd>выделить
+</dd>
+<dt><code>2</code></dt>
+<dd>инвертировать выделение
+</dd>
+<dt><code>3</code></dt>
+<dd>восстановить выделение (аналог <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>M</kbd></span>). Возвращает количество восстановленных элементов.
+</dd>
+</dl>
+<p>Необязательный параметр <code>Mode</code> может принимать следующие значения:</p>
+<dl>
+<dt><code>0</code> / или не указан</dt>
+<dd>–
+</dd>
+<dd>выполнить действие <code>Action</code> для всех элементов
+</dd>
+<dd>параметр <code>Items</code> игнорируется
+</dd>
+<dt><code>1</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Выполнить действие <code>Action</code> для элемента с индексом <code>Items</code>.
+</dd>
+<dd><p><code>Items</code> является числом — индексом элемента панели.</p>
+<p>Если <code>Items = 0</code> (или отсутствует) — выполнить действие <code>Action</code> для текущего элемента.</p>
+</dd>
+<dt><code>2</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Выполнить действие <code>Action</code> для элементов, указанных в <code>Items</code>.
+</dd>
+<dd><code>Items</code> является строкой — списком имён файловых объектов (возможно с полными путями).
+</dd>
+<dt><code>3</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>Выполнить действие <code>Action</code> для элементов, подходящих под маски, указанные в <code>Items</code>.
+</dd>
+<dd><code>Items</code> является строкой — списком файловых масок.
+</dd>
+</dl>
+<p>Для строковых значений <code>Items</code>:</p>
+<ul>
+<li>Элементы должны быть разделены с помощью <code>Lf</code> (“<code>\n</code>”) или <code>CrLf</code> (“<code>\r\n</code>”).</li>
+<li>В случае если <code>Items</code> равно <code>&quot;&quot;</code> (или отсутствует) — действие не выполняется.</li>
+</ul>
+<p>Функция возвращает количество элементов, над которыми производилось <code>Action</code>.</p>
+<p>Примеры:</p>
+<div class="examples">
+<dl>
+<dt><code>Panel.Select(0,0)</code></dt>
+<dd>полное снятие выделения
+</dd>
+<dt><code>Panel.Select(0,1)</code></dt>
+<dd>выделить все элементы
+</dd>
+<dt><code>Panel.Select(0,2)</code></dt>
+<dd>инверсия всего
+</dd>
+<dt><code>Panel.Select(0,2,1)</code></dt>
+<dd>инверсия того, что под курсором
+</dd>
+<dt><code>Panel.Select(0,1,1,10)</code></dt>
+<dd>“вдогонку” выделить 10-й элемент панели
+</dd>
+<dt><code>Panel.Select(0,0,3)</code></dt>
+<dd>ничего не делать
+</dd>
+<dt><code>Panel.Select(0,1,2,mf.clip(0))</code></dt>
+<dd>выделить элементы, имена которых содержатся в буфере обмена
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>E=Panel.SetPath(panelType,path[,filename])</code></dt>
+<dd><p>На активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели выставляет путь <code>path</code> и позиционирует курсор на элемент с именем <code>filename</code> (если указан).</p>
+<p>Возвращает <code>true</code> в случае успешной установки пути, и <code>false</code>, если папка не существует.</p>
+<p>Например, на активной панели выставить папку <code>C:\WINDOWS</code>, на пассивной — <code>C:\Program Files</code>, активную панель сделать слева и установить курсор на папку <code>FAR</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">if</span> APanel<span class="ot">.</span>Left <span class="kw">then</span> Keys<span class="ot">(</span><span class="st">&quot;CtrlU&quot;</span><span class="ot">)</span> <span class="kw">end</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">Panel<span class="ot">.</span>SetPath<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;C:</span><span class="ot">\\</span><span class="st">WINDOWS&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">Panel<span class="ot">.</span>SetPath<span class="ot">(</span><span class="dv">0</span><span class="ot">,</span><span class="st">&quot;C:</span><span class="ot">\\</span><span class="st">Program Files&quot;</span><span class="ot">,</span><span class="st">&quot;FAR&quot;</span><span class="ot">)</span></a></code></pre></div>
+</dd>
+<dt><code>itemIdx=Panel.SetPos(panelType,filename)</code></dt>
+<dd><p>Позиционирует курсор на элемент с именем <code>filename</code> на активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<p>Возвращает позицию (индекс) элемента или <code>0</code>, если такого элемента на панели нет.</p>
+<p>См. <a href="examples.html">Примеры</a></p>
+</dd>
+<dt><code>itemIdx=Panel.SetPosIdx(panelType,PosIdx[,InSelection])</code></dt>
+<dd><p>Позиционирует курсор на элемент с индексом <code>itemIdx</code> на активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
+<p>Параметр <code>PosIdx</code> может принимать отрицательные значения, в этом случае элементы панели нумеруются от конца к началу.</p>
+<p>Если задать <code>itemIdx=0</code>, то перехода не происходит, просто возвращается текущая позиция.</p>
+<p>С помощью необязательного параметр <code>InSelection</code> можно осуществить позиционирование среди отмеченных элементов (для этого нужно указать <code>InSelection=1</code>).</p>
+<p>Функция возвращает позицию элемента или <code>0</code>, если такого элемента на панели нет.</p>
+</dd>
+</dl>
+<h3 id="работа-с-пользовательскими-режимами-сортировки">Работа с пользовательскими режимами сортировки</h3>
+<p>Функции, позволяющие определять и устанавливать пользовательские режимы сортировки, доступны если в качестве движка <a href="https://www.lua.org/about.html">Lua</a> используется <a href="http://luajit.org/luajit.html">LuaJIT</a> 2.</p>
+<dl>
+<dt><code>Panel.CustomSortMenu()</code></dt>
+<dd><p>Выводит меню со списком загруженных пользовательских сортировок.</p>
+<p>Параметры: Нет</p>
+<p>Возвращает: Ничего</p>
+<p>Нажатие <span class="nowrap"><kbd>Enter</kbd></span> устанавливает выбранный режим сортировки на активной панели, нажатие <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></span> — на пассивной, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd></span> — на обеих.</p>
+<p>Клавиши <span class="nowrap"><kbd>Add</kbd></span> и <span class="nowrap"><kbd>Subtract</kbd></span> работают так же, как в меню выбора режима сортировки Far. При этом также поддерживаются модификаторы <span class="nowrap"><kbd>Ctrl</kbd></span>— и <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Shift</kbd></span>—, определяющие выбор панелей для установки режима сортировки.</p>
+</dd>
+<dt><code>Panel.LoadCustomSortMode(Mode,Settings)</code></dt>
+<dd><p>Функция загружает (или выгружает) пользовательский режим сортировки для панелей. Если режим загружен, он может быть установлен в панели посредством вызова функции <code>Panel.SetCustomSortMode</code>.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>Mode</code></dt>
+<dd>режим сортировки, целое число ≥<code>100</code> и ≤<code>0x7FFFFFFF</code>
+</dd>
+<dt><code>Settings</code></dt>
+<dd><p>таблица, содержит следующие поля:</p>
+<div class="wide">
+<dl>
+<dt><code>Condition</code></dt>
+<dd>Функция. Если задана, то будет вызвана с одним аргументом — режим сортировки. Если возвращаемое значение ложно, то сортировка отменяется. Следует отметить, что данная функция может перезагрузить все параметры сортировки, снова вызвав <code>Panel.LoadCustomSortMode()</code>.
+</dd>
+<dt><code>Compare</code></dt>
+<dd>Функция, см. её описание ниже.
+</dd>
+<dt><code>DirectoriesFirst</code>, <code>SelectedFirst</code>, <code>RevertSorting</code>, <code>SortGroups</code></dt>
+<dd>Данные опциональные поля задают соответствующие опции сортировки: <code>0</code> — опция выключена, <code>1</code> — опция включена, любое другое значение или отсутствие данного поля означают “использовать текущую установку Far Manager”.
+</dd>
+<dt><code>InvertByDefault</code></dt>
+<dd>Включать ли по умолчанию обратную сортировку.
+</dd>
+<dt><code>Indicator</code></dt>
+<dd>Индикация режима сортировки на панели, строка из двух символов (первый — для прямой, второй — для обратной сортировки).
+</dd>
+<dt><code>NoSortEqualsByName</code></dt>
+<dd>По умолчанию, равные с точки зрения алгоритма сортировки элементы сортируются по имени. Если это нежелательно, установите данное поле в <code>true</code>.
+</dd>
+<dt><code>Description</code></dt>
+<dd>Текстовое описание режима сортировки. Если данное поле задано, оно используется в меню (см. <code>Panel.CustomSortMenu</code>).
+</dd>
+<dt><code>SortFunction</code></dt>
+<dd>Опция выбора функции сортировки из двух встроенных. Задаётся строкой: “<code>shellsort</code>” (значение по умолчанию) или “<code>qsort</code>”.
+</dd>
+<dt><code>InitSort</code></dt>
+<dd>Функция. Если задана, то вызывается перед началом сортировки. Получает один параметр: таблицу <code>FarOptions</code> (см. ниже одноимённый параметр функции <code>Compare</code>).
+</dd>
+<dt><code>EndSort</code></dt>
+<dd>Функция. Если задана, то вызывается после окончания сортировки.
+</dd>
+</dl>
+<p>Если значение <code>Settings</code> равно <code>nil</code> или <code>false</code>, это означает выгрузку (удаление) данного режима сортировки.</p>
+</div>
+</dd>
+</dl>
+<p>Возвращает: Ничего</p>
+<dl>
+<dt>Функция <code>Compare</code></dt>
+<dd><p><code>result=Compare(Pi1,Pi2,FarOptions)</code></p>
+<p>Параметры:</p>
+<div class="wide">
+<dl>
+<dt><code>Pi1</code> и <code>Pi2</code></dt>
+<dd>сравниваемые элементы панели, структуры типа <a href="https://api.farmanager.com/ru/structures/sortingpanelitem.html"><code>SortingPanelItem</code></a>.
+</dd>
+<dt><code>FarOptions</code></dt>
+<dd>таблица, содержащая текущие опции сортировки панели в Far Manager (все значения — булевые): <code>DirectoriesFirst</code>, <code>SelectedFirst</code>, <code>RevertSorting</code>, <code>SortGroups</code>, <code>NumericSort</code>, <code>CaseSensitiveSort</code>.
+</dd>
+</dl>
+</div>
+<p>Возвращает:</p>
+<p><code>result</code>: если 1-й элемент должен оказаться после прямой сортировки выше 2-го, нужно возвратить отрицательное число, если ниже — положительное, а если элементы по критерию сортировки равны — ноль.</p>
+</dd>
+</dl>
+<p>Примечания:</p>
+<ol type="1">
+<li><p>Пользовательская сортировка использует библиотеку <a href="http://luajit.org/ext_ffi.html">FFI</a> от <a href="http://luajit.org/luajit.html">LuaJIT</a> 2. Программирование с использованием LuaJIT FFI требует предварительного освоения документации.</p></li>
+<li><p>Пользовательские режимы сортировок панелей восстанавливаются при перезапуске Far, если текущая конфигурация была сохранена, при условии, что соответствующие вызовы <code>Panel.LoadCustomSortMode()</code> производятся в процессе загрузки макросов. Восстановление происходит после окончания загрузки макросов, до начала исполнения автостартующих макросов.</p></li>
+<li><p>Пользовательские режимы сортировки принудительно выгружаются при выгрузке макросов.</p></li>
+</ol>
+<p>Пример:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="do">-- Загрузить сортировку по длине имени файла.</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> ffi <span class="ot">=</span> <span class="fu">require</span> <span class="st">&quot;ffi&quot;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">local</span> C <span class="ot">=</span> ffi<span class="ot">.</span>C</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">Panel<span class="ot">.</span>LoadCustomSortMode <span class="ot">(</span><span class="dv">100</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="ot">{</span> </a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">    Compare <span class="ot">=</span> <span class="kw">function</span><span class="ot">(</span>p1<span class="ot">,</span> p2<span class="ot">,</span> opt<span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">      <span class="kw">local</span> l1<span class="ot">,</span> l2 <span class="ot">=</span> C<span class="ot">.</span>wcslen<span class="ot">(</span>p1<span class="ot">.</span>FileName<span class="ot">),</span> C<span class="ot">.</span>wcslen<span class="ot">(</span>p2<span class="ot">.</span>FileName<span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">      <span class="kw">return</span> l1<span class="ot">&lt;</span>l2 <span class="kw">and</span> <span class="ot">-</span><span class="dv">1</span> <span class="kw">or</span> l1<span class="ot">&gt;</span>l2 <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">    Description <span class="ot">=</span> <span class="st">&quot;sorting by file name length&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    Indicator <span class="ot">=</span> <span class="st">&quot;bB&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="ot">})</span></a></code></pre></div>
+</dd>
+<dt><code>Panel.SetCustomSortMode(Mode,whatpanel[,order])</code></dt>
+<dd><p>установка пользовательского режима сортировки <code>Mode</code> в заданной панели</p>
+<p>Заданный режим сортировки <code>Mode</code> должен быть предварительно загружен (см. <code>Panel.LoadCustomSortMode</code>). Иначе не будет произведено никаких действий.</p>
+<p>Параметры</p>
+<dl>
+<dt><code>Mode</code></dt>
+<dd>режим сортировки, целое число ≥<code>100</code> и ≤<code>0x7FFFFFFF</code>
+</dd>
+<dt><code>whatpanel</code></dt>
+<dd><code>0</code>=активная панель, <code>1</code>=пассивная панель
+</dd>
+<dt><code>order</code></dt>
+<dd>“<code>auto</code>” — стандартный выбор направления сортировки (значение по умолчанию)
+</dd>
+<dd>“<code>current</code>” — сохранить текущее направление сортировки в панели
+</dd>
+<dd>“<code>direct</code>” — установить прямую сортировку
+</dd>
+<dd>“<code>reverse</code>” — установить обратную сортировку
+</dd>
+</dl>
+<p>Возвращает: Ничего</p>
+<p>Пример:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="do">-- Установить заданную пользовательскую сортировку в активной панели.</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;Sort files by their name length&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftF1&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span> Panel<span class="ot">.</span>SetCustomSortMode<span class="ot">(</span><span class="dv">100</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span> <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="ot">}</span></a></code></pre></div>
+</dd>
+</dl>
+</div>
+<h3 id="замечания-2">Замечания</h3>
+<ol type="1">
+<li>Панельные функции работают только с видимыми файловыми элементами, с учётом применённых фильтров на панели.</li>
+<li>Нумерация элементов начинается с <code>1</code>.</li>
+<li>Во время вызова макрофункций <code>Panel.SetPos()</code>, <code>Panel.SetPath()</code> и <code>Panel.SetPosIdx()</code> макросы замораживаются до момента выполнения этих функций.</li>
+</ol>
+<p>На “больших” папках (например, сетевые, с большим количеством файловых объектов и/или медленных каналах) эти функции могут выводить сообщения о процессе сбора данных о файлах/папках, с возможностью отменить процесс по <span class="nowrap"><kbd>Esc</kbd></span>.</p>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

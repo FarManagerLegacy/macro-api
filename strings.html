@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Строковые функции</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="строковые-функции">Строковые функции</h1>
+<div class="functions">
+<dl>
+<dt><code>N=mf.asc(S)</code></dt>
+<dd>Возвращает код символа <code>S</code>.
+</dd>
+<dt><code>S=mf.chr(N)</code></dt>
+<dd>Возвращает символ, заданный кодом <code>N</code>.
+</dd>
+<dt><code>N=mf.atoi(S[,Radix])</code></dt>
+<dd><p>Конвертирует строку <code>S</code> в число.</p>
+<p>Значение <code>Radix</code> определяет основание, которое будет использоваться при преобразовании строки <code>S</code>. Допустимые значения <code>Radix</code> от <code>2</code> до <code>36</code>.</p>
+<p>Если параметр <code>Radix</code> не указан или равен <code>0</code>, то функция попытается его определить автоматически.</p>
+</dd>
+<dt><code>S=mf.itoa(N[,Radix])</code></dt>
+<dd><p>Конвертирует целое число <code>N</code> в строку.</p>
+<p>Значение <code>Radix</code> определяет основание, которое должно использоваться при преобразовании числа <code>N</code>. Допустимые значения <code>Radix</code> от <code>2</code> до <code>36</code>.</p>
+<p>Если параметр <code>Radix</code> не указан, то подразумевается основание <code>10</code>.</p>
+</dd>
+<dt><code>S=mf.string(V)</code></dt>
+<dd>Перевод значения выражения <code>V</code> в строку.
+</dd>
+<dt><code>S=mf.date([format])</code></dt>
+<dd><p>Возвращает текущую дату/время по формату <code>format</code>. Этот формат подобен тому, что выдаёт утилита <code>date</code> (Unix).</p>
+<p>Функция поддерживает следующую спецификацию формата даты (подобен формату функции <code>strftime</code>):</p>
+<dl>
+<dt><code>%%</code></dt>
+<dd>символ ‘<code>%</code>’
+</dd>
+<dt><code>%a</code></dt>
+<dd>Краткое имя дня недели (<code>Sun</code> или <code>Вск</code>)
+</dd>
+<dt><code>%A</code></dt>
+<dd>Полное имя дня недели (<code>Sunday</code> или <code>Воскресенье</code>)
+</dd>
+<dt><code>%b</code></dt>
+<dd>Краткое имя месяца (<code>Jan</code> или <code>Янв</code>)
+</dd>
+<dt><code>%B</code></dt>
+<dd>Полное имя месяца (<code>January</code> или <code>Январь</code>)
+</dd>
+<dt><code>%c</code></dt>
+<dd>Дата и время в формате <code>WDay Mnt Day HH:MM:SS yyyy</code> (<code>Mon Jan 10 04:11:54 2000</code> или <code>Пнд Янв 10 04:11:54 2000</code>)
+</dd>
+<dt><code>%C</code></dt>
+<dd>Столетие как десятичное число (<code>00</code>—<code>99</code>). <code>1992</code> ⟹ <code>19</code>
+</dd>
+<dt><code>%d</code></dt>
+<dd>Две цифры дня месяца (<code>01</code>—<code>31</code>)
+</dd>
+<dt><code>%D</code></dt>
+<dd>Синоним для <code>%x</code>
+</dd>
+<dt><code>%e</code></dt>
+<dd>Синоним для <code>%d</code>, но вместо ведущего нуля будет стоять пробел.
+</dd>
+<dt><code>%h</code></dt>
+<dd>Синоним для <code>%b</code>
+</dd>
+<dt><code>%H</code></dt>
+<dd>Две цифры часа (<code>00</code>—<code>23</code>)
+</dd>
+<dt><code>%I</code></dt>
+<dd>Две цифры часа (<code>01</code>—<code>12</code>)
+</dd>
+<dt><code>%j</code></dt>
+<dd>Три цифры дня в году (<code>001</code>—<code>366</code>)
+</dd>
+<dt><code>%k</code></dt>
+<dd>Синоним для <code>%H</code>, но вместо ведущего нуля будет стоять пробел.
+</dd>
+<dt><code>%l</code></dt>
+<dd>Синоним для <code>%I</code>, но вместо ведущего нуля будет стоять пробел.
+</dd>
+<dt><code>%L</code></dt>
+<dd><p>Триггер, переключающий язык названий месяцев и дней недели — английский/локальный.</p>
+<p>Far Manager запрашивает у системы 2 набора наименований:</p>
+<ol type="1">
+<li>английские наименования месяцев и дней недели</li>
+<li>наименования, соответствующие настройкам текущего пользователя (<code>LOCALE_USER_DEFAULT</code>)</li>
+</ol>
+<p>По умолчанию выставляются английские наименования.</p>
+</dd>
+<dt><code>%m</code></dt>
+<dd>Месяц, как десятичное число (<code>1</code>—<code>12</code>)
+</dd>
+<dt><code>%m0</code></dt>
+<dd>Подобно <code>%m</code>, но с ведущим нулём (<code>01</code>—<code>12</code>)
+</dd>
+<dt><code>%mh</code></dt>
+<dd>Одна цифра месяца, как шестнадцатеричное число (<code>1</code>—<code>C</code>)
+</dd>
+<dt><code>%M</code></dt>
+<dd>Две цифры минут (<code>00</code>—<code>59</code>)
+</dd>
+<dt><code>%n</code></dt>
+<dd><p>Подобно переводу строки <code>\n</code></p>
+<p>Внимание! В редакторе автоотступ не работает.</p>
+</dd>
+<dt><code>%p</code></dt>
+<dd><code>AM</code> или <code>PM</code>
+</dd>
+<dt><code>%r</code></dt>
+<dd>Подобно <code>%I:%M:%S %p</code>
+</dd>
+<dt><code>%R</code></dt>
+<dd>Подобно <code>%H:%M</code>
+</dd>
+<dt><code>%S</code></dt>
+<dd>Две цифры секунд (<code>00</code>—<code>59</code>)
+</dd>
+<dt><code>%t</code></dt>
+<dd>Подобно символу табуляции ‘<code>\t</code>’
+</dd>
+<dt><code>%T</code></dt>
+<dd>Синоним <code>%X</code>
+</dd>
+<dt><code>%U</code></dt>
+<dd>Две цифры номера недели, где <code>Воскресенье</code> (<code>Sunday</code>) является первым днём недели (<code>00</code>—<code>53</code>)
+</dd>
+<dt><code>%v</code></dt>
+<dd>Дата в формате <code>dd-mmm-yyyy</code> (<code>mmm</code> — в верхнем регистре)
+</dd>
+<dt><code>%V</code></dt>
+<dd>Неделя года в соответствии с <code>ISO 8601</code>: Если неделя, содержащая <code>1 Января</code>, имеет ≥ 4 дней в течение нового года, тогда это неделя <code>1</code>; в противном случае это самая последняя нумерованная неделя прошлого года (<code>52</code> или <code>53</code>)
+</dd>
+<dt><code>%w</code></dt>
+<dd>День недели где <code>0</code> — <code>Воскресенье</code> (<code>Sunday</code>) (<code>0</code>—<code>6</code>)
+</dd>
+<dt><code>%W</code></dt>
+<dd>Две цифры номера недели, где <code>Понедельник</code> (<code>Monday</code>) является первым днём недели (<code>00</code>—<code>53</code>)
+</dd>
+<dt><code>%x</code></dt>
+<dd>Дата в формате подобно <code>dd&lt;sep&gt;mm&lt;sep&gt;yyyy</code> (разделитель <code>&lt;sep&gt;</code> зависит от локальных настроек; порядок дня, месяца и года зависит от локальных настроек)
+</dd>
+<dt><code>%X</code></dt>
+<dd>Время в формате <code>HH&lt;sep&gt;MM&lt;sep&gt;SS</code> (разделитель <code>&lt;sep&gt;</code> зависит от локальных настроек)
+</dd>
+<dt><code>%y</code></dt>
+<dd>Две цифры года без столетия (<code>00</code>—<code>99</code>)
+</dd>
+<dt><code>%Y</code></dt>
+<dd>Год со столетием (<code>19yy</code>—<code>20yy</code>)
+</dd>
+<dt><code>%z</code></dt>
+<dd>Cмещение локального времени относительно <code>UTC</code> в формате <code>ISO 8601</code>
+</dd>
+<dt><code>%Z</code></dt>
+<dd>Имя часового пояса
+</dd>
+</dl>
+<p>В функции <code>date</code> допускается применение следующих escape-последовательностей:</p>
+<dl>
+<dt><code>\&quot;</code></dt>
+<dd>Символ ‘<code>&quot;</code>’
+</dd>
+<dt><code>\'</code></dt>
+<dd>Символ ‘<code>'</code>’
+</dd>
+<dt><code>\\</code></dt>
+<dd>Символ ‘<code>\</code>’
+</dd>
+<dt><code>\n</code></dt>
+<dd>Перевод строки ‘<code>\n</code>’
+</dd>
+<dt><code>\t</code></dt>
+<dd>Символ табуляции ‘<code>\t</code>’
+</dd>
+<dt><code>\a</code></dt>
+<dd>bell
+</dd>
+<dt><code>\b</code></dt>
+<dd><code>\b</code>
+</dd>
+<dt><code>\f</code></dt>
+<dd><code>\f</code>
+</dd>
+<dt><code>\v</code></dt>
+<dd><code>\v</code>
+</dd>
+<dt><code>\N</code>, <code>\NN</code>, <code>\NNN</code></dt>
+<dd>8-ричные символы из <code>OEM</code> кодировки
+</dd>
+<dt><code>\xNN</code></dt>
+<dd>16-ричные символы из <code>OEM</code> кодировки
+</dd>
+</dl>
+<p>Если аргумент <code>format</code> не указан, то Far Manager будет использовать форматную строку <code>&quot;%a %b %d %H:%M:%S %Z %Y&quot;</code> (см.)</p>
+</dd>
+<dt><code>N=mf.index(S1,S2[,CaseSensitive])</code></dt>
+<dd><p>Если подстрока <code>S2</code> содержится в строке <code>S1</code>, то возвращается её позиция, иначе <code>-1</code>.</p>
+<p>Необязательный параметр <code>CaseSensitive</code> задаёт режим сравнения:</p>
+<ul>
+<li><code>0</code> (по умолчанию) — без учёта регистра,</li>
+<li><code>1</code> — с учётом регистра.</li>
+</ul>
+</dd>
+<dt><code>N=mf.rindex(S1,S2[,CaseSensitive])</code></dt>
+<dd><p>Если подстрока <code>S2</code> содержится в строке <code>S1</code>, то возвращается её позиция, иначе <code>-1</code>.</p>
+<p>Поиск ведётся от конца строки <code>S1</code>.</p>
+<p>Необязательный параметр <code>CaseSensitive</code> задаёт режим сравнения:</p>
+<ul>
+<li><code>0</code> (по умолчанию) — без учёта регистра,</li>
+<li><code>1</code> — с учётом регистра.</li>
+</ul>
+</dd>
+<dt><code>S=mf.lcase(S)</code></dt>
+<dd>Преобразует строку <code>S</code> в нижний регистр.
+</dd>
+<dt><code>S=mf.ucase(S)</code></dt>
+<dd>Преобразует строку <code>S</code> в верхний регистр.
+</dd>
+<dt><code>N=mf.len(S)</code></dt>
+<dd>Возвращает длину строки <code>S</code>.
+</dd>
+<dt><code>S=mf.size2str(Size,Flags[,Width])</code></dt>
+<dd><p>Функция форматирует число <code>Size</code> (например, размера файла) по заданным условиям, указанным в <code>Flags</code>, шириной <code>Width</code>.</p>
+<p>Параметр <code>Flags</code> может быть комбинацией следующих значений:</p>
+<div class="wide">
+<dl>
+<dt><code>0x0010000000000000</code></dt>
+<dd>Добавлять суффиксы: <code>K</code> — для килобайтов, <code>M</code> — для мегабайтов, <code>G</code> — для гигабайтов, <code>T</code> — для терабайтов, <code>P</code> — для петабайтов, <code>E</code> — для эксабайтов
+</dd>
+<dt><code>0x0800000000000000</code></dt>
+<dd>Вставлять разделитель между тысячами. Используется значение <code>Interface/FormatNumberSeparators</code> из конфигурации (<code>far:config</code>) или значения OS (<code>LOCALE_STHOUSAND &amp; LOCALE_SDECIMAL</code>), если <code>FormatNumberSeparators</code> не указан.
+</dd>
+<dt><code>0x0080000000000000</code></dt>
+<dd>Показывать размер в виде десятичной дроби, используя наиболее подходящую единицу измерения, например <code>0,97 К</code>, <code>1,44 М</code>, <code>53,2 Г</code>.
+</dd>
+<dt><code>0x0040000000000000</code></dt>
+<dd>Экономичный режим, не показывать пробел перед суффиксом размера файла (т.е. <code>0.97K</code>)
+</dd>
+<dt><code>0x0400000000000000</code></dt>
+<dd>Вместо делителя <code>1024</code> использовать делитель <code>1000</code>.
+</dd>
+<dt><code>0x0020000000000000</code></dt>
+<dd>Использовать минимально допустимый индекс при форматировании. Индекс указывается в младшем байте и может быть только <code>0</code>, <code>1</code>, <code>2</code> или <code>3</code> (<code>K</code>,<code>M</code>,<code>G</code>,<code>T</code>).
+</dd>
+</dl>
+</div>
+<p>Например, <code>0x0020000000000001</code> означает “<em>размер как минимум в мегабайтах</em>”.</p>
+<p>Если <code>Width</code> не указан или равен <code>0</code>, то подразумевается — “<em>сколько получится</em>”. Отрицательное значение ширины позволяет выравнивать слева:</p>
+<div class="wide">
+<dl>
+<dt><code>mf.size2str(123,0, 5)</code></dt>
+<dd><code>' 123'</code>
+</dd>
+<dt><code>mf.size2str(123,0,-5)</code></dt>
+<dd><code>'123 '</code>
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>S=mf.strwrap(Text,Width[,Break[,Flags]])</code></dt>
+<dd><p>Форматирует (с выравниванием влево) исходный текст <code>Text</code> по заданной ширине <code>Width</code>, используя разделительную строку <code>Break</code>.</p>
+<p>Если <code>Flags</code> равен <code>0x1</code>, то строка всегда сворачивается по заданной ширине, даже если есть слово, которое больше заданной ширины (в этом случае то оно будет разрезано на части).</p>
+<p>Если флаг не указан или не равен <code>0x1</code> и есть длинное слово, то такое слово не будет разрезано и займет ширину больше чем указано в <code>Width</code>.</p>
+<p>Примеры:</p>
+<div class="examples">
+<dl>
+<dt><code>mf.strwrap(&quot;Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.&quot;,7)</code></dt>
+<dd><pre><code> +-------+
+ |Пример
+ |строки,
+ |которая
+ |будет
+ |разбита
+ |на
+&gt;|несколько
+ |строк
+ |по
+ |ширине
+ |в 7
+&gt;|символов.
+ +-------+</code></pre>
+</dd>
+<dt><code>mf.strwrap(&quot;Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.&quot;,7,nil,1)</code></dt>
+<dd><pre><code>  1234567
+ +-------+
+ |Пример
+ |строки,
+ |которая
+ |будет
+ |разбита
+ |на
+ |несколь
+ |ко
+ |строк
+ |по
+ |ширине
+ |в 7
+ |символо
+ |в.
+ +-------+</code></pre>
+</dd>
+<dt><code>mf.strwrap(&quot;Эта строка содержит оооооооооооооччччччччеееень длинное слово&quot;,9,nil,0x1)</code></dt>
+<dd><pre><code>  123456789
+ +---------+
+ |Эта
+ |строка
+ |содержит
+ |ооооооооо
+ |ооооччччч
+ |чччеееень
+ |длинное
+ |слово
+ +---------+</code></pre>
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>S=mf.strpad(V,Size[,Fill[,Op]])</code></dt>
+<dd><p>Функция возвращает строку <code>V</code>, дополненную до заданной длины <code>Size</code> строкой <code>Fill</code> (по умолчанию пробелами).</p>
+<p>Способ дополнения зависит от параметра <code>Op</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>заполнение справа от <code>V</code>
+</dd>
+<dt><code>1</code></dt>
+<dd>заполнение слева от <code>V</code>
+</dd>
+<dt><code>2</code></dt>
+<dd>заполнение вокруг <code>V</code>
+</dd>
+</dl>
+<p>Если <code>Size</code> меньше или равна длине <code>V</code> либо опущена, то дополнения не происходит (возвращается <code>V</code>).</p>
+<p>Если разность <code>Size</code> и длины <code>V</code> не делится без остатка на длину <code>Fill</code>, дополняющая строка обрезается справа.</p>
+<p>Примеры:</p>
+<div class="examples">
+<dl>
+<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;*&quot;,2)</code></dt>
+<dd><code>'***Foo****'</code>
+</dd>
+<dt><code>mf.strpad(&quot;&quot;,10,&quot;-*-&quot;,2)</code></dt>
+<dd><code>'-*--*--*--'</code>
+</dd>
+<dt><code>mf.strpad(,10,&quot;-*-&quot;)</code></dt>
+<dd><code>'-*--*--*--'</code>
+</dd>
+<dt><code>mf.strpad(&quot;Foo&quot;,10)</code></dt>
+<dd><code>'Foo       '</code>
+</dd>
+<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;-&quot;)</code></dt>
+<dd><code>'Foo-------'</code>
+</dd>
+<dt><code>mf.strpad(&quot;Foo&quot;,10,nil,1)</code></dt>
+<dd><code>'       Foo'</code>
+</dd>
+<dt><code>mf.strpad(&quot;Foo&quot;,10,nil,2)</code></dt>
+<dd><code>'   Foo    '</code>
+</dd>
+<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;1234567890&quot;,2)</code></dt>
+<dd><code>'123Foo1234'</code>
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>S=mf.substr(V,start[,length])</code></dt>
+<dd><p>Возвращает подстроку из выражения <code>V</code> начиная с позиции <code>start</code> длиной <code>length</code>.</p>
+<p>Если <code>start</code> ≥ <code>0</code>, то вернётся подстрока, начиная с позиции <code>start</code> от начала строки.</p>
+<p>Если <code>start</code> &lt; <code>0</code>, то вернётся подстрока, начиная с позиции <code>start</code> от конца строки.</p>
+<p>Если <code>length</code> &gt; <code>0</code>, то возвращаемая подстрока будет состоять максимум из <code>length</code> символов исходной строки начиная с позиции <code>start</code>.</p>
+<p>Если <code>length</code> &lt; <code>0</code>, то в возвращаемой подстроке будет отсутствовать <code>length</code> символов от конца исходной строки, при том, что она будет начинаться с позиции <code>start</code>.</p>
+<p>Если <code>length</code> = <code>0</code> или не указан, то возвращается подстрока от <code>start</code> до конца строки.</p>
+<p>Примеры</p>
+<div class="examples">
+<dl>
+<dt><code>mf.substr(&quot;abcdef&quot;, 1)</code></dt>
+<dd>возвращает “<code>bcdef</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 1, 3)</code></dt>
+<dd>возвращает “<code>bcd</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 0, 4)</code></dt>
+<dd>возвращает “<code>abcd</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 0, 8)</code></dt>
+<dd>возвращает “<code>abcdef</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, -1)</code></dt>
+<dd>возвращает “<code>f</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, -2)</code></dt>
+<dd>возвращает “<code>ef</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, -3, 1)</code></dt>
+<dd>возвращает “<code>d</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 0, -1)</code></dt>
+<dd>возвращает “<code>abcde</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 2, -1)</code></dt>
+<dd>возвращает “<code>cde</code>”
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, 4, -4)</code></dt>
+<dd>возвращает <code>&quot;&quot;</code>
+</dd>
+<dt><code>mf.substr(&quot;abcdef&quot;, -3, -1)</code></dt>
+<dd>возвращает “<code>de</code>”
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>Result=mf.replace(Str,Find,Replace[,Cnt[,CaseSensitive]])</code></dt>
+<dd><p>В строке <code>Str</code> заменить подстроку <code>Find</code> на подстроку <code>Replace</code> <code>Cnt</code> раз.</p>
+<p>Если параметр <code>Cnt</code> меньше или равен <code>0</code>, либо опущен, то будут заменены все вхождения <code>Find</code>.</p>
+<p>Возвращается результат замены.</p>
+<p>Необязательный параметр <code>CaseSensitive</code> задаёт режим сравнения:</p>
+<ul>
+<li><code>0</code> (по умолчанию) — без учёта регистра,</li>
+<li><code>1</code> — с учётом регистра.</li>
+</ul>
+<p>Замечания:</p>
+<ul>
+<li>если <code>Find</code> — пустая строка, то возвращается <code>Str</code> без преобразований;</li>
+<li>если <code>Replace</code> — пустая строка, то возвращается копия <code>Str</code>, в которой удалены все подстроки <code>Find</code>;</li>
+</ul>
+</dd>
+<dt><code>S=mf.trim(V[,N])</code></dt>
+<dd>Удаляет все пробельные символы (пробелы, табуляции, переводы строк и возвраты каретки) из строки <code>V</code> снаружи (<code>N=0</code> или не указан), слева (<code>N=1</code>) или справа (<code>N=2</code>).
+</dd>
+<dt><code>S=mf.xlat(S[,Flags])</code></dt>
+<dd><p>Возвращает транслитерируемую строку <code>S</code>.</p>
+<p>Функция подобна макрокоманде <code>Keys(&quot;XLat&quot;)</code>, но используется в выражениях.</p>
+<p>Необязательный аргумент <code>Flags</code> позволяет уточнять поведение функции:</p>
+<dl>
+<dt><code>1</code></dt>
+<dd>переключить раскладку клавиатуры
+</dd>
+<dt><code>2</code></dt>
+<dd>издать системный звук
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<h3 id="замечания">Замечания</h3>
+<p>Для всех строковых функций: нумерация символов в строке начинается с <code>0</code> (см. <code>mf.index()</code>, <code>mf.rindex()</code>, <code>mf.substr()</code>).</p>
+</body>
+</html>

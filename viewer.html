@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с внутренней программой просмотра</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-внутренней-программой-просмотра">Свойства и функции для работы с внутренней программой просмотра</h1>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>Viewer.FileName</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>полное имя просматриваемого файла
+</dd>
+<dt><code>Viewer.State</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>различные состояния текущей программы просмотра — набор битовых флагов:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>включено автоопределение таблицы символов
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>режим Unicode
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>включён перенос строк
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>используется перенос строк по словам, а не по буквам
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>выставлен 16-ричный режим
+</dd>
+<dt><code>0x00000040</code></dt>
+<dd>выставлен Dump-режим
+</dd>
+<dt><code>0x00000800</code></dt>
+<dd>модальный вьюер
+</dd>
+<dt><code>0x08000000</code></dt>
+<dd>FAR запущен с ключом <code>/v</code>
+</dd>
+</dl>
+<p>Например,</p>
+<pre class="sourceCode lua" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Viewer<span class="ot">.</span>State<span class="ot">,</span><span class="dv">0x20</span><span class="ot">)~=</span><span class="dv">0</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="do">-- выполнить действия, если выставлен 16-ричный режим</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">end</span></a></code></pre>
+</dd>
+</dl>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

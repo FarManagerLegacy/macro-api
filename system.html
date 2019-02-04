@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Взаимодействие с системой</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="взаимодействие-с-системой">Взаимодействие с системой</h1>
+<div class="functions">
+<dl>
+<dt><code>V=mf.clip(Cmd[,Value])</code></dt>
+<dd><p>Позволяет производить разнообразные манипуляции с Clipboard в зависимости от заданного действия <code>Action</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>Возвращает данные из Clipboard; параметр <code>Value</code> игнорируется;
+</dd>
+<dt><code>1</code></dt>
+<dd>Поместить строку <code>Value</code> в Clipboard;
+</dd>
+<dt><code>2</code></dt>
+<dd>Добавить строку <code>Value</code> к Clipboard;
+</dd>
+<dt><code>3</code></dt>
+<dd>Копировать Windows Clipboard во внутренний буфер обмена; параметр <code>Value</code> игнорируется;
+</dd>
+<dt><code>4</code></dt>
+<dd>Копировать внутренний буфер обмена в Windows Clipboard; параметр <code>Value</code> игнорируется;
+</dd>
+<dt><code>5</code></dt>
+<dd><p>Режимы работы с буфером обмена.</p>
+<p>По умолчанию в операциях запоминания/вставки данных Far Manager работает с буфером обмена Windows.</p>
+<p>Вызов <code>mf.clip(5)</code> позволяет в пределах одного макроса переключать внутренние механизмы Far Manager для работы с/без использования буфера обмена Windows.</p>
+<p><code>Value</code> может быть одним из:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>Какой буфер обмена сейчас используется
+</dd>
+<dt><code>0</code></dt>
+<dd>Переключить работу с буфера обмена OS на внутренний буфер и наоборот (работает как триггер).
+</dd>
+<dt><code>1</code></dt>
+<dd>Включить буфер обмена OS
+</dd>
+<dt><code>2</code></dt>
+<dd>Включить внутренний буфер обмена
+</dd>
+</dl>
+<p>Функция возвращает предыдущее значение: <code>1</code> — буфер обмена OS, <code>2</code> — внутренний буфер.</p>
+<p>Пример см. в разделе <a href="examples.html">Примеры</a>.</p>
+</dd>
+</dl>
+<p>В случае ошибки возвращает <code>0</code></p>
+<p>Например, поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер):</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> FILENAME<span class="ot">,</span>ATTRIB<span class="ot">,</span>SIZE<span class="ot">,</span>SELECTED <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">2</span><span class="ot">,</span><span class="dv">6</span><span class="ot">,</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">local</span> DIRECTORY <span class="ot">=</span> <span class="dv">0x00000010</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">local</span> <span class="kw">function</span> isFolder<span class="ot">(</span>panel<span class="ot">,</span>idx<span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">return</span> band<span class="ot">(</span>DIRECTORY<span class="ot">,</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>panel<span class="ot">,</span>idx<span class="ot">,</span>ATTRIB<span class="ot">))==</span>DIRECTORY</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">local</span> PUT<span class="ot">,</span>ADD <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  description<span class="ot">=</span><span class="st">&quot;поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер)&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftIns&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">    mf<span class="ot">.</span>clip<span class="ot">(</span>PUT<span class="ot">,</span><span class="st">&quot;Name;Size</span><span class="ot">\r\n</span><span class="st">&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>APanel<span class="ot">.</span>ItemCount <span class="kw">do</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">      <span class="kw">if</span> <span class="kw">not</span> isFolder<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">)</span> <span class="kw">and</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>SELECTED<span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">        mf<span class="ot">.</span>clip<span class="ot">(</span>ADD<span class="ot">,</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>FILENAME<span class="ot">)..</span><span class="st">&quot;;&quot;</span><span class="ot">..</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>SIZE<span class="ot">)..</span><span class="st">&quot;</span><span class="ot">\r\n</span><span class="st">&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">      <span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="ot">}</span></a></code></pre>
+</dd>
+<dt><code>S=mf.env(Name[,Mode[,Value]])</code></dt>
+<dd><p>Позволяет работать с переменной среды <code>Name</code>. Если <code>Mode</code> не указан или равен <code>0</code>, то функция возвращает значение переменной среды (<code>Value</code> в этом случае игнорируется). Если <code>Mode</code> указан и отличен от <code>0</code>, то функция устанавливает значение или удаляет переменную среды.</p>
+<p>Для варианта установки/удаления функция возвращает предыдущее значение (или пустую строку, если переменная была не определена).</p>
+<p>Примеры.</p>
+<div class="examples">
+<dl>
+<dt>Получить значение переменной среды <code>Foo</code></dt>
+<dd><pre class="sourceCode lua" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="kw">nil</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a></code></pre>
+</dd>
+<dt>Установить значение переменной среды <code>Foo</code> в “<code>bar</code>”</dt>
+<dd><code>mf.env(&quot;Foo&quot;,1,&quot;Bar&quot;)</code>
+</dd>
+<dt>Удалить переменную среды <code>Foo</code></dt>
+<dd><pre class="sourceCode lua" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;&quot;</span><span class="ot">)</span></a></code></pre>
+</dd>
+<dt>Установить значение переменной среды <code>Foo</code> в “<code>0</code>”</dt>
+<dd><pre class="sourceCode lua" id="cb4"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;0&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a></code></pre>
+</dd>
+<dt>Если выбран английский язык интерфейса Far Manager, то что-то делаем</dt>
+<dd><pre class="sourceCode lua" id="cb5"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">if</span> mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;FARLANG&quot;</span><span class="ot">)==</span><span class="st">&quot;English&quot;</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="do">-- что-то делаем</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">end</span></a></code></pre>
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>V=mf.flock(Lkey,Action)</code></dt>
+<dd><p>Позволяет управлять состоянием Lock-клавиш (<span class="nowrap"><kbd>NumLock</kbd></span>, <span class="nowrap"><kbd>CapsLock</kbd></span> и <span class="nowrap"><kbd>ScrollLock</kbd></span>).</p>
+<p>Клавиша <code>Lkey</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><span class="nowrap"><kbd>NumLock</kbd></span>
+</dd>
+<dt><code>1</code></dt>
+<dd><span class="nowrap"><kbd>CapsLock</kbd></span>
+</dd>
+<dt><code>2</code></dt>
+<dd><span class="nowrap"><kbd>ScrollLock</kbd></span>
+</dd>
+</dl>
+<p>Действие <code>Action</code>:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>получить состояние клавиши
+</dd>
+<dt><code>0</code></dt>
+<dd>погасить индикатор
+</dd>
+<dt><code>1</code></dt>
+<dd>включить индикатор
+</dd>
+<dt><code>2</code></dt>
+<dd>переключить индикатор в противоположное состояние
+</dd>
+</dl>
+<p>Функция в младшем бите возвращает предыдущее значение режима выбранной клавиши (или текущее, если <code>Action=-1</code>).</p>
+<p>Старший бит будет установлен, если в момент вызова функции клавиша удерживается.</p>
+<p>Примечание:</p>
+<p>Особенности текущей реализации: чтобы изменить состояние режима в момент удержания клавиши может понадобиться повторный вызов функции.</p>
+<p>Поэтому, например, макрос, назначенный на <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>CapsLock</kbd></span> может быть таким:</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb6"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> Caps<span class="ot">,</span>toggle <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;переключение между окнами&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell Info QView Tree Editor Viewer&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlCapsLock&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    Keys<span class="ot">(</span><span class="st">&quot;CtrlShiftTab&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw">local</span> mode <span class="ot">=</span> band<span class="ot">(</span>mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span>toggle<span class="ot">),</span><span class="dv">1</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span><span class="dv">1</span><span class="ot">-</span>mode<span class="ot">)</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="ot">}</span></a></code></pre>
+</dd>
+<dt id="Far.KbdLayout"><code>N=Far.KbdLayout ([V])</code></dt>
+<dd><p>Управление раскладкой клавиатуры.</p>
+<p>Параметр <code>V</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>Вернуть текущее значение раскладки
+</dd>
+<dt><code>1</code></dt>
+<dd>Переключиться на следующую раскладку (по кругу)
+</dd>
+<dt><code>-1</code></dt>
+<dd>Переключиться на предыдущую раскладку (по кругу)
+</dd>
+<dt>Прочие значения</dt>
+<dd><p>Переключиться в конкретную раскладку (например, <code>0x0409</code> или <code>0x4090409</code> — английская, <code>0x0419</code> или <code>0x04190419</code> — русская)</p>
+<p>В случае указания несуществующей раскладки функция ошибку не выдаст и просто вернёт текущую раскладку.</p>
+</dd>
+</dl>
+<p>Функция возвращает предыдущее значение раскладки или <code>0</code> в случае ошибки (не удалось определить имя текущей раскладки для консоли или не удалось получить описатель консольного окна).</p>
+<p>Например (в командной строке):</p>
+<div class="examples">
+<dl>
+<dt><code>lua:=mf.itoa(Far.KbdLayout(0x421),16)</code></dt>
+<dd>при текущей русской раскладке просто вернёт <code>4190419</code>
+</dd>
+<dt><code>lua:=mf.itoa(Far.KbdLayout(),16)</code></dt>
+<dd>при текущей русской раскладке вернёт <code>4190419</code>
+</dd>
+<dt><code>lua:=mf.itoa(Far.KbdLayout(0x409),16)</code></dt>
+<dd>при текущей русской раскладке вернёт <code>4190419</code> и переключит рaскладку на английскую
+</dd>
+<dt><code>lua:=mf.itoa(Far.KbdLayout(1),16)</code></dt>
+<dd>при текущей русской раскладке вернёт <code>4190419</code> и переключит на следующую рaскладку (по кругу)
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>N=Far.Window_Scroll(Lines[,Axis])</code></dt>
+<dd><p>Функция позволяет перемещать консольное окно по буферу.</p>
+<p><code>Lines</code> — количество позиций для прокрутки: положительное число — вперёд (вниз/вправо), отрицательное — назад (вверх/влево).</p>
+<p><code>Axis</code> — направление прокрутки (необязательный параметр): <code>0</code> — вертикаль (по умолчанию), <code>1</code> — горизонталь.</p>
+<p>Функция возвращает <code>false</code>, если перемотка не состоялась (например, <code>Lines</code> был равен <code>0</code>), иначе <code>true</code>.</p>
+</dd>
+</dl>
+</div>
+</body>
+</html>

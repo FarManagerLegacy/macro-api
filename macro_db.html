@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Работа с базой данных</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="работа-с-базой-данных">Работа с базой данных</h1>
+<div class="functions">
+<dl>
+<dt><code>mf.mdelete(key,name[,location])</code></dt>
+<dd><p>Функция удаляет значение или ключ из базы данных.</p>
+<p>Для удаления ключа следует указать параметр <code>name</code> ≡ “<code>*</code>” (звёздочку).</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>key</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>name</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>location</code></dt>
+<dd><code>string</code> (“<code>roaming</code>” или “<code>local</code>”; по умолчанию: “<code>roaming</code>”)
+</dd>
+</dl>
+<p>Возвращает: ничего</p>
+</dd>
+<dt><code>ret=mf.mload(key,name[,location])</code></dt>
+<dd><p>Функция читает значение из базы данных.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>key</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>name</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>location</code></dt>
+<dd><code>string</code> (“<code>roaming</code>” или “<code>local</code>”; по умолчанию: “<code>roaming</code>”)
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>ret</code></dt>
+<dd><code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code>, <code>int64</code> или <code>nil</code>.
+</dd>
+</dl>
+<p>Примечание</p>
+<p><code>int64</code> — особый тип <code>userdata</code>, создаваемый библиотекой <code>bit64</code>.</p>
+</dd>
+<dt><code>mf.msave(key,name,value[,location])</code></dt>
+<dd><p>сохраняет переданное значение в базу данных.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>key</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>name</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>value</code></dt>
+<dd><code>nil</code>, <code>boolean</code>, <code>number</code>, <code>string</code>, <code>table</code>, <code>int64</code>
+</dd>
+<dt><code>location</code></dt>
+<dd><code>string</code> (“<code>roaming</code>” или “<code>local</code>”; по умолчанию: “<code>roaming</code>”)
+</dd>
+</dl>
+<p>Возвращает: ничего</p>
+<p>При сохранении таблиц будут сохраняться:</p>
+<dl>
+<dt><em>ключи</em> типов</dt>
+<dd><code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code>
+</dd>
+<dt><em>значения</em> типов</dt>
+<dd><code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code>, <code>int64</code>
+</dd>
+</dl>
+<p>Сохраняются вложенные таблицы, при этом рекурсивные вложения корректно обрабатываются.</p>
+<p>Сохраняется связь таблицы с её метатаблицей.</p>
+<p>Примечание</p>
+<p><code>int64</code> — особый тип <code>userdata</code>, создаваемый библиотекой <code>bit64</code>.</p>
+</dd>
+</dl>
+</div>
+</body>
+</html>

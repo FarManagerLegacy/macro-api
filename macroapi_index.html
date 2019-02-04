@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>macroapi_index</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h2 id="глобальные-свойства-и-функции">Глобальные свойства и функции</h2>
+<p>Функции <code>akey</code>, <code>eval</code>, <code>exit</code>, <code>Keys</code>, <code>mmode</code>, <code>msgbox</code>, <code>print</code>, <code>prompt</code> — это глобальные ссылки на одноимённые функции из библиотеки <code>mf</code> (см. ниже).</p>
+<p>Функции <code>band</code>, <code>bnot</code>, <code>bor</code>, <code>bxor</code>, <code>lshift</code>, <code>rshift</code> — это глобальные ссылки на одноимённые функции из библиотеки <code>bit64</code> (см. <a href="">LuaFAR manual</a>).</p>
+<h2 id="mf"><code>mf</code></h2>
+<p>Свойства: нет.</p>
+<p>Функции:</p>
+<p><code>abs</code> <code>acall</code> <code>AddExitHandler</code> <code>akey</code> <code>asc</code> <code>atoi</code> <code>beep</code> <code>chr</code> <code>clip</code> <code>date</code> <code>env</code> <code>eval</code> <code>exit</code> <code>fattr</code> <code>fexist</code> <code>float</code> <code>flock</code> <code>fmatch</code> <code>fsplit</code> <code>GetMacroCopy</code> <code>iif</code> <code>index</code> <code>int</code> <code>itoa</code> <code>key</code> <code>Keys</code> <code>lcase</code> <code>len</code> <code>max</code> <code>mdelete</code> <code>min</code> <code>mload</code> <code>mmode</code> <code>mod</code> <code>msave</code> <code>msgbox</code> <code>postmacro</code> <code>print</code> <code>prompt</code> <code>replace</code> <code>rindex</code> <code>size2str</code> <code>sleep</code> <code>string</code> <code>strpad</code> <code>strwrap</code> <code>substr</code> <code>testfolder</code> <code>trim</code> <code>ucase</code> <code>usermenu</code> <code>waitkey</code> <code>xlat</code></p>
+<h2 id="area"><code>Area</code></h2>
+<p><code>Area</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>Current</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Other</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Shell</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Viewer</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Editor</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Dialog</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Search</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Disks</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>MainMenu</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Menu</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Help</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Info</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>QView</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Tree</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>FindFolder</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>UserMenu</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>ShellAutoCompletion</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>DialogAutoCompletion</code></dt>
+<dd><code>boolean</code>
+</dd>
+</dl>
+<p>Функции: Нет.</p>
+<h2 id="apanel-ppanel"><code>APanel</code>, <code>PPanel</code></h2>
+<p><code>APanel</code>, <code>PPanel</code> — таблицы со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>Bof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>ColumnCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Current</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>DriveType</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Empty</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Eof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>FilePanel</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Filter</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Folder</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Format</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>HostFile</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Left</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>LFN</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>OPIFlags</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Path</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Path0</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Plugin</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Prefix</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Root</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>SelCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Selected</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Type</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>UNCPath</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Visible</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Width</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p>Нет.</p>
+<h2 id="panel"><code>Panel</code></h2>
+<p><code>Panel</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<p>Нет.</p>
+<p>Функции:</p>
+<p><code>FAttr</code> <code>FExist</code> <code>Item</code> <code>Select</code> <code>SetPath</code> <code>SetPos</code> <code>SetPosIdx</code> <code>CustomSortMenu</code> <code>LoadCustomSortMode</code> <code>SetCustomSortMode</code></p>
+<p>Примечание:</p>
+<p>Функции <code>CustomSortMenu</code>, <code>LoadCustomSortMode</code> и <code>SetCustomSortMode</code> присутствуют только если в качестве движка Lua используется LuaJIT 2.</p>
+<h2 id="bm"><code>BM</code></h2>
+<p><code>BM</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<p>Нет.</p>
+<p>Функции:</p>
+<p><code>Add</code> <code>Back</code> <code>Clear</code> <code>Del</code> <code>Get</code> <code>Goto</code> <code>Next</code> <code>Pop</code> <code>Prev</code> <code>Push</code></p>
+<h2 id="cmdline"><code>CmdLine</code></h2>
+<p><code>CmdLine</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>Bof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Empty</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Eof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Selected</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Value</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Result</code></dt>
+<dd><code>table</code> или <code>nil</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p>Нет.</p>
+<h2 id="dlg"><code>Dlg</code></h2>
+<p><code>Dlg</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Id</code></dt>
+<dd><code>string</code> (GUID)
+</dd>
+<dt><code>Owner</code></dt>
+<dd><code>string</code> (GUID)
+</dd>
+<dt><code>ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>ItemType</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>PrevPos</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p><code>GetValue</code> <code>SetFocus</code></p>
+<h2 id="drv"><code>Drv</code></h2>
+<p><code>Drv</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>ShowMode</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>ShowPos</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p>Нет.</p>
+<h2 id="editor"><code>Editor</code></h2>
+<p><code>Editor</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>CurLine</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>FileName</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Lines</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>RealPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>SelValue</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>State</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Value</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p><code>DelLine</code> <code>GetStr</code> <code>InsStr</code> <code>Pos</code> <code>Sel</code> <code>Set</code> <code>SetStr</code> <code>SetTitle</code> <code>Undo</code></p>
+<h2 id="far"><code>Far</code></h2>
+<p><code>Far</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>FullScreen</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>IsUserAdmin</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>PID</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Title</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>UpTime</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Width</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p><code>Cfg_Get</code> (устаревшая, используйте <code>GetConfig</code>) <code>DisableHistory</code> <code>GetConfig</code> <code>KbdLayout</code> <code>KeyBar_Show</code> <code>Window_Scroll</code></p>
+<h2 id="help"><code>Help</code></h2>
+<p><code>Help</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>FileName</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>SelTopic</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Topic</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p>Нет.</p>
+<h2 id="menu"><code>Menu</code></h2>
+<p><code>Menu</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>Id</code></dt>
+<dd><code>string</code> (GUID)
+</dd>
+<dt><code>Value</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p><code>Filter</code> <code>FilterStr</code> <code>GetValue</code> <code>ItemStatus</code> <code>Select</code> <code>Show</code></p>
+<h2 id="mouse"><code>Mouse</code></h2>
+<p><code>Mouse</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>X</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Y</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Button</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>CtrlState</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>EventFlags</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>LastCtrlState</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p>Нет.</p>
+<h2 id="object"><code>Object</code></h2>
+<p>Свойства, зависящие от контекста исполнения.</p>
+<p><code>Object</code>: таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>Bof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Empty</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Eof</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dt><code>Selected</code></dt>
+<dd><code>boolean</code>
+</dd>
+<dt><code>Title</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>Width</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции:</p>
+<p><code>CheckHotkey</code> <code>GetHotkey</code></p>
+<h2 id="plugin"><code>Plugin</code></h2>
+<p><code>Plugin</code> — таблица со следующими полями:</p>
+<p>Свойства: Нет.</p>
+<p>Функции:</p>
+<p><code>Call</code> <code>Command</code> <code>Config</code> <code>Exist</code> <code>Load</code> <code>Menu</code> <code>SyncCall</code> <code>Unload</code></p>
+<h2 id="viewer"><code>Viewer</code></h2>
+<p><code>Viewer</code> — таблица со следующими полями:</p>
+<p>Свойства:</p>
+<dl>
+<dt><code>FileName</code></dt>
+<dd><code>string</code>
+</dd>
+<dt><code>State</code></dt>
+<dd><code>number</code>
+</dd>
+</dl>
+<p>Функции: Нет.</p>
+</body>
+</html>

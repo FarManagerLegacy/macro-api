@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с редактором</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-редактором">Свойства и функции для работы с редактором</h1>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>Editor.CurLine</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>номер текущей строки
+</dd>
+<dt><code>Editor.CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>текущая позиция курсора в строке; учитывается размер табуляции
+</dd>
+<dt><code>Editor.FileName</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>полное имя редактируемого файла
+</dd>
+<dt><code>Editor.Lines</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>количество строк в редакторе
+</dd>
+<dt><code>Editor.RealPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>текущая позиция курсора в строке без привязки к размеру табуляции (табуляция считается за 1 символ)
+</dd>
+<dt><code>Editor.SelValue</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержимое выделенного блока.<br />
+Аналогично тому, как Far поместил бы в <em>Clipboard</em> (блок текста с наличием <code>crlf</code> в конце строк).
+</dd>
+<dt><code>Editor.State</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>различные состояния текущего редактора — набор битовых флагов:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>файл совершенно новый либо его успели удалить
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd>разрешено переключение на программу просмотра по <span class="nowrap"><kbd>F6</kbd></span>
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>после закрытия редактора удалить файл
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>редактируемый файл модифицирован (в статусной строке редактора присутствует символ ‘<code>*</code>’)
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>в наличии есть выделенный поточный блок
+</dd>
+<dd>(альтернативный вариант — функция <a href="..."><code>Editor.Sel(0,4)</code></a>)
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>в наличии есть выделенный вертикальный блок
+</dd>
+<dd>(альтернативный вариант — функция <a href="..."><code>Editor.Sel(0,4)</code></a>)
+</dd>
+<dt><code>0x00000040</code></dt>
+<dd>редактируемый файл изменялся в сеансе редактирования
+</dd>
+<dt><code>0x00000080</code></dt>
+<dd>курсор в режиме замены
+</dd>
+<dt><code>0x00000100</code></dt>
+<dd>позиция курсора была изменена плагином
+</dd>
+<dt><code>0x00000200</code></dt>
+<dd>редактор заблокирован (ReadOnly)
+</dd>
+<dt><code>0x00000400</code></dt>
+<dd>используются постоянные блоки
+</dd>
+<dt><code>0x00000800</code></dt>
+<dd>модальный редактор
+</dd>
+<dt><code>0x08000000</code></dt>
+<dd>FAR запущен с ключом <code>/e</code>
+</dd>
+</dl>
+<p>Например,</p>
+<pre class="sourceCode lua" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Editor<span class="ot">.</span>State<span class="ot">,</span><span class="dv">0x8</span><span class="ot">)</span> <span class="kw">then</span> </a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="do">-- выполнить действия, если файл модифицирован</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">end</span></a></code></pre>
+</dd>
+<dt><code>Editor.Value</code></dt>
+<dd><code>string</code>
+</dd>
+<dd><p>содержимое текущей строки в редакторе под курсором. Например, показать текущий символ под курсором:</p>
+<pre class="sourceCode lua" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> pos <span class="ot">=</span> Editor<span class="ot">.</span>CurPos</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="kw">nil</span><span class="ot">,</span>Editor<span class="ot">.</span>Value:sub<span class="ot">(</span>pos<span class="ot">,</span>pos<span class="ot">))</span></a></code></pre>
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>N=Editor.DelLine([Line])</code></dt>
+<dd>Удаление строки с номером <code>Line</code>. Если <code>Line</code> не указан или меньше <code>1</code>, то удаляется текущая строка. Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — если редактор не в фокусе/редактор залочен/нет строки с запрашиваемым номером.
+</dd>
+<dt><code>S=Editor.GetStr([Line])</code></dt>
+<dd>Получить содержимое строки с номером <code>Line</code>. Если <code>Line</code> не указан или меньше <code>1</code>, то возвращается текущая строка. Возвращает строку с запрашиваемым номером.
+</dd>
+<dt><code>N=Editor.InsStr([S[,Line]])</code></dt>
+<dd>Вставить значение <code>S</code> после строки с номером <code>Line</code>. Если <code>S</code> не указан, то вставляется пустая строка. Если <code>Line</code> не указан или меньше <code>1</code>, то вставляется в текущую строку. Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — если редактор не в фокусе/редактор залочен/нет строки с запрашиваемым номером.
+</dd>
+<dt><code>N=Editor.Pos(Action,Object[,Value])</code></dt>
+<dd><p>Получение/установка позиций в редакторе.</p>
+<p>Параметр <code>Action</code> задаёт поведение функции:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>получить данные
+</dd>
+<dd>возвращает текущее значение
+</dd>
+<dt><code>1</code></dt>
+<dd>установить данные
+</dd>
+<dd>возвращает <code>1</code>/<code>0</code> — успешно/неуспешно выполнена установка
+</dd>
+</dl>
+<p>Функция возвращает <code>-1</code> в случае прочих ошибок (например, неверные параметры, или функция вызвана не из редактора).</p>
+<p>Параметр <code>Object</code> — над чем выполняется операция:</p>
+<dl>
+<dt><code>1</code></dt>
+<dd>строка
+</dd>
+<dt><code>2</code></dt>
+<dd>положение курсора в строке
+</dd>
+<dt><code>3</code></dt>
+<dd>экранная позиция курсора
+</dd>
+<dt><code>4</code></dt>
+<dd>новая строка вверху экрана
+</dd>
+<dt><code>5</code></dt>
+<dd>позиция левой границы окна редактора
+</dd>
+<dt><code>6</code></dt>
+<dd>режим вставки
+</dd>
+</dl>
+<p>Пример см. в разделе <a href="examples.html">Примеры</a>.</p>
+</dd>
+<dt><code>V=Editor.Sel(Action[,Opt])</code></dt>
+<dd><p>Функция позволяет производить некоторые операции с блоками в тексте (в редакторе, в строках ввода в диалогах, в командной строке).</p>
+<p><code>Action</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><p>получить параметры текущего блока <code>Opt</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>вернуть номер строки начала блока
+</dd>
+<dt><code>1</code></dt>
+<dd>вернуть номер позиции в строке начала блока
+</dd>
+<dt><code>2</code></dt>
+<dd>вернуть номер строки конца блока
+</dd>
+<dt><code>3</code></dt>
+<dd>вернуть номер позиции в строке конца блока
+</dd>
+<dt><code>4</code></dt>
+<dd><p>вернуть тип выделенного блока:</p>
+<p><code>0</code> — блок не выделен, <code>1</code> — обычный блок, <code>2</code> — вертикальный блок</p>
+</dd>
+<dd><p>(альтернативный вариант — свойство <a href="..."><code>Editor.State</code></a>)</p>
+</dd>
+</dl>
+</dd>
+<dt><code>1</code></dt>
+<dd><p>позиционировать курсор внутри текущего блока</p>
+<p><code>Opt</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>установить курсор в начало отмеченного блока
+</dd>
+<dt><code>1</code></dt>
+<dd>установить курсор в конец отмеченного блока При позиционировании курсора состояние блока не изменяется.
+</dd>
+</dl>
+</dd>
+<dt><code>2</code></dt>
+<dd><p>установка позиций блока</p>
+<p><code>Opt</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>отметить позицию начала блока
+</dd>
+<dt><code>1</code></dt>
+<dd>отметить позицию конца блока
+</dd>
+</dl>
+<p>Позицией начала/конца блока считается текущая позиция курсора.</p>
+<p>Блок помечается только после указания конечной позиции (<code>Opt=1</code>), с ранее выделенного блока пометка снимается.</p>
+<p>Если позиция начала и конца блока совпадают, то эта операция равносильна снятию пометки блока.</p>
+</dd>
+<dt><code>3</code></dt>
+<dd><p>установка позиций вертикального блока</p>
+<p><code>Opt</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>отметить позицию начала вертикального блока
+</dd>
+<dt><code>1</code></dt>
+<dd>отметить позицию конца вертикального блока
+</dd>
+</dl>
+<p>Позицией начала/конца блока считается текущая позиция курсора.</p>
+<p>Блок помечается только после указания конечной позиции (<code>Opt=1</code>), с ранее выделенного блока пометка снимается.</p>
+<p>Если позиция начала и конца блока совпадают, то эта операция равносильна снятию пометки блока.</p>
+</dd>
+<dt><code>4</code></dt>
+<dd><p>снять выделение с блока.</p>
+<p>Параметр <code>Opt</code> игнорируется.</p>
+<p>Всегда возвращается <code>1</code>.</p>
+</dd>
+</dl>
+<p>В случае ошибки (в т. ч. функция вызвана не из “редактора”) возвращаемое значение равно <code>0</code>, иначе <code>1</code>.</p>
+<p>Для <code>Action=0</code> возвращается запрошенное значение.</p>
+<p>Например, повторим некоторые сочетания клавиш из Turbo-сред (<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>B</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>K</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>C</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>Y</kbd></span>):</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> SET <span class="ot">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> START<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;повторим некоторые сочетания клавиш из Turbo-сред&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlK&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="kw">local</span> k <span class="ot">=</span> mf<span class="ot">.</span>waitkey<span class="ot">()</span>:lower<span class="ot">()</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="kw">local</span> <span class="kw">function</span> KeyIs<span class="ot">(</span>key<span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">      <span class="kw">return</span> k<span class="ot">==</span>key <span class="kw">or</span> k<span class="ot">==</span><span class="st">&quot;ctrl&quot;</span><span class="ot">..</span>key</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="kw">if</span> KeyIs<span class="ot">(</span><span class="st">&quot;b&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">      Editor<span class="ot">.</span>Sel<span class="ot">(</span>SET<span class="ot">,</span>START<span class="ot">)</span>             <span class="do">-- пометить начало блока</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;k&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">      Editor<span class="ot">.</span>Sel<span class="ot">(</span>SET<span class="ot">,</span>END<span class="ot">)</span>               <span class="do">-- пометить конец блока</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;c&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">      Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlC&quot;</span><span class="ot">)</span> <span class="do">-- копировать</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;y&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18">      Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlD&quot;</span><span class="ot">)</span> <span class="do">-- удалить</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">    <span class="kw">else</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">      Keys<span class="ot">(</span><span class="st">&quot;F1&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="ot">}</span></a></code></pre>
+</dd>
+<dt><code>V=Editor.Set(Option[,Value])</code></dt>
+<dd><p>Получить/изменить настройки текущей копии редактора.</p>
+<p><code>Option</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Размер табуляции
+</dd>
+<dt><code>1</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Преобразование табуляции: <code>0</code> — не преобразовывать табуляцию <code>1</code> — преобразовывать все символы табуляции в пробелы <code>2</code> — преобразовывать новые символы табуляции в пробелы
+</dd>
+<dt><code>2</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Постоянные блоки
+</dd>
+<dt><code>3</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Клавиша <span class="nowrap"><kbd>Delete</kbd></span> удаляет блоки. Если есть помеченный блок, <span class="nowrap"><kbd>Delete</kbd></span> будет удалять этот блок, а не символ под курсором.
+</dd>
+<dt><code>4</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Автоотступ. Включает режим автоотступа при вводе текста.
+</dd>
+<dt><code>5</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Автоопределение таблицы символов
+</dd>
+<dt><code>7</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Разрешить перемещение курсора за пределы строки
+</dd>
+<dt><code>8</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Editor.BSLikeDel</code> (<code>far:config</code>). Задаёт поведение клавиши <span class="nowrap"><kbd>BackSpace</kbd></span> в редакторе, когда выделен вертикальный блок. Если значение отлично от <code>0</code>, то <span class="nowrap"><kbd>BackSpace</kbd></span> удаляет вертикальный блок подобно клавише <span class="nowrap"><kbd>Delete</kbd></span>.
+</dd>
+<dt><code>9</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><code>Editor.CharCodeBase</code> (<code>far:config</code>). Представление кода символа под курсором в статусной строке. Может принимать следующие значения: <code>0</code> — восьмеричное значение (3 символа с ведущим нулями) <code>1</code> — десятеричное значение (3 символа с ведущими пробелами) <code>2</code> — шестнадцатеричное значение (2 символа под цифру + символ ‘<code>h</code>’)
+</dd>
+<dt><code>10</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Сохранять позицию файла
+</dd>
+<dt><code>11</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Сохранять закладки
+</dd>
+<dt><code>12</code></dt>
+<dd><code>string</code>
+</dd>
+<dd><code>System.WordDiv</code> (<code>far:config</code>). Символы разделители слов. По умолчанию: <code>~!%^&amp;*()+|{}:&quot;&lt;&gt;?`-=\[];',./</code>
+</dd>
+<dt><code>14</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p><code>Editor.AllowEmptySpaceAfterEof</code> (<code>far:config</code>) Окончание файла в редакторе всегда находится внизу экрана, если строк в файле больше чем строк экрана. При построчном скроллировании вниз (например, с помощью <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Down</kbd></span>), скроллирование прекращается, когда показывается последняя строка.</p>
+<p><code>Value</code> может принимать следующие значения:</p>
+<ul>
+<li><code>0</code> — прекратить скроллинг, если последняя строка внизу экрана</li>
+<li><code>1</code> — продолжать скроллинг, при этом:
+<ol type="a">
+<li>поместить курсор за пределы файла по-прежнему нельзя</li>
+<li>скроллинг с помощью <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Down</kbd></span> сдвинет текст до курсора</li>
+</ol></li>
+</ul>
+</dd>
+<dt><code>15</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Показать полосу прокрутки в редакторе
+</dd>
+<dt><code>16</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Редактировать открытые на запись файлы
+</dd>
+<dt><code>17</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Выделять найденное — найденные последовательности будут выделены.
+</dd>
+<dt><code>18</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Вести поиск с использованием регулярных выражений
+</dd>
+<dt><code>19</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Cлово под курсором. При вызове диалога поиска/замены в строку поиска будет подставляться слово, на котором стоит курсор.
+</dd>
+<dt><code>20</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>Показывать в редакторе пробельные символы.
+</dd>
+</dl>
+<p>Значение <code>Value</code> может быть опущено или равно <code>-1</code>, в этом случае функция ничего не изменит, а вернёт текущее значение настройки.</p>
+<p>Возвращает предыдущее значение опций или <code>-1</code>, если данные указаны некорректно, или функция вызвана не из редактора.</p>
+<p>Значения опции <code>16</code> изменить нельзя.</p>
+<p>Например, макрос, перемещающий выделенный фрагмент на одну строку (сохраняет выделение вне зависимости от настроек постоянных блоков):</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb4"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PERSISTENT <span class="ot">=</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;перемещение выделенного фрагмента на одну строку вниз/вверх&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftDown CtrlShiftUp&quot;</span><span class="ot">;</span> flags<span class="ot">=</span><span class="st">&quot;NoSendKeysToPlugins&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">if</span> <span class="kw">not</span> Object<span class="ot">.</span>Selected <span class="kw">then</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">      Keys<span class="ot">(</span><span class="st">&quot;Home CtrlIns&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="kw">local</span> key <span class="ot">=</span> mf<span class="ot">.</span>akey<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span>:match<span class="ot">(</span><span class="st">&quot;Down&quot;</span><span class="ot">)</span> <span class="kw">or</span> <span class="st">&quot;Up&quot;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    mf<span class="ot">.</span>clip<span class="ot">(</span><span class="dv">5</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="kw">local</span> a <span class="ot">=</span> Editor<span class="ot">.</span>Set<span class="ot">(</span>PERSISTENT<span class="ot">,</span><span class="dv">1</span><span class="ot">)</span> <span class="do">-- включить постоянные блоки</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    Keys<span class="ot">(</span><span class="st">&quot;CtrlX&quot;</span><span class="ot">,</span>key<span class="ot">,</span><span class="st">&quot;CtrlV&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">    Editor<span class="ot">.</span>Set<span class="ot">(</span>PERSISTENT<span class="ot">,</span>a<span class="ot">)</span>           <span class="do">-- вернуть предыдущий режим</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="ot">}</span></a></code></pre>
+</dd>
+<dt><code>N=Editor.SetStr([S[,Line]])</code></dt>
+<dd>Заменить строку с номером <code>Line</code> на значение <code>S</code>. Если <code>S</code> не указан, то строка будет пустой. Если <code>Line</code> не указан или меньше <code>1</code>, то заменяется текущая строка. Позиция курсора в редакторе не меняется. Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — если редактор не в фокусе/редактор залочен/нет строки с запрашиваемым номером.
+</dd>
+<dt><code>E=Editor.SetTitle([Title])</code></dt>
+<dd><p>Установка заголовка в статусной строке редактора.</p>
+<p>Если параметр <code>Title</code> отсутствует или равен пустой строке, то восстанавливается предыдущее значение статусной строки.</p>
+<p>При показе заголовок будет усечён до размера, не затрагивающего служебную информацию (кодировка, позиция, etc.)</p>
+<p>Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — редактор не в фокусе.</p>
+</dd>
+<dt><code>E=Editor.Undo(Action)</code></dt>
+<dd><p>Работа с Undo/Redo. Здесь <code>N</code> — одно из:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>начало блочной операции
+</dd>
+<dt><code>1</code></dt>
+<dd>конец блочной операции
+</dd>
+<dt><code>2</code></dt>
+<dd>выполнить Undo
+</dd>
+<dt><code>3</code></dt>
+<dd>выполнить Redo
+</dd>
+</dl>
+<p>Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> в случае ошибки.</p>
+</dd>
+</dl>
+</div>
+<p>Удаление пустых строк:</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb5"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> GET <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">local</span> START_LINE<span class="ot">,</span> END_LINE <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">local</span> BEGIN<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;Удаление пустых строк&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftX&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw">local</span> StartLine<span class="ot">,</span> EndLine <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span> Editor<span class="ot">.</span>Lines</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw">if</span> Object<span class="ot">.</span>Selected <span class="kw">then</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">      StartLine <span class="ot">=</span> Editor<span class="ot">.</span>Sel<span class="ot">(</span>GET<span class="ot">,</span>START_LINE<span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">      EndLine <span class="ot">=</span> Editor<span class="ot">.</span>Sel<span class="ot">(</span>GET<span class="ot">,</span>END_LINE<span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">    Editor<span class="ot">.</span>Undo<span class="ot">(</span>BEGIN<span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">    <span class="kw">for</span> i<span class="ot">=</span>EndLine<span class="ot">,</span>StartLine<span class="ot">,-</span><span class="dv">1</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">      <span class="kw">if</span> Editor<span class="ot">.</span>GetStr<span class="ot">(</span>i<span class="ot">)</span>:match<span class="st">&quot;^%s*$&quot;</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16">        Editor<span class="ot">.</span>DelLine<span class="ot">(</span>i<span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">      <span class="kw">end</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19">    Editor<span class="ot">.</span>Undo<span class="ot">(</span>END<span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="ot">}</span></a></code></pre>
+<h2 id="стековые-закладки">Стековые закладки</h2>
+<div class="functions">
+<dl>
+<dt><code>E=BM.Push()</code></dt>
+<dd>Добавить закладку с текущими параметрами.
+</dd>
+<dt><code>E=BM.Pop()</code></dt>
+<dd>Восстановить параметры из последней закладки и удалить её.
+</dd>
+<dt><code>E=BM.Add()</code></dt>
+<dd>Добавить закладку с текущими параметрами и обрезать “хвост” (все закладки с индексом больше текущего).
+</dd>
+<dt><code>E=BM.Del([Idx])</code></dt>
+<dd><p>Удалить закладку с указанным индексом <code>Idx</code>.</p>
+<p>Если параметр <code>Idx</code> не указан или равен <code>0</code> — удаляется текущая закладка.</p>
+</dd>
+<dt><code>E=BM.Clear()</code></dt>
+<dd>Очистить все закладки.
+</dd>
+<dt><code>E=BM.Next()</code></dt>
+<dd>Перейти на следующую закладку.
+</dd>
+<dt><code>E=BM.Prev()</code></dt>
+<dd>Перейти на предыдущую закладку.
+</dd>
+<dt><code>E=BM.Back()</code></dt>
+<dd><p>Перейти на предыдущую закладку.</p>
+<p>Если непосредственно перед ней была вызвана <code>BM.Add</code> — добавить перед переходом закладку с текущими параметрами.</p>
+</dd>
+<dt><code>N=BM.Goto([Idx])</code></dt>
+<dd><p>Перейти на закладку с указанным индексом <code>Idx</code>.</p>
+<p>Если параметр <code>Idx</code> не указан или равен <code>0</code> — переход на текущую закладку.</p>
+</dd>
+<dt><code>N=BM.Get(Idx,Param)</code></dt>
+<dd><p>Получить параметры закладки с индексом <code>Idx</code>. <code>Idx=0</code> — текущая закладка.</p>
+<p>Параметр <code>Param</code> может быть одним из следующих:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>номер текущей строки
+</dd>
+<dt><code>1</code></dt>
+<dd>номер текущей колонки
+</dd>
+<dt><code>2</code></dt>
+<dd>номер первой видимой колонки на экране
+</dd>
+<dt><code>3</code></dt>
+<dd>номер первой видимой строки на экране
+</dd>
+</dl>
+</dd>
+<dt><code>N=BM.Stat([Param])</code></dt>
+<dd><p>Получить информацию о закладках.</p>
+<p>Параметр <code>Param</code> может быть одним из следующих:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>текущее количество закладок
+</dd>
+<dt><code>1</code></dt>
+<dd>индекс текущей закладки (возвращает <code>0</code> если закладок нет)
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<p>Пример работы с закладками:</p>
+<p>Для редактируемого файла <code>newarc.ModuleManager.cpp</code> вставляет в начало</p>
+<pre class="sourceCode cpp" id="cb6"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="pp">#ifndef __NEWARC_MODULEMANAGER_CPP__</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="pp">#define __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre>
+<p>в конец</p>
+<pre class="sourceCode cpp" id="cb7"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#endif </span><span class="co">//! __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre>
+<p>при наличии строки “<code>#pragma once</code>” в начале файла, строки вставляются после неё.</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb8"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">local</span> ptnNameExt <span class="ot">=</span> <span class="st">&quot;[^</span><span class="ot">\\</span><span class="st">/]$&quot;</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">local</span> ptnTrim <span class="ot">=</span> <span class="st">&quot;^%s*(.-)%s*$&quot;</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;Пример работы с закладками&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftV&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">  filemask<span class="ot">=</span><span class="st">&quot;newarc.ModuleManager.cpp&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="kw">local</span> d <span class="ot">=</span> <span class="ot">(</span><span class="st">&quot;__%s__</span><span class="ot">\n</span><span class="st">&quot;</span><span class="ot">)</span>:<span class="fu">format</span><span class="ot">(</span>Editor<span class="ot">.</span>FileName:match<span class="ot">(</span>ptnNameExt<span class="ot">)</span>:upper<span class="ot">()</span>:<span class="fu">gsub</span><span class="ot">(</span><span class="st">&quot;%.&quot;</span><span class="ot">,</span><span class="st">&quot;_&quot;</span><span class="ot">))</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">    BM<span class="ot">.</span>Add<span class="ot">()</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">    Keys<span class="ot">(</span><span class="st">&quot;CtrlHome&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">    <span class="kw">if</span> Editor<span class="ot">.</span>Value:lower<span class="ot">()</span>:match<span class="ot">(</span>ptnTrim<span class="ot">)==</span><span class="st">&quot;#pragma once&quot;</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">      Keys<span class="ot">(</span><span class="st">&quot;Down&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14">    mf<span class="ot">.</span>print<span class="ot">((</span><span class="st">&quot;#ifndef %s</span><span class="ot">\t</span><span class="st">define %s&quot;</span><span class="ot">)</span>:<span class="fu">format</span><span class="ot">(</span>d<span class="ot">,</span>d<span class="ot">))</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">    Keys<span class="ot">(</span><span class="st">&quot;CtrlEnd Enter Home&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">    mf<span class="ot">.</span>print<span class="ot">(</span><span class="st">&quot;#endif //! &quot;</span><span class="ot">..</span>d<span class="ot">)</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">    BM<span class="ot">.</span>Next<span class="ot">()</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">    BM<span class="ot">.</span>Del<span class="ot">()</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="ot">}</span></a></code></pre>
+<h3 id="замечания">Замечания</h3>
+<ul>
+<li>Нумерация строк в редакторе начинается с <code>1</code>.</li>
+<li>Нумерация колонок (позиций курсора в строке) начинается с <code>1</code>.</li>
+<li>Нумерация закладок начинается с <code>1</code>.</li>
+</ul>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

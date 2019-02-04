@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции для работы с меню и списками</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-для-работы-с-меню-и-списками">Свойства и функции для работы с меню и списками</h1>
+<p>К <em>меню</em> относятся следующие <a href="">области</a>: <em>прочие меню</em> (<code>Menu</code>), <em>основное меню</em> (<code>MainMenu</code>), <em>меню пользователя</em> (<code>UserMenu</code>), <em>меню выбора диска</em> (<code>Disks</code>).</p>
+<p>Под <em>списками</em> понимается: <em>список автодополнения</em> (<code>Shell</code>—/<code>DialogAutoCompletion</code>), и различные открытые списки в диалогах (<code>Dialog</code>) — <em>List box</em> / <em>Combo box</em> / <em>History</em>.</p>
+<p>Далее в тексте “<em>меню</em>” и “<em>списки</em>” не разделяются, и упоминаются под общим названием “<em>меню</em>”.</p>
+<h2 id="свойства">Свойства</h2>
+<h3 id="все-меню">Все меню</h3>
+<dl>
+<dt><code>Menu.Id</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>строковое представление идентификатора текущего меню в формате <code>&quot;{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}&quot;</code> (см. <a href="https://api.farmanager.com/ru/defs/guid.html">GUID объектов</a>)
+</dd>
+<dt><code>Menu.Value</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>содержимое текущего пункта меню (см. также <code>Menu.GetValue</code>)
+</dd>
+</dl>
+<h3 id="меню-выбора-диска">Меню выбора диска</h3>
+<dl>
+<dt><code>Drv.ShowMode</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>информация, отображаемая в <em>меню выбора дисков</em>; набор битовых флагов:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>тип дисков
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd>сетевые имена (и пути, ассоциированные с SUBST-дисками)
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>метки дисков
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>тип файловой системы
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>общее и свободное место на дисках
+</dd>
+<dt><code>0x00000100</code></dt>
+<dd>общее и свободное место отображается в виде десятичной дроби
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>параметры сменных носителей
+</dd>
+<dt><code>0x00000040</code></dt>
+<dd>подключаемые модули (плагины)
+</dd>
+<dt><code>0x00000080</code></dt>
+<dd>параметры оптических дисков
+</dd>
+<dt><code>0x00000200</code></dt>
+<dd>параметры сетевых дисков
+</dd>
+</dl>
+</dd>
+<dt><code>Drv.ShowPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>для какой панели вызвано меню выбора диска: <code>1</code> — для левой (<span class="nowrap"><kbd>Alt</kbd>+<kbd>F1</kbd></span>), <code>2</code> — для правой (<span class="nowrap"><kbd>Alt</kbd>+<kbd>F2</kbd></span>).
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>Pos=Object.CheckHotkey(S[,StartPos])</code></dt>
+<dd><p>Функция позволяет проверить и получить позицию элемента, для которого назначена горячая клавиша <code>S</code>.</p>
+<p>Если <code>S</code> — пустая строка, то функция вернёт позицию элемента, для которого горячие клавиши не назначены.</p>
+<p>Если не задать <code>StartPos</code>, то поиск осуществляется с начала.</p>
+<p>Работает как в меню, так и в диалогах.</p>
+<p>Если текущий элемент диалога — открытый список, то функция работает не с диалогом, а с этим списком.</p>
+<p>Возвращает позицию найденного элемента. <code>0</code> — ничего не найдено, <code>-1</code> — функция вызвана не из <em>меню</em>/<em>диалога</em>/<em>списка</em>.</p>
+<p>Например:</p>
+<p>В меню вызова плагинов (<span class="nowrap"><kbd>F11</kbd></span>) плагину <em>S&amp;R</em> назначена горячая клавиша <code>7</code>.</p>
+<p>Следующая последовательность макрокоманд для редактора вызовет плагин (если хоткей назначен) или стандартный диалог поиска (если хоткей не назначен):</p>
+<pre class="sourceCode numberSource lua numberLines" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Продолжить поиск/замену в обратном направлении [S&amp;R]&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;AltF7&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    Keys<span class="ot">(</span><span class="st">&quot;F11&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">if</span> Object<span class="ot">.</span>CheckHotkey<span class="ot">(</span><span class="st">&quot;7&quot;</span><span class="ot">)~=</span><span class="dv">0</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">      Keys<span class="ot">(</span><span class="st">&quot;7 1&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">else</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">      Keys<span class="ot">(</span><span class="st">&quot;Esc AKey&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ot">}</span></a></code></pre>
+</dd>
+<dt><code>S=Object.GetHotkey([Pos])</code></dt>
+<dd><p>Возвращает горячую клавишу <code>S</code> для пункта меню с номером <code>Pos</code>.</p>
+<p>Если <code>Pos</code> не указан, или равен <code>0</code> — подразумевается текущий пункт.</p>
+<p>Если горячая клавиша для пункта меню не задана, то возвращается пустая строка (<code>&quot;&quot;</code>).</p>
+<p>В случае ошибки (не меню; нет хоткея; <code>Pos</code> больше чем количество пунктов меню) также возвращается пустая строка.</p>
+</dd>
+<dt><code>N=Menu.Filter([Action[,Mode]])</code></dt>
+<dd><p>Выполняет операции фильтрации (<span class="nowrap"><kbd>RAlt</kbd></span>/<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></span>).</p>
+<p><code>Action</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><p>включение фильтра</p>
+<p><code>Mode</code>:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>(по умолчанию) вернуть <code>1</code> если фильтр уже включен, <code>0</code> — фильтр выключен
+</dd>
+<dt><code>0</code></dt>
+<dd>выключить фильтр
+</dd>
+<dt><code>1</code></dt>
+<dd>включить фильтр, если фильтр уже включен — ничего не делает
+</dd>
+</dl>
+</dd>
+<dt><code>1</code></dt>
+<dd><p>фиксация текста фильтра (<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>L</kbd></span>)</p>
+<p><code>Mode</code>:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>(по умолчанию) вернуть <code>1</code> если текст фильтра зафиксирован, <code>0</code> — фильтр можно менять с клавиатуры
+</dd>
+<dt><code>0</code></dt>
+<dd>отменить фиксацию фильтра
+</dd>
+<dt><code>1</code></dt>
+<dd>зафиксировать фильтр
+</dd>
+</dl>
+</dd>
+<dt><code>2</code></dt>
+<dd>вернуть <code>1</code> если фильтр включен и строка фильтра не пуста
+</dd>
+<dt><code>3</code></dt>
+<dd>вернуть количество отфильтрованных (невидимых) строк
+</dd>
+<dt><code>4</code></dt>
+<dd>(по умолчанию) подправить высоту списка под количество элементов
+</dd>
+</dl>
+<p>Если фильтрация недоступна (не <em>меню</em>; не <em>список</em>) возвращает <code>-1</code>.</p>
+<p>Если код возврата специально не оговорен, в случае успеха возвращает <code>1</code>, в случае ошибки <code>0</code>.</p>
+</dd>
+<dt><code>S=Menu.FilterStr([Action[,S]])</code></dt>
+<dd><p>Выполняет операции со строкой фильтра (<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></span>).</p>
+<p><code>Action</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>(по умолчанию) вернуть текущую строку, если фильтр включен
+</dd>
+<dt><code>1</code></dt>
+<dd><p>установить (заменить) в фильтре строку <code>S</code></p>
+<p>Если фильтр не был включен — включает его, режим фиксации не трогается, но игнорируется.</p>
+<p>Возвращает предыдущее значение строки фильтра</p>
+</dd>
+</dl>
+</dd>
+<dt><code>S=Menu.GetValue([Pos])</code></dt>
+<dd><p>Возвращает текст пункта меню с номером <code>Pos</code>.</p>
+<p>Если текущий “объект” не <em>меню</em> или позиция <code>Pos</code> не валидна (меньше <code>0</code> или больше количества пунктов в меню), то возвращается пустая строка.</p>
+<p>Если <code>Pos</code> не указан или равен <code>0</code>, то действие аналогично применению <code>Menu.Value</code>.</p>
+<p>Позиция меню не меняется.</p>
+</dd>
+<dt><code>b=Menu.ItemStatus([Pos])</code></dt>
+<dd><p>Возвращает в младшем слове набор битовых флагов — состояние пункта меню с номером <code>Pos</code> (текущая позиция — <code>Pos=0</code> или не указан):</p>
+<p>Флаги:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>Признак активности пункта меню. Только один пункт может быть активным.
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd>Признак отмеченного пункта меню. Перед текстом будет отображаться метка выбора.
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>Пункт меню отображается как разделитель.
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>Пункт меню недоступен
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>Если флаг установлен, то пункт меню доступен в навигации, но не доступен для выбора.
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>Если флаг установлен, то пункт меню не выводится на экран.
+</dd>
+</dl>
+<p>В старшем слове — код символа пометки (<code>U+XXXX</code>).</p>
+<ul>
+<li>Если выставлен флаг <code>0x00000002</code> и старшее слово <em>равно</em> <code>0</code>, то Far использует символ пометки <code>√</code> (<code>U+221A</code>).</li>
+<li>Если выставлен флаг <code>0x00000002</code> и старшее слово <em>не равно</em> <code>0</code>, то Far использует символ пометки из старшего слова.</li>
+</ul>
+<pre class="sourceCode numberSource lua numberLines" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Menu<span class="ot">.</span>ItemStatus<span class="ot">(),</span><span class="dv">0x00000002</span><span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="st">&quot;Selected&quot;</span><span class="ot">,</span> unicode<span class="ot">.</span>utf8<span class="ot">.</span>char<span class="ot">(</span>rshift<span class="ot">(</span>Menu<span class="ot">.</span>ItemStatus<span class="ot">(),</span><span class="dv">16</span><span class="ot">)))</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">else</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="st">&quot;Not Selected&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">end</span></a></code></pre>
+<p>Функция работает со всеми пунктами меню, в том числе с теми, которые в данный момент не отображаются (скрытые пункты учитываются в позиции).</p>
+<p>Если текущий “объект” не <em>меню</em> или позиция <code>Pos</code> невалидна (меньше <code>0</code> или больше количества пунктов в меню), то функция возвращает значение <code>-1</code> (все биты установлены).</p>
+</dd>
+<dt><code>Pos=Menu.Select(S[,Mode[,Dir]])</code></dt>
+<dd><p>В меню позиционирует курсор на первый пункт, содержащий подстроку <code>S</code>.</p>
+<p>Поиск регистронезависим.</p>
+<p>Если такого пункта нет, то ничего не делает.</p>
+<p>Поиск подстроки ведётся в зависимости от указанного режима <code>Mode</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>полное совпадение
+</dd>
+<dt><code>1</code></dt>
+<dd>совпадение с началом строки
+</dd>
+<dt><code>2</code></dt>
+<dd>совпадение с концом строки
+</dd>
+<dt><code>3</code></dt>
+<dd>присутствие подстроки <code>S</code> в пункте меню
+</dd>
+</dl>
+<p>Если параметр <code>Mode</code> не указан, подразумевается полное совпадение.</p>
+<p>Параметр <code>Dir</code> задаёт направление поиска:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>от начала в конец списка пунктов меню
+</dd>
+<dt><code>1</code></dt>
+<dd>от текущей позиции в начало
+</dd>
+<dt><code>2</code></dt>
+<dd>от текущей позиции в конец списка
+</dd>
+</dl>
+<p>Возвращает позицию пункта меню (если найден), <code>0</code> — ошибка при позиционировании (нет пункта или пункт задисаблен), <code>-1</code> — функция вызвана не для меню.</p>
+<pre class="sourceCode lua" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">Keys<span class="ot">(</span><span class="st">&quot;F11&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">if</span> Menu<span class="ot">.</span>Select<span class="ot">(</span><span class="st">&quot;Advanced compare&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)&gt;</span><span class="dv">0</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  Keys<span class="ot">(</span><span class="st">&quot;Enter&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">end</span></a></code></pre>
+</dd>
+</dl>
+</div>
+<h3 id="замечания">Замечания</h3>
+<p>Пункты меню нумеруются, начиная с <code>1</code>. В нумерацию также включаются разделители и заблокированные пункты меню.</p>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Общие свойства и функции</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="общие-свойства-и-функции">Общие свойства и функции</h1>
+<p>Эти свойства и функции не зависят от области, в которой исполняется в данный момент макропоследовательность.</p>
+<dl>
+<dt><code>Far.FullScreen</code></dt>
+<dd>Far Manager работает в оконном режиме?
+</dd>
+<dt><code>Far.IsUserAdmin</code></dt>
+<dd>Far Manager запущен под Администратором?
+</dd>
+</dl>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>Far.Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>высота окна консоли, в которой работает Far Manager
+</dd>
+<dt><code>Far.Width</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>ширина окна консоли, в которой работает Far Manager
+</dd>
+<dt><code>Far.PID</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>содержит ID текущей запущенной копии Far Manager
+</dd>
+<dt><code>Far.Title</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>текущий заголовок консольного окна Far Manager
+</dd>
+<dt><code>Far.UpTime</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>сколько времени (в миллисекундах) работает Far Manager (своё значение для каждой запущенной копии)
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<h3 id="глобальные-функции">Глобальные функции</h3>
+<p>Функции <code>akey</code>, <code>eval</code>, <code>exit</code>, <code>Keys</code>, <code>mmode</code>, <code>msgbox</code>, <code>print</code>, <code>prompt</code> — это глобальные ссылки на одноимённые функции из библиотеки <code>mf</code> (см. ниже).</p>
+<p>Функции <code>band</code>, <code>bnot</code>, <code>bor</code>, <code>bxor</code>, <code>lshift</code>, <code>rshift</code> — это глобальные ссылки на одноимённые функции из библиотеки <code>bit64</code> (см. [LuaFAR manual]).</p>
+<h3 id="взаимодействие-с-пользователем">Взаимодействие с пользователем</h3>
+<div class="functions">
+<dl>
+<dt><code>E=mf.beep([N])</code></dt>
+<dd><p>Воспроизвести один из системных звуковых сигналов <code>N</code>.</p>
+<dl>
+<dt><code>0x00000040</code></dt>
+<dd>Звук Звёздочка
+</dd>
+<dt><code>0x00000030</code></dt>
+<dd>Звук Восклицание
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>Звук Критическая ошибка
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>Звук Вопрос
+</dd>
+<dt><code>0x0</code></dt>
+<dd>Стандартный звук
+</dd>
+<dt><code>0xFFFFFFFF</code></dt>
+<dd>Стандартный звук на встроенный динамик
+</dd>
+</dl>
+<p>Функция возвращает <code>true</code> или <code>false</code> (в случае неудачи).</p>
+</dd>
+<dt><code>S=mf.key(V)</code></dt>
+<dd><p>Преобразует параметр <code>V</code> в строковый эквивалент названия клавиши.</p>
+<p>Если <code>V</code> — строка, то проверяется правильность написания клавиши и она же возвращается.</p>
+<p>Если <code>V</code> — число, то происходит попытка преобразовать значение в текстовый эквивалент названия клавиши.</p>
+<p>В случае ошибок — возвращается пустая строка.</p>
+<p>Примечание:</p>
+<p>В настоящий момент функция не представляет практической ценности, поскольку числовые значения клавиш не употребляются.</p>
+</dd>
+<dt><code>Keys(...)</code></dt>
+<dd><p>Послать один или более ключей Far Manager’у.</p>
+<p>Параметры:</p>
+<p>Один или больше аргументов типа <code>string</code>.</p>
+<p>Каждый аргумент может содержать несколько ключей, разделённых пробельными символами.</p>
+<p>Аргументы регистронезависимы.</p>
+<p>Перед каждым ключом может быть указан множитель, например “<code>3*Down</code>” эквивалентно “<code>Down Down Down</code>”.</p>
+<p>Специальные ключи:</p>
+<dl>
+<dt>“<code>AKey</code>”</dt>
+<dd>послать Far Manager’у клавишу, вызвавшую данный макрос.
+</dd>
+<dt>“<code>SelWord</code>”</dt>
+<dd>выделить слово под курсором.
+</dd>
+<dt>“<code>XLat</code>”</dt>
+<dd>преобразовать слово под курсором (ср. <code>mf.xlat()</code>).
+</dd>
+<dt>“<code>EnOut</code>”</dt>
+<dd>разрешить вывод на экран (то же, что <code>mmode(1,0)</code>)
+</dd>
+<dt>“<code>DisOut</code>”</dt>
+<dd>запретить вывод на экран (то же, что <code>mmode(1,1)</code>)
+</dd>
+</dl>
+<p>Пример:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> mykeys <span class="ot">=</span> <span class="st">&quot;CtrlF5 Esc&quot;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">Keys<span class="ot">(</span><span class="st">&quot;AKey A b CtrlC ShiftEnter&quot;</span><span class="ot">,</span> mykeys<span class="ot">)</span></a></code></pre></div>
+<p>См. также:</p>
+<p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
+</dd>
+<dt><code>N=mf.msgbox([Title[,Text[,Flags]]])</code></dt>
+<dd><p>Показывает сообщение <code>Text</code> с заголовком <code>Title</code>.</p>
+<p>В параметре <code>Text</code> строки разбиваются символом ‘<code>\n</code>’.</p>
+<p><code>Flags</code> может быть набором следующих значений:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd>Используются цвета “Предупреждения” (обычно белые буквы на красном фоне).
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>Использовать для строк сообщения выравнивание влево (по умолчанию строки выводятся по центру).
+</dd>
+<dt><code>0x00010000</code></dt>
+<dd>Выводится кнопка <code>[ Ok ]</code>
+</dd>
+<dt><code>0x00020000</code></dt>
+<dd>Выводятся кнопки <code>[ Ok ]</code> и <code>[ Cancel ]</code>
+</dd>
+<dt><code>0x00030000</code></dt>
+<dd>Выводятся кнопки <code>[ Abort ]</code>, <code>[ Retry ]</code> и <code>[ Ignore ]</code>
+</dd>
+<dt><code>0x00040000</code></dt>
+<dd>Выводятся кнопки <code>[ Yes ]</code> и <code>[ No ]</code>
+</dd>
+<dt><code>0x00050000</code></dt>
+<dd>Выводятся кнопки <code>[ Yes ]</code>, <code>[ No ]</code> и <code>[ Cancel ]</code>
+</dd>
+<dt><code>0x00060000</code></dt>
+<dd>Выводятся кнопки <code>[ Retry ]</code> и <code>[ Cancel ]</code>
+</dd>
+</dl>
+<p>Если параметр <code>Flags</code> равен <code>0</code> (или не указан), то выводится стандартный диалог с кнопкой <code>[ Ok ]</code></p>
+<p>Функция возвращает номер выбранной кнопки (начиная с <code>1</code>), или <code>0</code>, если пользователь отменил сообщение</p>
+</dd>
+<dt><code>E=mf.print(Str)</code></dt>
+<dd><p>Функция предназначена для вставки произвольного текста <code>Str</code> в редактор, командную строку, элементы ввода в диалогах, etc.</p>
+<p>Допускается применение следующих escape-последовательностей:</p>
+<dl>
+<dt><code>\&quot;</code></dt>
+<dd>Символ ‘<code>&quot;</code>’
+</dd>
+<dt><code>\'</code></dt>
+<dd>Символ ‘<code>'</code>’
+</dd>
+<dt><code>\\</code></dt>
+<dd>Символ ‘<code>\</code>’
+</dd>
+<dt><code>\n</code></dt>
+<dd>Переводу строки ‘<code>\n</code>’
+</dd>
+<dt><code>\t</code></dt>
+<dd>Табуляции ‘<code>\t</code>’
+</dd>
+<dt><code>\a</code></dt>
+<dd>bell
+</dd>
+<dt><code>\b</code></dt>
+<dd><code>\b</code>
+</dd>
+<dt><code>\f</code></dt>
+<dd><code>\f</code>
+</dd>
+<dt><code>\v</code></dt>
+<dd><code>\v</code>
+</dd>
+<dt><code>\N</code>, <code>\NN</code>, <code>\NNN</code></dt>
+<dd>8-ричный код символа
+</dd>
+<dt><code>\xNN</code></dt>
+<dd>16-ричный код символа
+</dd>
+</dl>
+<p>См. <a href="examples.html">Примеры</a></p>
+</dd>
+<dt><code>S=mf.prompt([Title[,Prompt[,Flags[,Src[,History]]]]])</code></dt>
+<dd><p>Функция позволяет ввести одну строку текста.</p>
+<p>Параметры: <code>Title</code> — заголовок диалога, <code>Prompt</code> — приглашения для ввода, <code>Src</code> — начальное значение строки ввода, <code>History</code> — имя истории ввода.</p>
+<p><code>Flags</code> может быть набором следующих значений (аналогичных константам <a href="https://api.farmanager.com/ru/service_functions/inputbox.html#INPUTBOXFLAGS"><code>FIB_*</code></a>):</p>
+<dl>
+<dt><code>0x00000002</code></dt>
+<dd>Используется для ввода пароля — вводимый текст на экране отрисовывается символами ‘<code>*</code>’.
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>После успешного ввода, в результирующем значении <code>S</code> идентификаторы переменных окружения заменяются на их значения, например, если пользователь ввёл ‘<code>%TEMP%</code>’, то результат будет содержать ‘<code>C:\TEMP</code>’.
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>Не использовать предыдущее значение из истории, оставить строку ввода пустой; актуален, если указан непустой параметр <code>History</code>.
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd>Показать разделительную линию и кнопки <code>[ Ok ]</code> и <code>[ Cancel ]</code>. Диалог увеличится на 2 строки.
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd>Не показывать в приглашении ввода амперсанд, использовать его для определения горячей клавиши.
+</dd>
+</dl>
+<p>Функция возвращает строку (введённое пользователем значение) или <code>false</code>, если пользователь нажал <code>Esc</code>.</p>
+<p>Например, запросить пароль и вывести его:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> s <span class="ot">=</span> mf<span class="ot">.</span>prompt<span class="ot">(</span><span class="st">&quot;Password&quot;</span><span class="ot">,</span><span class="st">&quot;Input password:&quot;</span><span class="ot">,</span><span class="dv">0x02</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span>s<span class="ot">)</span></a></code></pre></div>
+</dd>
+<dt><code>mf.usermenu(mode,filename)</code></dt>
+<dd><p>Открывает или создаёт пользовательское меню.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>mode</code></dt>
+<dd><code>number</code> (<code>0</code> по умолчанию)
+</dd>
+<dt><code>filename</code></dt>
+<dd><code>string</code> или <code>nil</code>
+</dd>
+</dl>
+<p>Возвращает: ничего</p>
+<p><code>mode</code> может содержать бит <code>0x100</code>, в этом случае функция возвращается только по закрытии пользовательского меню (синхронный вызов). Если данный бит равен нулю, то функция возвращается немедленно по открытии меню (асинхронный вызов).</p>
+<p>Поведение функции в зависимости от величины младшего байта mode:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>равносильно нажатию <span class="nowrap"><kbd>F2</kbd></span> в панелях; <code>filename</code> игнорируется.
+</dd>
+<dt><code>1</code></dt>
+<dd>выводится диалог выбора пользовательского меню; <code>filename</code> игнорируется.
+</dd>
+<dt><code>2</code></dt>
+<dd>файл открывается “как есть”, т.е. по заданному <code>filename</code>.
+</dd>
+<dt><code>3</code></dt>
+<dd>файл <code>filename</code> открывается в <code>%FARPROFILE%\Menus</code> (папка создаётся автоматически).
+</dd>
+</dl>
+<p>См. также:</p>
+<p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
+</dd>
+<dt><code>V=mf.waitkey([N[,T]])</code></dt>
+<dd><p>Ожидает нажатие любой клавиши и возвращает её значение.</p>
+<p>Параметр <code>N</code> позволяет ограничить время ожидания нажатия, в миллисекундах. Если время истекло, функция возвращает пустую строку (<code>T=0</code>) или <code>0</code> (<code>T=1</code>).</p>
+<p>Если <code>N</code> не указан или равен <code>0</code>, то функция будет бесконечно ждать нажатия клавиши.</p>
+<p>Параметр <code>T</code> позволяет указать, значение какого типа использовать для клавиши.</p>
+<div class="wide">
+<dl>
+<dt><code>0</code> (по умолчанию)</dt>
+<dd>возвращается строка, название клавиши
+</dd>
+<dt><code>1</code></dt>
+<dd>возвращается число, внутренний идентификатор клавиши (в настоящий момент практического смысла не имеет)
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>V=Menu.Show(Items,...</code></dt>
+<dd><p>Создаёт и отображает на экране меню.</p>
+<p>Параметр <code>Items</code>: пункты меню, разделённые Lf (“<code>\n</code>”) или CrLf (“<code>\r\n</code>”)</p>
+<p>Могут начинаться (cимвол+пробел) со специальных символов:</p>
+<p>(возможны некоторые комбинации)</p>
+<dl>
+<dt><code>\1</code></dt>
+<dd>сепаратор; не участвует в автонумерации/сортировке/удалении дубликатов.
+</dd>
+<dt><code>\2</code></dt>
+<dd>пункт отмечен (возможна комбинация с <code>\3</code> и <code>\4</code>)
+</dd>
+<dt><code>\3</code></dt>
+<dd>пункт недоступен для навигации и выбора
+</dd>
+<dt><code>\4</code></dt>
+<dd>серый, недоступен для выбора
+</dd>
+</dl>
+<p>Дополнительные параметры:</p>
+<pre><code>[,TitleAndFooter
+[,Flags
+[,SelectOrFilter
+[,X
+[,Y]]]]])</code></pre>
+<p>Необязательный параметр <code>TitleAndFooter</code>: заголовок и футер меню, разделённые Lf (“<code>\n</code>”) или CrLf (“<code>\r\n</code>”).</p>
+<p>Один или оба могут отсутствовать.</p>
+<p>Необязательный параметр <code>Flags</code> — набор битов, управляющих поведением и отображением меню:</p>
+<dl>
+<dt><code>0</code>—<code>2</code></dt>
+<dd><p>Тип рамки меню: (по умолчанию:<code>100</code>)</p>
+<dl>
+<dt><code>001</code> (<code>0x1</code>)</dt>
+<dd>без рамки
+</dd>
+<dt><code>010</code> (<code>0x2</code>)</dt>
+<dd>одинарная, с окружающими пробелами
+</dd>
+<dt><code>011</code> (<code>0x3</code>)</dt>
+<dd>одинарная, без окружающих пробелов
+</dd>
+<dt><code>100</code> (<code>0x4</code>)</dt>
+<dd>двойная, с окружающими пробелами
+</dd>
+<dt><code>101</code> (<code>0x5</code>)</dt>
+<dd>двойная, без окружающих пробелов
+</dd>
+</dl>
+</dd>
+<dt><code>3</code> (<code>0x8</code>)</dt>
+<dd>возвращаемый результат — индекс выбранного пункта меню
+</dd>
+<dt><code>4</code> (<code>0x10</code>)</dt>
+<dd>разрешена отметка нескольких пунктов и её снятие
+</dd>
+<dt><code>5</code> (<code>0x20</code>)</dt>
+<dd>отсортировать (производится регистронезависимая числовая сортировка)
+</dd>
+<dt><code>6</code> (<code>0x40</code>)</dt>
+<dd>убрать дублирующиеся пункты меню (с учётом регистра)
+</dd>
+<dt><code>7</code> (<code>0x80</code>)</dt>
+<dd>автоматически назначить “горячие” клавиши
+</dd>
+<dt><code>8</code> (<code>0x100</code>)</dt>
+<dd><p>как трактовать <code>SelectOrFilter</code>: (по умолчанию: <code>0</code>)</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>позиционировать (если <code>SelectOrFilter</code> — число), либо найти (если <code>SelectOrFilter</code> — строка) пункт меню
+</dd>
+<dt><code>1</code></dt>
+<dd>установить фильтр меню
+</dd>
+</dl>
+</dd>
+<dt><code>9</code> (<code>0x200</code>)</dt>
+<dd>автоматически пронумеровать пункты меню
+</dd>
+<dt><code>10</code> (<code>0x400</code>)</dt>
+<dd>выйти из меню при изменении выбранного пункта
+</dd>
+</dl>
+<p>Необязательный параметр <code>SelectOrFilter</code> — на какой пункт меню позиционировать курсор, либо фильтрация пунктов.</p>
+<p>Может быть:</p>
+<dl>
+<dt>числом</dt>
+<dd>если бит <code>8</code> ≡ <code>0</code>, то позиционировать на указанный пункт меню.
+</dd>
+<dd>Если число отрицательное, то отсчёт ведётся с конца меню
+</dd>
+<dt>строкой</dt>
+<dd>если бит <code>8</code> ≡ <code>0</code>, то найти пункт меню.
+</dd>
+<dd>Поиск регистронезависим, возможны маски
+</dd>
+<dd>если бит <code>8</code> ≡ <code>1</code>, то установить фильтр меню
+</dd>
+</dl>
+<p>Необязательные параметры <code>X</code> и <code>Y</code> — координаты левого верхнего угла меню. Если одна (или обе) равны <code>-1</code> (по умолчанию), то производится центрирование меню по этой координате.</p>
+<p>Возвращаемый результат функции:</p>
+<div class="wide">
+<dl>
+<dt>пустая строка</dt>
+<dd>выход из меню по <span class="nowrap"><kbd>Esc</kbd></span>, <span class="nowrap"><kbd>F10</kbd></span> или при клике вне меню
+</dd>
+<dt>число ≡ <code>0</code> (если установлен бит <code>3</code>)</dt>
+<dd>выход из меню по <span class="nowrap"><kbd>Esc</kbd></span>, <span class="nowrap"><kbd>F10</kbd></span> или при клике вне меню
+</dd>
+<dt>число &gt; <code>0</code></dt>
+<dd>индекс выбранного пункта
+</dd>
+<dt>число &lt; <code>0</code></dt>
+<dd>если установлен бит <code>10</code>, то индекс выбранного пункта со знаком минус
+</dd>
+<dt>строка</dt>
+<dd>выбранный пункт меню.
+</dd>
+</dl>
+</div>
+<p>Если установлен бит <code>4</code>, то список отмеченных пунктов меню, разделённых <code>\n</code>. Если установлены и бит <code>3</code> и бит <code>4</code>, то список индексов отмеченных пунктов меню, разделённых <code>\n</code>. В меню доступны следующие сочетания клавиш: (пометка возможна только при установленном бите <code>4</code>)</p>
+<div class="wide">
+<dl>
+<dt><span class="nowrap"><kbd>Ins</kbd></span></dt>
+<dd>пометка пункта
+</dd>
+<dt><span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Add</kbd></span></dt>
+<dd>пометка всех видимых пунктов
+</dd>
+<dt><span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Subtract</kbd></span></dt>
+<dd>снятие пометки со всех видимых пунктов
+</dd>
+<dt><span class="nowrap"><kbd>Ctrl</kbd>+<kbd>Multiply</kbd></span></dt>
+<dd>инверсия пометки у всех видимых пунктов
+</dd>
+<dt><span class="nowrap"><kbd>Ctrl</kbd>+<kbd>A</kbd></span></dt>
+<dd>подогнать меню по высоте
+</dd>
+</dl>
+</div>
+<p>Пример использования — навигация по установленным закладкам редактора:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Стековые закладки&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;AltB&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">local</span> S <span class="ot">=</span> <span class="st">&quot;&quot;</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">local</span> N <span class="ot">=</span> BM<span class="ot">.</span>Stat<span class="ot">(</span><span class="dv">0</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>N <span class="kw">do</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">      BM<span class="ot">.</span>Goto<span class="ot">(</span>i<span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      S <span class="ot">=</span> S<span class="ot">..</span>Editor<span class="ot">.</span>Value<span class="ot">..</span><span class="st">&quot;</span><span class="ot">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="kw">end</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="kw">local</span> title <span class="ot">=</span> <span class="st">&quot;Стековые закладки</span><span class="ot">\n</span><span class="st">Навигация - Up/Down, Выход - Esc, F10&quot;</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    <span class="kw">local</span> I <span class="ot">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="kw">repeat</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">      I <span class="ot">=</span> Menu<span class="ot">.</span>Show<span class="ot">(</span>S<span class="ot">,</span>title<span class="ot">,</span><span class="dv">0x600</span><span class="ot">,</span><span class="fu">math.abs</span><span class="ot">(</span>I<span class="ot">),</span><span class="dv">80</span><span class="ot">,</span>Far<span class="ot">.</span>Height<span class="ot">-</span>N<span class="ot">-</span><span class="dv">5</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="kw">if</span> I<span class="ot">&gt;</span><span class="dv">0</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">        BM<span class="ot">.</span>Goto<span class="ot">(</span>I<span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">        Keys<span class="ot">(</span><span class="st">&quot;SelWord&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">      <span class="kw">else</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">        I <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">      <span class="kw">end</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21">    <span class="kw">until</span> i<span class="ot">==</span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="ot">}</span></a></code></pre></div>
+</dd>
+</dl>
+</div>
+<h3 id="среда-исполнения">Среда исполнения</h3>
+<div class="functions">
+<dl>
+<dt><code>mf.AddExitHandler(handler)</code></dt>
+<dd><p>Данная функция добавляет обработчик, который будет вызван по окончанию исполнения макроса.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>handler</code></dt>
+<dd><code>function</code>
+</dd>
+</dl>
+<p>Возвращает: ничего</p>
+<p>Примечания:</p>
+<ul>
+<li>Обработчик будет вызван как при нормальном завершении макроса, так и в случае, если макрос был завершён по ошибке.</li>
+<li>Если в процессе исполнения макроса было добавлено несколько обработчиков, то они будут вызваны в порядке, обратном порядку их добавления.</li>
+</ul>
+<p>Пример применения:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> fp <span class="ot">=</span> <span class="fu">assert</span><span class="ot">(</span><span class="fu">io.open</span><span class="ot">(</span><span class="st">&quot;some file.txt&quot;</span><span class="ot">))</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">mf<span class="ot">.</span>AddExitHandler<span class="ot">(</span><span class="kw">function</span><span class="ot">()</span> fp:<span class="fu">close</span><span class="ot">()</span> <span class="kw">end</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="do">-- use fp; return from multiple places; do not care about closing fp</span></a></code></pre></div>
+<p>См. также:</p>
+<p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
+</dd>
+<dt><code>V=Far.Cfg_Get(Key,Name)</code></dt>
+<dd>(устаревшая, используйте <code>Far.GetConfig</code>)
+</dd>
+<dd><p>Функция, позволяет получить основные текущие настройки Far Manager. В случае ошибки (нет такого <code>Key</code> или <code>Name</code> или внутренняя ошибка) возвращает <code>false</code>.</p>
+<p>Например,</p>
+<div class="examples">
+<dl>
+<dt><code>Far.Cfg_Get(&quot;System.KnownIDs&quot;,&quot;Network&quot;)</code></dt>
+<dd>вернёт значение “<code>773B5051-7C5F-4920-A201-68051C4176A4</code>”, которое соответствует <code>ID</code> плагина Network.
+</dd>
+<dt><code>Far.Cfg_Get(&quot;Macros&quot;,&quot;DateFormat&quot;)</code></dt>
+<dd>вернёт значение формат преобразования даты по умолчанию для функции <code>mf.date</code>.
+</dd>
+<dt><code>Far.Cfg_Get(&quot;Macros&quot;,&quot;TimeFormat&quot;)</code></dt>
+<dd>вернёт <code>false</code>, т.к. значения с именем “<code>TimeFormat</code>” не существует.
+</dd>
+</dl>
+</div>
+<p>Внимание!</p>
+<p>В процессе разработки Far Manager настройки (имена ключей и имена значений) могут меняться, добавляться и удаляться, поэтому Вы используете функцию на свой страх и риск. Поддержка функционала (имена ключей и имена значений) со стороны разработчиков не гарантирована.</p>
+</dd>
+<dt><code>val,tp=Far.GetConfig(keyname)</code></dt>
+<dd><p>Функция, позволяет получить основные текущие настройки Far Manager.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>keyname</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>val</code></dt>
+<dd><p><code>boolean</code>, <code>string</code>, <code>number</code>, or <code>int64</code></p>
+<p>Это значение запрашиваемой величины.</p>
+<p>Преобразование типов между Far Manager и Lua осуществляются следующим образом:</p>
+<ul>
+<li><code>boolean</code> ⟶ <code>boolean</code></li>
+<li><code>3-state</code> ⟶ <code>0</code>,<code>1</code>,<code>2</code> преобразуются соответственно в <code>false</code>,<code>true</code>,<code>&quot;other&quot;</code></li>
+<li><code>string</code> ⟶ <code>string</code></li>
+<li><code>integer</code> ⟶ <code>number</code> (если возможно преобразование без потери точности) или <code>userdata</code> (<code>int64</code>) — величина, создаваемая библиотекой <code>bit64</code>.</li>
+</ul>
+</dd>
+<dt><code>tp</code></dt>
+<dd><code>string</code> (<code>&quot;boolean&quot;</code>, <code>&quot;3-state&quot;</code>, <code>&quot;string&quot;</code>, <code>&quot;integer&quot;</code>) Это тип оригинальной величины в Far Manager.
+</dd>
+</dl>
+<p>Примечание:</p>
+<p>В случае ошибки (некорректный аргумент, или Far Manager не нашёл указанной опции) данная функция прерывает исполнение (вызывает <a href="https://www.lua.org/manual/5.1/manual.html#pdf-error"><code>error</code></a>).</p>
+</dd>
+<dt><code>N=Far.DisableHistory([State])</code></dt>
+<dd><p>Позволяет выключать добавление пунктов в истории во время воспроизведения текущего макроса.</p>
+<p>Необязательный параметр <code>State</code> (набор битовых флагов):</p>
+<dl>
+<dt><code>0x1</code></dt>
+<dd>история командной строки
+</dd>
+<dt><code>0x2</code></dt>
+<dd>история папок
+</dd>
+<dt><code>0x4</code></dt>
+<dd>история редактора/вьюера
+</dd>
+<dt><code>0x8</code></dt>
+<dd>история диалогов
+</dd>
+</dl>
+<p>Если соответствующий флаг выставлен, то история блокируется.</p>
+<p>Если параметр не указан, то просто возвращает текущую маску.</p>
+<p>Функция возвращает предыдущее значение.</p>
+<p>Примечания:</p>
+<p>При старте макроса разрешено добавление во все истории.</p>
+<p>Блокировка истории действует только на текущий макрос.</p>
+<p>Примеры</p>
+<div class="examples">
+<dl>
+<dt><code>Far.DisableHistory()</code></dt>
+<dd>получить текущее состояние блокировок историй
+</dd>
+<dt><code>Far.DisableHistory(-1)</code></dt>
+<dd>выключить все истории
+</dd>
+<dt><code>Far.DisableHistory(5)</code></dt>
+<dd>выключить истории командной строки и редактора/вьюера, остальные включить
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>...=mf.acall(func,...)</code></dt>
+<dd><p>Данная функция вызывает “асинхронно” функцию <code>func</code>, передавая ей все последующие аргументы.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>func</code></dt>
+<dd><code>function</code>
+</dd>
+<dt><code>...</code></dt>
+<dd><code>0</code> или более Lua-величин
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>...</code></dt>
+<dd><code>0</code> или более Lua-величин
+</dd>
+</dl>
+<p><code>mf.acall</code> является как бы специализацией <code>Plugin.Call</code> для плагина LuaMacro, но, в отличие от <code>Plugin.Call</code>, она позволяет выполнять код в контексте вызывающей функции, а также передавать и возвращать любые Lua-величины.</p>
+<p>Как и <code>Plugin.Call</code>, <code>mf.acall</code> является “асинхронной”: при выводе функцией <code>func</code> диалога или меню на экран, <code>mf.acall</code> сразу завершает работу и возвращает <code>true</code>.</p>
+<p>Если функция <code>func</code> не выводит диалог или меню на экран, то имеет место “синхронный” режим работы: в этом случае <code>mf.acall</code> возвращает все величины, возвращённые функцией <code>func</code>.</p>
+<p>См. также:</p>
+<p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
+</dd>
+<dt><code>V=mf.akey(Mode[,Type])</code></dt>
+<dd><p>Возвращает название или код клавиши, вызвавшей макропоследовательность.</p>
+<p><code>Mode</code>: <code>0</code> — возвращается код клавиши, <code>1</code> — возвращается наименование клавиши.</p>
+<p><code>Type</code>: <code>0</code> — возвращает реально нажатое сочетание, которым вызывался макрос, <code>1</code> — возвращает клавишу, на которую назначен макрос.</p>
+<p>Пример см. в разделе <a href="examples.html">Примеры</a>.</p>
+<p>Примечания:</p>
+<ul>
+<li>В настоящий момент практическую ценность представляет только вызов <code>mf.akey(1,1)</code>.</li>
+<li><code>mf.akey</code> не предназначена для использования в функции <code>condition</code> макроса (возвращает <code>false</code>). Вместо неё следует использовать аргумент функции <code>condition</code>: <code>AKey</code> (см. [macroapi manual]).</li>
+</ul>
+</dd>
+<dt><code>E=mf.eval(S[,Mode[,Lang]])</code></dt>
+<dd><p>Выполнить или проверить макропоследовательность.</p>
+<p><code>Mode</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd><p>Выполнить макропоследовательность, заданную строкой <code>S</code>.</p>
+<p>Если <code>S</code> содержит синтаксические ошибки, то макропоследовательность исполняться не будет.</p>
+<p>Far Manager компилирует последовательность <code>S</code>. Если нет ошибок, то состояние текущего макроса сохраняется и начинает выполняться последовательность <code>S</code>. После исполнения <code>S</code> прерванный макрос продолжает работать.</p>
+</dd>
+<dt><code>1</code></dt>
+<dd>Проверить макропоследовательность, заданную строкой <code>S</code>, и вернуть код ошибки компиляции. Последовательность <code>S</code> исполняться не будет.
+</dd>
+<dt><code>2</code></dt>
+<dd><p>Выполнить макрос, назначенный на сочетание клавиш <code>S</code>.</p>
+<p>Параметр <code>S</code> задаётся форматом “<code>[Area/]Key</code>”. Здесь <code>Area</code> — макрообласть, из которой будет исполнен макрос; <code>/</code> — разделитель; <code>Key</code> — название клавиши.</p>
+<ul>
+<li><p>Если “<code>Area/</code>” указан, то будет вызван макрос, назначенный на <code>Key</code> только в указанной области <code>Area</code>.</p>
+<p>Пример: <code>mf.eval(&quot;Shell/CtrlP&quot;,2)</code></p></li>
+<li><p>Если в качестве “<code>Area/</code>” указана строка “<code>./</code>”, то будет вызван макрос, назначенный на <code>Key</code> только в <em>текущей</em> области.</p>
+<p>Пример: <code>mf.eval(&quot;./CtrlP&quot;,2)</code></p></li>
+<li><p>Если “<code>Area/</code>” не указан, то будет вызван макрос, назначенный на <code>Key</code> в текущей области. Если в текущей области <code>Key</code> не обнаружен, то будет выполнен макрос, назначенный на <code>Key</code> из области <code>Common</code>.</p>
+<p>Пример: <code>eval(&quot;CtrlP&quot;,2)</code></p></li>
+</ul>
+<p>Если <code>Key</code> не обнаружен, то функция вернёт целочисленное значение <code>-2</code>.</p>
+<p>Если <code>Key</code> обнаружен, то состояние текущего макроса сохраняется и начинает выполняться макрос, назначенный на сочетание клавиш <code>S</code>. После исполнения <code>S</code> прерванный макрос продолжает работать.</p>
+</dd>
+<dt><code>3</code></dt>
+<dd><p>Проверить макропоследовательность, заданную строкой <code>S</code>, и вернуть строку-сообщение с ошибкой компиляции.</p>
+<p>Последовательность <code>S</code> исполняться не будет.</p>
+<p>Строка будет пустой, если ошибок нет, или содержать сообщение, полученное от интерпретатора Lua.</p>
+</dd>
+</dl>
+<p>Для <code>Mode</code>: <code>0</code>, <code>1</code>, <code>3</code>:</p>
+<ul>
+<li><p><code>Lang</code>: указывает язык кода параметра <code>S</code> (для <code>Mode</code>: <code>0</code>, <code>1</code>, <code>3</code>)</p>
+<p>Допустимые значения: “<code>lua</code>” и “<code>moonscript</code>”.</p>
+<p>Значение по умолчанию — “<code>lua</code>”.</p></li>
+<li><p>Параметр <code>S</code> может обозначать скрипт-файл, если этот параметр начинается с символа ‘<code>@</code>’.</p>
+<p>В этом случае параметр <code>S</code> должен иметь следующий формат:</p>
+<pre><code>@&lt;имя файла-скрипта&gt; [&lt;параметры скрипта&gt;]</code></pre>
+<ul>
+<li>В имени файла допустимо использование переменных окружения.</li>
+<li>Опциональные параметры скрипта представляют список выражений, разделённых запятыми.</li>
+<li>Выражения должны использовать тот же язык программирования, что и файл-скрипт.</li>
+</ul>
+<p>Пример:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb7-1" data-line-number="1">mf<span class="ot">.</span>eval<span class="ot">(</span><span class="st">&quot;@%MyFarScripts%</span><span class="ot">\\</span><span class="st">calc.moon &#39;factorial&#39;, 3+5&quot;</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="st">&quot;moonscript&quot;</span><span class="ot">)</span></a></code></pre></div></li>
+</ul>
+<p>Для всех режимов, кроме <code>Mode=3</code>, функция возвращает следующие значения:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>Успешная компиляции/запуск последовательности
+</dd>
+<dt><code>-1</code></dt>
+<dd>Указаны недопустимые параметры функции
+</dd>
+<dt><code>-2</code></dt>
+<dd>Для <code>Mode=2</code> сочетание клавиш <code>S</code> не найдено или макрос заблокирован
+</dd>
+<dt><code>11</code></dt>
+<dd>Ошибка синтаксиса
+</dd>
+</dl>
+<p>Для <code>Mode=2</code> дополнительно может возвращаться следующее:</p>
+<ul>
+<li><code>0</code> (нормальный возврат): дополняется значениями, возвращаемыми “запускаемым” макросом.</li>
+<li><code>-3</code> : если было выведено меню выбора макроса, и пользователь его отменил.</li>
+<li><code>-4</code> : если “запускаемый” макрос был прерван в результате ошибки времени исполнения.</li>
+</ul>
+<p>Примечания:</p>
+<p>При выполнении макропоследовательности для неё будет установлено окружение текущего исполняемого макроса, но не локальные переменные.</p>
+<p>Режимы <code>0</code>, <code>1</code>, <code>3</code> существуют из соображений обратной совместимости, вместо них рациональнее использовать штатные функции языка (<a href="https://www.lua.org/manual/5.1/manual.html#pdf-loadstring"><code>loadstring</code></a>/<a href="https://www.lua.org/manual/5.1/manual.html#pdf-loadfile"><code>loadfile</code></a>/<a href="https://www.lua.org/manual/5.1/manual.html#pdf-dofile"><code>dofile</code></a>/<a href="http://moonscript.org/reference/api.html#moonscript-compiler-api/moonscriptbase-module"><code>mooonscript.loadstring</code></a>/etc).</p>
+</dd>
+<dt><code>mf.exit()</code></dt>
+<dd><p>Завершить работу макроса.</p>
+<p>Параметры: нет</p>
+<p>Возвращает: ничего</p>
+<p>См. также:</p>
+<p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
+</dd>
+<dt><code>N=mf.mmode(Action[,Value])</code></dt>
+<dd><p>Управление параметрами текущего макроса.</p>
+<p>Параметр <code>Action</code>:</p>
+<dl>
+<dt><code>1</code></dt>
+<dd>позволяет изменять режим перерисовки экрана во время проигрывания макропоследовательности (запрещает вывод)
+</dd>
+<dt><code>2</code></dt>
+<dd><p>вернуть информацию (область и флаги) об условиях запуска исполняемой в данный момент макропоследовательности. Параметр <code>Value</code> игнорируется.</p>
+<p>Функция возвращает в младшем байте номер макрообласти, из которой стартовал макрос:</p>
+<dl>
+<dt><code>1</code></dt>
+<dd>Shell — Файловые панели
+</dd>
+<dt><code>2</code></dt>
+<dd>Viewer — Внутренняя программа просмотра
+</dd>
+<dt><code>3</code></dt>
+<dd>Editor — Редактор
+</dd>
+<dt><code>4</code></dt>
+<dd>Dialog — Диалоги
+</dd>
+<dt><code>5</code></dt>
+<dd>Search — Быстрый поиск в панелях
+</dd>
+<dt><code>6</code></dt>
+<dd>Disks — Меню выбора дисков
+</dd>
+<dt><code>7</code></dt>
+<dd>MainMenu — Основное меню
+</dd>
+<dt><code>8</code></dt>
+<dd>Menu — Прочие меню
+</dd>
+<dt><code>9</code></dt>
+<dd>Help — Система помощи
+</dd>
+<dt><code>10</code></dt>
+<dd>Info — Информационная панель
+</dd>
+<dt><code>11</code></dt>
+<dd>QView — Панель быстрого просмотра
+</dd>
+<dt><code>12</code></dt>
+<dd>Tree — Панель дерева папок
+</dd>
+<dt><code>13</code></dt>
+<dd>FindFolder — Поиск папок
+</dd>
+<dt><code>14</code></dt>
+<dd>UserMenu — Меню пользователя
+</dd>
+<dt><code>15</code></dt>
+<dd>ShellAutoCompletion — список автодополнения в панелях
+</dd>
+<dt><code>16</code></dt>
+<dd>DialogAutoCompletion — список автодополнения в диалогах
+</dd>
+<dt><code>17</code></dt>
+<dd>Grabber — Режим копирования текста с экрана
+</dd>
+<dt><code>18</code></dt>
+<dd>Desktop — Пользовательский экран (под панелями)
+</dd>
+<dt><code>255</code></dt>
+<dd>Common — Общая область
+</dd>
+<dt><code>0</code></dt>
+<dd>Other — Зарезервировано
+</dd>
+</dl>
+<p>Остальные значения — флаги условий запуска (в т.ч. некоторые служебные флаги).</p>
+<p>Условия запуска:</p>
+<dl>
+<dt><code>0x00000200</code></dt>
+<dd>НЕ передавать плагинам клавиши во время записи/воспроизведения макроса
+</dd>
+<dt><code>0x00000800</code></dt>
+<dd>этот макрос запускается при старте ФАРа
+</dd>
+<dt><code>0x00001000</code></dt>
+<dd>запускать, если командная линия пуста
+</dd>
+<dt><code>0x00002000</code></dt>
+<dd>запускать, если командная линия не пуста
+</dd>
+<dt><code>0x00004000</code></dt>
+<dd>запускать, если есть выделение в редакторе
+</dd>
+<dt><code>0x00008000</code></dt>
+<dd>запускать, если есть нет выделения в редакторе
+</dd>
+<dt><code>0x00010000</code></dt>
+<dd>панель активная: запускать, если есть выделение
+</dd>
+<dt><code>0x00020000</code></dt>
+<dd>панель пассивная: запускать, если есть выделение
+</dd>
+<dt><code>0x00040000</code></dt>
+<dd>панель активная: запускать, если есть нет выделения
+</dd>
+<dt><code>0x00080000</code></dt>
+<dd>панель пассивная: запускать, если есть нет выделения
+</dd>
+<dt><code>0x00100000</code></dt>
+<dd>панель активная: запускать, если это плагиновая панель
+</dd>
+<dt><code>0x00200000</code></dt>
+<dd>панель пассивная: запускать, если это плагиновая панель
+</dd>
+<dt><code>0x00400000</code></dt>
+<dd>панель активная: запускать, если это файловая панель
+</dd>
+<dt><code>0x00800000</code></dt>
+<dd>панель пассивная: запускать, если это файловая панель
+</dd>
+<dt><code>0x01000000</code></dt>
+<dd>панель активная: запускать, если текущий объект “файл”
+</dd>
+<dt><code>0x02000000</code></dt>
+<dd>панель пассивная: запускать, если текущий объект “файл”
+</dd>
+<dt><code>0x04000000</code></dt>
+<dd>панель активная: запускать, если текущий объект “папка”
+</dd>
+<dt><code>0x08000000</code></dt>
+<dd>панель пассивная: запускать, если текущий объект “папка”
+</dd>
+</dl>
+<p>Дополнительная информация:</p>
+<dl>
+<dt><code>0x00000100</code></dt>
+<dd>подавить обновление экрана во время выполнения макроса
+</dd>
+<dt><code>0x40000000</code></dt>
+<dd>этот макрос необходимо запомнить при сохранении макросов
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Параметр <code>Value</code>:</p>
+<dl>
+<dt><code>-1</code></dt>
+<dd>получить текущее значение
+</dd>
+<dt><code>0</code></dt>
+<dd>выключить значение <code>Action</code>
+</dd>
+<dt><code>1</code></dt>
+<dd>включить значение <code>Action</code>
+</dd>
+<dt><code>2</code></dt>
+<dd>переключить значение <code>Action</code> (триггер)
+</dd>
+</dl>
+<p>Функция возвращает предыдущее значение.</p>
+<p>Примечание:</p>
+<p><code>mf.mmode</code> не предназначена для использования в функции <code>condition</code> макроса (возвращает <code>false</code>).</p>
+</dd>
+<dt><code>result=mf.postmacro(func,...)</code></dt>
+<dd><p>Функция помещает новый макрос в очередь для исполнения. При исполнении макроса будет вызвана функция <code>func</code>, которой будут переданы аргументы <code>...</code></p>
+<p>Параметры:</p>
+<dl>
+<dt><code>func</code></dt>
+<dd><code>function</code>
+</dd>
+<dt>…</dt>
+<dd><code>0</code> или более Lua-величин
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>result</code></dt>
+<dd><code>boolean</code>
+</dd>
+</dl>
+</dd>
+<dt><code>E=mf.sleep(N)</code></dt>
+<dd>Организация задержки в макросе на <code>N</code> миллисекунд. Отрицательное значение задержки считается ошибкой и функция возвращает <code>0</code>.
+</dd>
+</dl>
+</div>
+<h3 id="интроспекция">Интроспекция</h3>
+<div class="functions">
+<dl>
+<dt><code>macro=mf.GetMacroCopy(index)</code></dt>
+<dd><p>Функция <code>mf.GetMacroCopy</code> возвращает копию таблицы загруженного макроса или обработчика события по его индексу во внутреннем массиве (начиная от <code>1</code>). Если индекс превышает размер массива, возвращается <code>nil</code> — таким образом можно определить конец массива.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>index</code></dt>
+<dd><code>integer</code>
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>macro</code></dt>
+<dd><code>table</code> или <code>nil</code>
+</dd>
+</dl>
+<p>Примечания:</p>
+<ul>
+<li>Неактивные (выгруженные или удалённые) элементы имеют поле “<code>disabled</code>” ≡ <code>true</code>.</li>
+<li>Отличить таблицу макроса от таблицы события можно по полю “<code>area</code>” типа <code>string</code>, которое присутствует только у макросов.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<p>Содержимое глобальных таблиц API макроязыка можно просмотреть с помощью функции <code>pairs</code>, отдельно для функций и “свойств” таблицы.</p>
+<p>На примере таблицы <code>Editor</code>:</p>
+<pre><code>for k,v in pairs(Editor) do .... end -- для функций
+
+for k,v in pairs(Editor.properties) do .... end -- для свойств</code></pre>
+<h3 id="разное">Разное</h3>
+<div class="functions">
+<dl>
+<dt><code>N=Far.KeyBar_Show([Mode])</code></dt>
+<dd><p>Позволяет управлять видимостью линейки функциональных клавиш.</p>
+<p>Необязательный параметр <code>Mode</code>:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>получить состояние видимости
+</dd>
+<dt><code>1</code></dt>
+<dd>показать линейку
+</dd>
+<dt><code>2</code></dt>
+<dd>скрыть линейку
+</dd>
+<dt><code>3</code></dt>
+<dd>изменить состояние видимости на обратное
+</dd>
+</dl>
+<p>Функция возвращает предыдущее состояние видимости линейки:</p>
+<dl>
+<dt><code>0</code></dt>
+<dd>скрыта
+</dd>
+<dt><code>1</code></dt>
+<dd>показана
+</dd>
+<dt><code>-1</code></dt>
+<dd>в этой макрообласти линейка клавиш не найдена
+</dd>
+</dl>
+<p>Действие функции актуально только для текущих панелей, редакторов, вьюеров.</p>
+<p>Например:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb9-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;при погашенных панелях гасить и кейбар&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Shell QView Info Tree&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Esc&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  flags<span class="ot">=</span><span class="st">&quot;EmptyCommandLine&quot;</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">    Keys<span class="ot">(</span><span class="st">&quot;CtrlO&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">    Far<span class="ot">.</span>KeyBar_Show<span class="ot">(</span><span class="kw">not</span> APanel<span class="ot">.</span>Visible <span class="kw">and</span> <span class="dv">2</span> <span class="kw">or</span> <span class="dv">1</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">  <span class="kw">end</span><span class="ot">;</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="ot">}</span></a></code></pre></div>
+</dd>
+</dl>
+</div>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+<p>[LuaFAR manual]: [macroapi manual]:</p>
+</body>
+</html>

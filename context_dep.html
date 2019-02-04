@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Свойства и функции зависимые от контекста исполнения</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="свойства-и-функции-зависимые-от-контекста-исполнения">Свойства и функции зависимые от контекста исполнения</h1>
+<p>Значение этих свойств и функций зависит от того, в каком контексте исполняется в данный момент макропоследовательность.</p>
+<h2 id="логические-свойства-boolean">Логические свойства (<code>boolean</code>)</h2>
+<dl>
+<dt><code>Object.Bof</code></dt>
+<dd>в панелях типа <code>QView</code>/<code>Info</code>/<code>Tree</code>: достигнуто начала файла в области просмотра;
+</dd>
+<dd>в файловых панелях (текущая область <code>Shell</code>): курсор в начале командной строки;
+</dd>
+<dd>в редакторе и программе просмотра: достигнуто начало файла;
+</dd>
+<dd>в строках ввода в диалогах: курсор в начале строки;
+</dd>
+<dd>в списках/меню: указатель установлен на первом пункте (в пустом списке всегда <code>true</code>).
+</dd>
+<dt><code>Object.Eof</code></dt>
+<dd>в панелях типа <code>QView</code>/<code>Info</code>/<code>Tree</code>: достигнут конец файла в области просмотра;
+</dd>
+<dd>в файловых панелях: курсор в конце командной строки;
+</dd>
+<dd>в редакторе и программе просмотра: достигнут конец файла;
+</dd>
+<dd>в строках ввода в диалогах: курсор в конце строки;
+</dd>
+<dd>в списках/меню: указатель установлен на последнем пункте (в пустом списке всегда <code>true</code>).
+</dd>
+<dt><code>Object.Empty</code></dt>
+<dd>в панелях типа <code>QView</code>/<code>Info</code>/<code>Tree</code>: область просмотра пуста;
+</dd>
+<dd>в файловых панелях: командная строка пуста;
+</dd>
+<dd>в редакторе и программе просмотра пустой файл;
+</dd>
+<dd>в строках ввода в диалогах: строка ввода пуста;
+</dd>
+<dd>в списках/меню: список пуст.
+</dd>
+<dt><code>Object.Selected</code></dt>
+<dd>в панелях типа <code>QView</code>: выделен блок в области просмотра файла;
+</dd>
+<dd>в панелях типа <code>Info</code>: выделен блок в области просмотра файла описания папки;
+</dd>
+<dd>в панелях типа <code>Tree</code>: не имеет смысла (всегда <code>false</code>);
+</dd>
+<dd>в файловых панелях: выделен блок в командной строке;
+</dd>
+<dd>в редакторе и программе просмотра: выделен блок;
+</dd>
+<dd>в строках ввода в диалогах: выделен блок.
+</dd>
+<dd>в списках/меню: не имеет смысла.
+</dd>
+</dl>
+<p>Примечание: В <code>QView</code>, <code>Info</code> и программе просмотра блок может быть выделен при поиске.</p>
+<h3 id="проверка-области-в-которой-исполняется-в-данный-момент-макропоследовательность">Проверка области, в которой исполняется в данный момент макропоследовательность</h3>
+<dl>
+<dt><code>Area.Shell</code></dt>
+<dd>файловые панели
+</dd>
+<dt><code>Area.Info</code></dt>
+<dd>информационная панель
+</dd>
+<dt><code>Area.QView</code></dt>
+<dd>панель быстрого просмотра
+</dd>
+<dt><code>Area.Tree</code></dt>
+<dd>панель дерева папок
+</dd>
+<dt><code>Area.Search</code></dt>
+<dd>быстрый поиск в панелях
+</dd>
+<dt><code>Area.FindFolder</code></dt>
+<dd>поиск папок
+</dd>
+<dt><code>Area.Viewer</code></dt>
+<dd>внутренняя программа просмотра
+</dd>
+<dt><code>Area.Editor</code></dt>
+<dd>редактор
+</dd>
+<dt><code>Area.Dialog</code></dt>
+<dd>диалоги
+</dd>
+<dt><code>Area.Disks</code></dt>
+<dd>меню выбора дисков
+</dd>
+<dt><code>Area.MainMenu</code></dt>
+<dd>основное меню Примечание: случай, когда меню в свёрнутом состоянии, можно определить с помощью условия <code>Object.Height==1</code>
+</dd>
+<dt><code>Area.Menu</code></dt>
+<dd>прочие меню
+</dd>
+<dt><code>Area.UserMenu</code></dt>
+<dd>пользовательское меню
+</dd>
+<dt><code>Area.ShellAutoCompletion</code></dt>
+<dd>список автодополнения в панелях
+</dd>
+<dt><code>Area.DialogAutoCompletion</code></dt>
+<dd>список автодополнения в диалогах
+</dd>
+<dt><code>Area.Help</code></dt>
+<dd>система помощи
+</dd>
+<dt><code>Area.Grabber</code></dt>
+<dd>режим копирования текста с экрана
+</dd>
+<dt><code>Area.Desktop</code></dt>
+<dd>пользовательский экран (под панелями)
+</dd>
+<dt><code>Area.Other</code></dt>
+<dd>зарезервировано
+</dd>
+</dl>
+<h2 id="свойства">Свойства</h2>
+<dl>
+<dt><code>Area.Current</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>наименование текущей макрообласти исполнения
+</dd>
+<dt><code>Object.CurPos</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>позиция в текущем объекте</p>
+<p>Примечание: Если текущий объект плагиновый диалог, то плагин может возвращать модифицированные данные (см. <a href="https://api.farmanager.com/ru/dialogapi/dmsg/dn_getvalue.html"><code>DN_GETVALUE</code></a>)</p>
+</dd>
+<dt><code>Object.ItemCount</code></dt>
+<dd><code>number</code>
+</dd>
+<dd><p>число элементов в текущем объекте; в меню разделительная черта тоже учитывается</p>
+<p>Примечание: Если текущий объект плагиновый диалог, то плагин может возвращать модифицированные данные (см. <a href="https://api.farmanager.com/ru/dialogapi/dmsg/dn_getvalue.html"><code>DN_GETVALUE</code></a>)</p>
+</dd>
+<dt><code>Object.Height</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>высота текущего объекта
+</dd>
+<dt><code>Object.Width</code></dt>
+<dd><code>number</code>
+</dd>
+<dd>ширина текущего объекта
+</dd>
+<dt><code>Object.Title</code></dt>
+<dd><code>string</code>
+</dd>
+<dd>заголовок текущего объекта
+</dd>
+</dl>
+<h2 id="функции">Функции</h2>
+<div class="functions">
+<dl>
+<dt><code>Pos=Object.CheckHotkey(S[,StartPos])</code></dt>
+<dd><p>Функция позволяет проверить и получить позицию элемента, для которого назначена горячая клавиша <code>S</code>.</p>
+<p>Работает в меню, списках и диалогах. Подробности в описании <a href="menus.html">свойств и функций для меню и списков</a>.</p>
+</dd>
+<dt><code>V=Editor.Sel(Action[,Opt])</code></dt>
+<dd>Функция позволяет производить некоторые операции с блоками в тексте (в редакторе, в строках ввода в диалогах, в командной строке). Подробности в описании <a href="editor.html">свойств и функций для редактора</a>.
+</dd>
+</dl>
+</div>
+<hr />
+<p>Смотрите также:</p>
+<p><a href="examples.html">Примеры</a></p>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Файловые функции</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="файловые-функции">Файловые функции</h1>
+<div class="functions">
+<dl>
+<dt><code>b=mf.fattr(S)</code></dt>
+<dd><p>Возвращает файловые атрибуты файла/папки <code>S</code>:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd><code>FILE_ATTRIBUTE_READONLY</code>. Файл только для чтения.
+</dd>
+<dd>Приложения могут читать такой файл, но не могут записывать или удалять его.
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd><code>FILE_ATTRIBUTE_HIDDEN</code>. Файл скрыт.
+</dd>
+<dd>Такой файл не включается в обычный листинг папки.
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd><code>FILE_ATTRIBUTE_SYSTEM</code>. Этот файл — часть операционной системы.
+</dd>
+<dt><code>0x00000010</code></dt>
+<dd><code>FILE_ATTRIBUTE_DIRECTORY</code>. Это папка.
+</dd>
+<dt><code>0x00000020</code></dt>
+<dd><code>FILE_ATTRIBUTE_ARCHIVE</code>. Это архивный файл.
+</dd>
+<dd>Приложения должны использовать этот флаг для копирования, архивирования или удаления.
+</dd>
+<dt><code>0x00000080</code></dt>
+<dd><code>FILE_ATTRIBUTE_NORMAL</code>. У этого файла не установлены другие атрибуты.
+</dd>
+<dd>Это значение корректно только при использовании без остальных флагов.
+</dd>
+<dt><code>0x00000100</code></dt>
+<dd><code>FILE_ATTRIBUTE_TEMPORARY</code>. Это временный файл.
+</dd>
+<dd>Приложения должны записывать в такой файл только в крайней необходимости. Большая часть данных файла находится в памяти и не сбрасывается на диск, так как файл будет удалён.
+</dd>
+<dt><code>0x00000200</code></dt>
+<dd><code>FILE_ATTRIBUTE_SPARSE_FILE</code>. Файл является разрежённым.
+</dd>
+<dt><code>0x00000400</code></dt>
+<dd><code>FILE_ATTRIBUTE_REPARSE_POINT</code>. Папка является точкой повторной обработки.
+</dd>
+<dt><code>0x00000800</code></dt>
+<dd><code>FILE_ATTRIBUTE_COMPRESSED</code>. Файл или папка сжаты.
+</dd>
+<dd>Для файла это означает, что все данные его сжаты, для папки — что компрессия по умолчанию применяется ко всем её файлам и подпапкам.
+</dd>
+<dt><code>0x00001000</code></dt>
+<dd><code>FILE_ATTRIBUTE_OFFLINE</code>. Данные файла не доступны непосредственно.
+</dd>
+<dd>Означает, что реальные данные файла были физически перемещены на устройства хранения.
+</dd>
+<dt><code>0x00002000</code></dt>
+<dd><code>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</code>.
+</dd>
+<dd>Этот файл или папки не будут индексироваться службой индексирования.
+</dd>
+<dt><code>0x00004000</code></dt>
+<dd><code>FILE_ATTRIBUTE_ENCRYPTED</code>. Файл или папка зашифрованы.
+</dd>
+<dd>Для файла это означает, что все данные в файле зашифрованы. Для папки это означает, что шифрование является умолчанием для вновь созданных файлов и подпапок.
+</dd>
+<dt><code>0x00010000</code></dt>
+<dd><code>FILE_ATTRIBUTE_VIRTUAL</code>. Этот файл — виртуальный файл.
+</dd>
+</dl>
+<p>Если файловый объект не существует, функция возвращает <code>-1</code>.</p>
+<p>В параметре <code>S</code> допускается использование символов масок ‘<code>*</code>’ и ‘<code>?</code>’. В этом случае функция возвращает атрибуты для первого найденного файла/папки.</p>
+<p>В отличие от <code>Panel.FAttr()</code>, функция не работает с панелями.</p>
+</dd>
+<dt><code>B=mf.fexist(S)</code></dt>
+<dd><p>Проверяет существование файла/папки <code>S</code> (возвращает <code>true</code> или <code>false</code>).</p>
+<p>В параметр <code>S</code> допускается использование символов ‘<code>*</code>’ и ‘<code>?</code>’. В этом случае функция проверяет только первое вхождение файла/папки.</p>
+<p>В отличие от <code>Panel.FExist()</code>, функция не работает с панелями.</p>
+</dd>
+<dt><code>N=mf.fmatch(S,Mask)</code></dt>
+<dd><p>Тестирует строку <code>S</code> на соответствие маске <code>Mask</code>.</p>
+<p><code>Mask</code> может быть:</p>
+<ul>
+<li>маской</li>
+<li>списком масок (разделённых запятой или точкой с запятой)</li>
+<li>маской исключения — одной или несколькими масками файлов, которой не должна соответствовать строка <code>S</code>. Маска исключения отделяется от основной маски символом ‘<code>|</code>’</li>
+<li>регулярным выражением. Текст регулярного выражения должен быть окружён символами ‘<code>/</code>’</li>
+</ul>
+<p>Возвращает:</p>
+<dl>
+<dt><code>1</code></dt>
+<dd>строка соответствует маске
+</dd>
+<dt><code>0</code></dt>
+<dd>строка не соответствует маске
+</dd>
+<dt><code>-1</code></dt>
+<dd>ошибка в регулярном выражении
+</dd>
+</dl>
+<p>Примеры</p>
+<div class="examples">
+<dl>
+<dt><code>mf.fmatch(&quot;Readme.txt&quot;, &quot;*.txt&quot;)</code></dt>
+<dd>возвращает <code>1</code>
+</dd>
+<dt><code>mf.fmatch(&quot;Readme.txt&quot;, &quot;Readme.*|*.txt&quot;)</code></dt>
+<dd>возвращает <code>0</code>
+</dd>
+<dt><code>mf.fmatch([[c:\Readme.txt]], [[/txt$/i]])</code></dt>
+<dd>возвращает <code>1</code>
+</dd>
+<dt><code>mf.fmatch([[c:\Readme.txt]], [[/txt$]])</code></dt>
+<dd>возвращает <code>-1</code>
+</dd>
+</dl>
+</div>
+</dd>
+<dt><code>S=mf.fsplit(path,Flags)</code></dt>
+<dd><p>Разбивает путь <code>path</code> на компоненты и возвращает их комбинацию, в зависимости от набора флагов <code>Flags</code>:</p>
+<dl>
+<dt><code>0x00000001</code></dt>
+<dd><p>Текущий диск в формате “<code>C:</code>”.</p>
+<p>Для сетевых папок — “<code>\\server\share</code>”</p>
+</dd>
+<dt><code>0x00000002</code></dt>
+<dd>Путь в формате “<code>\Program Files\Far\</code>”
+</dd>
+<dt><code>0x00000004</code></dt>
+<dd>Имя
+</dd>
+<dt><code>0x00000008</code></dt>
+<dd>Расширение в формате “<code>.EXT</code>” или пусто, если расширения нет.
+</dd>
+</dl>
+</dd>
+<dt><code>N=mf.testfolder(S)</code></dt>
+<dd><p>Тестирует папку <code>S</code>.</p>
+<p>Возвращает:</p>
+<dl>
+<dt><code>2</code></dt>
+<dd>папка не пустая
+</dd>
+<dt><code>1</code></dt>
+<dd>папка пустая
+</dd>
+<dt><code>0</code></dt>
+<dd>папка не существует
+</dd>
+<dt><code>-1</code></dt>
+<dd>нет доступа
+</dd>
+<dt><code>-2</code></dt>
+<dd>ошибка (некорректный параметр или внутренние проблемы с выделением памяти)
+</dd>
+</dl>
+<p>Если &gt; <code>0</code> — существует и доступна</p>
+<p>Если = <code>0</code> — не существует, но можно попробовать создать</p>
+<p>Если &lt; <code>0</code> — ничего обнадёживающего функция не сообщает</p>
+</dd>
+</dl>
+</div>
+</body>
+</html>

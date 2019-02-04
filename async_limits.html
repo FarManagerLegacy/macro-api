@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Ограничения в использовании некоторых функций</title>
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="ограничения-в-использовании-некоторых-функций">Ограничения в использовании некоторых функций</h1>
+<p>Следующие функции имеют особенности реализации, которые накладывают определённые ограничения на их использование в макросах:</p>
+<ul>
+<li><code>mf.exit</code></li>
+<li><code>mf.acall</code></li>
+<li><code>mf.usermenu</code> (в “асинхронном” режиме вызова)</li>
+<li><code>mf.Keys</code></li>
+<li><code>Plugin.Call</code></li>
+<li><code>Plugin.Command</code></li>
+<li><code>Plugin.Config</code></li>
+<li><code>Plugin.Menu</code></li>
+<li><code>mf.print</code></li>
+</ul>
+<ol type="1">
+<li><p>Если макрос создаёт корутины с помощью <code>coroutine.wrap(f)</code>, то вышеперечисленные функции не будут работать, будучи вызванными из тела функции <code>f</code>.</p>
+<p>Данного ограничения нет, если корутины создаются с помощью <code>coroutine.create(f)</code>.</p></li>
+<li><p>Вышеперечисленные функции, будучи вызванными прямо или косвенно посредством функции <code>pcall</code>, приведут к немедленному возврату <code>pcall</code> с результатом <code>false</code>.</p>
+<p>Данного ограничения нет при использовании <a href="http://luajit.org/luajit.html">LuaJIT</a> 2.x.</p></li>
+<li><p>Вышеперечисленные функции работают только, будучи вызванными из тела макроса (обычно это функция <code>action</code>).</p>
+<p>Это значит, что данные функции не будут работать, будучи вызванными из:</p>
+<ul>
+<li>диалоговых процедур</li>
+<li>функции <code>condition</code> макроса</li>
+<li>обработчиков событий</li>
+<li>и т.д. и т.п.</li>
+</ul></li>
+</ol>
+<p>Ограничения пункта 3 не имеют места, если вышеперечисленные функции вызываются не напрямую, а посредством <code>mf.postmacro</code> или <code>far.MacroPost</code>.</p>
+</body>
+</html>

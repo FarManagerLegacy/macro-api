@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Взаимодействие с плагинами</title>
+  <link rel="stylesheet" href="styles/tango.css">
+  <link rel="stylesheet" href="styles/pandoc.css">
+  <link rel="stylesheet" href="styles/github.css">
+  <link rel="stylesheet" href="styles/dl_table.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="взаимодействие-с-плагинами">Взаимодействие с плагинами</h1>
+<div class="functions">
+<dl>
+<dt><code>...=Plugin.Call(PluginId,...)</code></dt>
+<dd><p>Вызвать плагин, имеющий идентификатор <code>PluginId</code> с параметрами <code>...</code>.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>PluginId</code></dt>
+<dd><code>string</code> (GUID плагина в текстовом представлении)
+</dd>
+<dt><code>...</code></dt>
+<dd><p>ноль или более дополнительных параметров</p>
+<p>Параметры передаются плагину <a href="https://api.farmanager.com/ru/structures/farmacrovalue.html#FARMACROVARTYPE">в соответствии</a> с их Lua-типами:</p>
+<ul>
+<li><code>nil</code> ⟶ <code>FMVT_NIL</code></li>
+<li><code>boolean</code> ⟶ <code>FMVT_BOOLEAN</code></li>
+<li><code>number</code> ⟶ <code>FMVT_DOUBLE</code></li>
+<li><code>int64</code> ⟶ <code>FMVT_INTEGER</code> (<code>int64</code> — тип <code>userdata</code>, создаваемый библиотекой <code>bit64</code>)</li>
+<li><code>string</code> ⟶ <code>FMVT_STRING</code> (автоматически преобразуется из <code>UTF-8</code> в <code>UTF-16LE</code>)</li>
+<li><code>{string}</code> ⟶ <code>FMVT_BINARY</code> (для того, чтобы передать произвольный стринг без преобразования <code>UTF-8</code> ⟶ <code>UTF16LE</code>, его нужно передавать, помещённым в таблицу как элемент с ключом <code>1</code>)</li>
+</ul>
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>...</code></dt>
+<dd><p>ноль или более возвращаемых значений</p>
+<p>Величины, возвращаемые плагином через структуру <a href="https://api.farmanager.com/ru/structures/farmacrocall.html"><code>FarMacroCall</code></a>, <a href="https://api.farmanager.com/ru/structures/farmacrovalue.html#FARMACROVARTYPE">передаются</a> макросу следующим образом:</p>
+<ul>
+<li><code>FMVT_NIL</code> ⟶ <code>nil</code></li>
+<li><code>FMVT_BOOLEAN</code> ⟶ <code>boolean</code></li>
+<li><code>FMVT_DOUBLE</code> ⟶ <code>number</code></li>
+<li><code>FMVT_INTEGER</code> ⟶ <code>number</code>, если “укладывается” в 53 бита, иначе <code>int64</code></li>
+<li><code>FMVT_STRING</code> ⟶ <code>string</code> (автоматически преобразуется из <code>UTF-16LE</code> в <code>UTF-8</code>)</li>
+<li><code>FMVT_BINARY</code> ⟶ <code>table</code> (в таблице передаётся строка как элемент с ключом <code>1</code>; передаётся как есть, без преобразования)</li>
+<li><code>FMVT_POINTER</code> ⟶ <code>light userdata</code></li>
+<li><code>FMVT_ARRAY</code> ⟶ <code>table</code>: массив элементов; в таблице установлено два поля:
+<ul>
+<li><code>[&quot;type&quot;]</code> = <code>&quot;array&quot;</code>, и</li>
+<li><code>[&quot;n&quot;]</code> = количество элементов массива</li>
+</ul></li>
+</ul>
+</dd>
+</dl>
+<p><code>Plugin.Call</code> вызывает экспортируемую функцию <a href="https://api.farmanager.com/ru/exported_functions/openw.html"><code>OpenW</code></a> требуемого плагина, передавая указанные параметры.</p>
+<p>Дальнейшие действия зависят от того, как плагин обработал этот параметр.</p>
+<p>Функция возвращает <code>false</code>, если вызываемого плагина нет. В других случаях функция возвращает значения, полученные от плагина.</p>
+<ol type="1">
+<li><p>Функция осуществляет “асинхронный” вызов плагина. Если вызов в действительности оказался асинхронным (например, если плагин вывел диалог на экран), функция возвращает true, не дожидаясь возврата от плагина, и макрос продолжает исполнение.</p></li>
+<li>Если вызов в действительности оказался синхронным, макросу возвращаются величины в соответствии с тем, что вернул плагин:
+<ul>
+<li>Если плагин не найден или вернул <code>0</code>, макросу возвращается <code>false</code>.</li>
+<li>Если плагин вернул <code>1</code> или <code>INVALID_HANDLE_VALUE</code>, макросу возвращается <code>true</code>.</li>
+<li>Если плагин вернул указатель на структуру <a href="https://api.farmanager.com/ru/structures/farmacrocall.html"><code>FarMacroCall</code></a>, см. выше.</li>
+</ul></li>
+</ol>
+</dd>
+<dt><code>...=Plugin.SyncCall(PluginId,...)</code></dt>
+<dd><p>Синхронный вызов плагина</p>
+<p>Данная функция работает идентично <code>Plugin.Call</code>, за исключением того, что:</p>
+<ol type="1">
+<li>Её вызов — всегда синхронный, то есть возврат управления макросу происходит только после возврата функции <a href="https://api.farmanager.com/ru/exported_functions/openw.html"><code>OpenW</code></a> плагина.</li>
+<li>Данная функция не имеет [ограничений][async_limits] в использовании, которые есть у <code>Plugin.Call</code>.</li>
+</ol>
+</dd>
+<dt><code>N=Plugin.Command(Guid,Command)</code></dt>
+<dd><p>Аналог вызова плагина по префиксу из панелей без необходимости запоминать/очищать/восстанавливать текущее содержимое командной строки.</p>
+<p><code>Guid</code> можно посмотреть в диалоге “Plugin information” (<span class="nowrap"><kbd>F3</kbd></span> в списке <span class="nowrap"><kbd>F11</kbd></span> или <span class="nowrap"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F9</kbd></span>): поле “Plugin GUID”.</p>
+<p>Если плагин с таким <code>Guid</code> не поддерживает вызов по префиксу или при вызове не из панелей — функция вернёт ошибку.</p>
+<p>Функция возвращает <code>true</code> — плагин/пункт найден или <code>false</code> — в случае ошибки.</p>
+</dd>
+<dt><code>N=Plugin.Config(Guid[,MenuGuid])</code></dt>
+<dd><p>Аналог вызова плагина из меню “Параметры плагинов” без необходимости задавать горячие клавиши или искать плагин в списке. Работает только в панелях.</p>
+<p><code>Guid</code> и <code>MenuGuid</code> можно посмотреть в диалоге “Plugin information” (<span class="nowrap"><kbd>F3</kbd></span> в списке): поля “Plugin GUID” и “Plugin item GUID” соответственно.</p>
+<p>Обязательно нужно указать <code>Guid</code> плагина. <code>MenuGuid</code> требуется указывать в том случае, если плагин экспортирует более одного пункта меню.</p>
+<p>Если плагин отсутствует в списке “Параметры плагинов” или при вызове не из панелей — функция вернёт ошибку.</p>
+<p>Функция возвращает <code>true</code> — плагин/пункт найден или <code>false</code> — в случае ошибки.</p>
+</dd>
+<dt><code>N=Plugin.Exist(Guid)</code></dt>
+<dd><p>Позволяет узнать наличие в системе плагина с идентификатором <code>Guid</code>.</p>
+<p>Функция возвращает <code>true</code> — плагин/пункт найден или <code>false</code> — в случае ошибки.</p>
+</dd>
+<dt><code>N=Plugin.Menu(Guid[,MenuGuid])</code></dt>
+<dd><p>Аналог вызова плагина из меню плагинов по <span class="nowrap"><kbd>F11</kbd></span> без необходимости задавать горячие клавиши или искать плагин в списке.</p>
+<p><code>Guid</code> и <code>MenuGuid</code> можно посмотреть в диалоге “Plugin information” (<span class="nowrap"><kbd>F3</kbd></span> в списке): поля “Plugin GUID” и “Plugin item GUID” соответственно.</p>
+<p>Обязательно нужно указать <code>Guid</code> плагина. <code>MenuGuid</code> требуется указывать в том случае, если плагин экспортирует более одного пункта меню.</p>
+<p>Если плагин отсутствует в списке <span class="nowrap"><kbd>F11</kbd></span> для текущей макрообласти — функция вернёт ошибку.</p>
+<p>Функция возвращает <code>true</code> — плагин/пункт найден или <code>false</code> — в случае ошибки.</p>
+<p>Пример использования — открыть FarColorer\Outliner list:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> ColorerID <span class="ot">=</span> <span class="st">&quot;D2F36B62-A470-418D-83A3-ED7A3710E5B5&quot;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> ColorerMenuID <span class="ot">=</span> <span class="st">&quot;45453CAC-499D-4B37-82B8-0A77F7BD087C&quot;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">if</span> Plugin<span class="ot">.</span>Menu<span class="ot">(</span>ColorerID<span class="ot">,</span>ColorerMenuID<span class="ot">)</span> <span class="kw">then</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  Keys<span class="ot">(</span><span class="st">&quot;5&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">end</span></a></code></pre></div>
+</dd>
+<dt><code>N=Plugin.Load(DllPath[,ForceLoad])</code></dt>
+<dd><p>Загрузить плагин с именем dll-модуля <code>DllPath</code>. Если указан <code>ForceLoad</code> (число, отличное от 0), то плагин загружается сразу в память.</p>
+<p>Функция возвращает число, отличное от 0 — плагин загружен или <code>0</code> — в случае ошибки.</p>
+</dd>
+<dt><code>N=Plugin.Unload(DllPath)</code></dt>
+<dd><p>Выгрузить плагин с именем dll-модуля <code>DllPath</code>.</p>
+<p>Функция возвращает <code>1</code> — плагин выгружен или <code>0</code> — в случае ошибки.</p>
+</dd>
+</dl>
+</div>
+</body>
+</html>
