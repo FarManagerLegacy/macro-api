@@ -2,7 +2,7 @@
 =====================
 
 :::functions
-`mf.mdelete(key,name[,location])`
+`ret = mf.mdelete (key, name[, location])`
 :	Функция удаляет значение или ключ из базы данных.
 
 	Для удаления ключа следует указать параметр `name` == "`*`" (звёздочку).
@@ -18,11 +18,15 @@
 	`location`
 	:	`string` ("`roaming`" или "`local`"; по умолчанию: "`roaming`")
 
-	Возвращает: ничего
+	Возвращает:
 
-`ret=mf.mload(key,name[,location])`
+	`ret`
+	:	`boolean`
+
+`value, errmsg = mf.mload (key, name[, location])`
 :	Функция читает значение из базы данных.
-
+	Если 2-е возвращаемое значение `nil`, то 1-е возвращаемое значение валидно.
+        
 	Параметры:
 
 	`key`
@@ -36,15 +40,18 @@
 
 	Возвращает:
 
-	`ret`
+	`value`
 	:	`number`, `string`, `boolean`, `table`, `int64` или `nil`.
+
+	`errmsg`
+	:	`nil` в случае успеха, `string` в случае неудачи.
 
 
 	Примечание
 
 	`int64` - особый тип `userdata`, создаваемый библиотекой `bit64`.
 
-`mf.msave(key,name,value[,location])`
+`ret = mf.msave (key, name, value[, location])`
 :	сохраняет переданное значение в базу данных.
 
 	Параметры:
@@ -61,7 +68,10 @@
 	`location`
 	:	`string` ("`roaming`" или "`local`"; по умолчанию: "`roaming`")
 
-	Возвращает: ничего
+	Возвращает:
+
+	`ret`
+	:	`boolean`
 
 	При сохранении таблиц будут сохраняться:
 
