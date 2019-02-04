@@ -1,0 +1,615 @@
+﻿Глобальные свойства и функции
+-----------------------------
+
+  Функции `akey`, `eval`, `exit`, `Keys`, `mmode`, `msgbox`, `print`, `prompt` -
+  это глобальные ссылки на одноимённые функции из библиотеки `mf` (см. ниже).
+
+  Функции `band`, `bnot`, `bor`, `bxor`, `lshift`, `rshift` -
+  это глобальные ссылки на одноимённые функции из библиотеки `bit64`
+  (см. [LuaFAR manual]).
+
+
+`mf`
+----
+
+Свойства: нет.
+
+Функции:
+
+  `abs`
+  `acall`
+  `AddExitHandler`
+  `akey`
+  `asc`
+  `atoi`
+  `beep`
+  `chr`
+  `clip`
+  `date`
+  `env`
+  `eval`
+  `exit`
+  `fattr`
+  `fexist`
+  `float`
+  `flock`
+  `fmatch`
+  `fsplit`
+  `GetMacroCopy`
+  `iif`
+  `index`
+  `int`
+  `itoa`
+  `key`
+  `Keys`
+  `lcase`
+  `len`
+  `max`
+  `mdelete`
+  `min`
+  `mload`
+  `mmode`
+  `mod`
+  `msave`
+  `msgbox`
+  `postmacro`
+  `print`
+  `prompt`
+  `replace`
+  `rindex`
+  `size2str`
+  `sleep`
+  `string`
+  `strpad`
+  `strwrap`
+  `substr`
+  `testfolder`
+  `trim`
+  `ucase`
+  `usermenu`
+  `waitkey`
+  `xlat`
+
+
+`Area`
+------
+
+`Area` - таблица со следующими полями:
+
+Свойства:
+
+  `Current`
+  :	`string`
+
+  `Other`
+  :	`boolean`
+
+  `Shell`
+  :	`boolean`
+
+  `Viewer`
+  :	`boolean`
+
+  `Editor`
+  :	`boolean`
+
+  `Dialog`
+  :	`boolean`
+
+  `Search`
+  :	`boolean`
+
+  `Disks`
+  :	`boolean`
+
+  `MainMenu`
+  :	`boolean`
+
+  `Menu`
+  :	`boolean`
+
+  `Help`
+  :	`boolean`
+
+  `Info`
+  :	`boolean`
+
+  `QView`
+  :	`boolean`
+
+  `Tree`
+  :	`boolean`
+
+  `FindFolder`
+  :	`boolean`
+
+  `UserMenu`
+  :	`boolean`
+
+  `ShellAutoCompletion`
+  :	`boolean`
+
+  `DialogAutoCompletion`
+  :	`boolean`
+
+
+Функции: Нет.
+
+
+`APanel`, `PPanel`
+------------------
+
+`APanel`, `PPanel` - таблицы со следующими полями:
+
+Свойства:
+
+  `Bof`
+  :	`boolean`
+
+  `ColumnCount`
+  :	`number`
+
+  `CurPos`
+  :	`number`
+
+  `Current`
+  :	`string`
+
+  `DriveType`
+  :	`number`
+
+  `Empty`
+  :	`boolean`
+
+  `Eof`
+  :	`boolean`
+
+  `FilePanel`
+  :	`boolean`
+
+  `Filter`
+  :	`boolean`
+
+  `Folder`
+  :	`boolean`
+
+  `Format`
+  :	`string`
+
+  `Height`
+  :	`number`
+
+  `HostFile`
+  :	`string`
+
+  `ItemCount`
+  :	`number`
+
+  `Left`
+  :	`boolean`
+
+  `LFN`
+  :	`boolean`
+
+  `OPIFlags`
+  :	`number`
+
+  `Path`
+  :	`string`
+
+  `Path0`
+  :	`string`
+
+  `Plugin`
+  :	`boolean`
+
+  `Prefix`
+  :	`string`
+
+  `Root`
+  :	`boolean`
+
+  `SelCount`
+  :	`number`
+
+  `Selected`
+  :	`boolean`
+
+  `Type`
+  :	`number`
+
+  `UNCPath`
+  :	`string`
+
+  `Visible`
+  :	`boolean`
+
+  `Width`
+  :	`number`
+
+
+Функции:
+
+  Нет.
+
+
+`Panel`
+-------
+
+`Panel` - таблица со следующими полями:
+
+Свойства:
+
+  Нет.
+
+Функции:
+
+  `FAttr`
+  `FExist`
+  `Item`
+  `Select`
+  `SetPath`
+  `SetPos`
+  `SetPosIdx`
+  `CustomSortMenu`
+  `LoadCustomSortMode`
+  `SetCustomSortMode`
+
+Примечание:
+
+  Функции `CustomSortMenu`, `LoadCustomSortMode` и `SetCustomSortMode` присутствуют только
+  если в качестве движка Lua используется LuaJIT 2.
+
+
+`BM`
+----
+
+`BM` - таблица со следующими полями:
+
+Свойства:
+
+  Нет.
+
+Функции:
+
+  `Add`
+  `Back`
+  `Clear`
+  `Del`
+  `Get`
+  `Goto`
+  `Next`
+  `Pop`
+  `Prev`
+  `Push`
+
+
+`CmdLine`
+---------
+
+`CmdLine` - таблица со следующими полями:
+
+Свойства:
+
+  `Bof`
+  :	`boolean`
+
+  `Empty`
+  :	`boolean`
+
+  `Eof`
+  :	`boolean`
+
+  `Selected`
+  :	`boolean`
+
+  `CurPos`
+  :	`number`
+
+  `ItemCount`
+  :	`number`
+
+  `Value`
+  :	`string`
+
+  `Result`
+  :	`table` или `nil`
+
+
+Функции:
+
+  Нет.
+
+
+`Dlg`
+-----
+
+`Dlg` - таблица со следующими полями:
+
+Свойства:
+
+  `CurPos`
+  :	`number`
+
+  `Id`
+  :	`string` (GUID)
+
+  `Owner`
+  :	`string` (GUID)
+
+  `ItemCount`
+  :	`number`
+
+  `ItemType`
+  :	`number`
+
+  `PrevPos`
+  :	`number`
+
+
+Функции:
+
+  `GetValue`
+  `SetFocus`
+
+
+`Drv`
+-----
+
+`Drv` - таблица со следующими полями:
+
+Свойства:
+
+  `ShowMode`
+  :	`number`
+
+  `ShowPos`
+  :	`number`
+
+
+Функции:
+
+  Нет.
+
+
+`Editor`
+--------
+
+`Editor` - таблица со следующими полями:
+
+Свойства:
+
+  `CurLine`
+  :	`number`
+
+  `CurPos`
+  :	`number`
+
+  `FileName`
+  :	`string`
+
+  `Lines`
+  :	`number`
+
+  `RealPos`
+  :	`number`
+
+  `SelValue`
+  :	`string`
+
+  `State`
+  :	`number`
+
+  `Value`
+  :	`string`
+
+
+Функции:
+
+  `DelLine`
+  `GetStr`
+  `InsStr`
+  `Pos`
+  `Sel`
+  `Set`
+  `SetStr`
+  `SetTitle`
+  `Undo`
+
+
+`Far`
+-----
+
+`Far` - таблица со следующими полями:
+
+Свойства:
+
+  `FullScreen`
+  :	`boolean`
+
+  `Height`
+  :	`number`
+
+  `IsUserAdmin`
+  :	`boolean`
+
+  `PID`
+  :	`number`
+
+  `Title`
+  :	`string`
+
+  `UpTime`
+  :	`number`
+
+  `Width`
+  :	`number`
+
+
+Функции:
+
+  `Cfg_Get` (устаревшая, используйте `GetConfig`)
+  `DisableHistory`
+  `GetConfig`
+  `KbdLayout`
+  `KeyBar_Show`
+  `Window_Scroll`
+
+
+`Help`
+------
+
+`Help` - таблица со следующими полями:
+
+Свойства:
+
+  `FileName`
+  :	`string`
+
+  `SelTopic`
+  :	`string`
+
+  `Topic`
+  :	`string`
+
+
+Функции:
+
+  Нет.
+
+
+`Menu`
+------
+
+`Menu` - таблица со следующими полями:
+
+Свойства:
+
+  `Id`
+  :	`string` (GUID)
+
+  `Value`
+  :	`string`
+
+
+Функции:
+
+  `Filter`
+  `FilterStr`
+  `GetValue`
+  `ItemStatus`
+  `Select`
+  `Show`
+
+
+`Mouse`
+-------
+
+`Mouse` - таблица со следующими полями:
+
+Свойства:
+
+  `X`
+  :	`number`
+
+  `Y`
+  :	`number `
+
+  `Button`
+  :	`number`
+
+  `CtrlState`
+  :	`number`
+
+  `EventFlags`
+  :	`number`
+
+  `LastCtrlState`
+  :	`number`
+
+
+Функции:
+
+  Нет.
+
+
+`Object`
+--------
+
+Свойства, зависящие от контекста исполнения.
+
+`Object`: таблица со следующими полями:
+
+Свойства:
+
+  `Bof`
+  :	`boolean`
+
+  `CurPos`
+  :	`number`
+
+  `Empty`
+  :	`boolean`
+
+  `Eof`
+  :	`boolean`
+
+  `Height`
+  :	`number`
+
+  `ItemCount`
+  :	`number`
+
+  `Selected`
+  :	`boolean`
+
+  `Title`
+  :	`string`
+
+  `Width`
+  :	`number`
+
+
+Функции:
+
+  `CheckHotkey`
+  `GetHotkey`
+
+
+`Plugin`
+--------
+
+`Plugin` - таблица со следующими полями:
+
+Свойства: Нет.
+
+Функции:
+
+  `Call`
+  `Command`
+  `Config`
+  `Exist`
+  `Load`
+  `Menu`
+  `SyncCall`
+  `Unload`
+
+
+`Viewer`
+--------
+
+`Viewer` - таблица со следующими полями:
+
+Свойства:
+
+  `FileName`
+  :	`string`
+
+  `State`
+  :	`number`
+
+
+Функции: Нет.
+
+
+[LuaFAR manual]:

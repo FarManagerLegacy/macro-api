@@ -1,0 +1,1 @@
+custom.html5 pandoc --print-default-template=html5>default.html5

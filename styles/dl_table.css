@@ -1,0 +1,99 @@
+dl{
+  overflow:hidden;
+}
+
+dl>dt {
+  font-weight:600;
+  font-style:normal;
+  float:left;
+  width:auto;
+  clear:both;
+  padding:0;
+  padding-bottom:3px;
+  margin-top:0;
+  position:relative;
+}
+
+dl>dd {
+  float:right;
+  width:calc(100% - 10em);
+  padding:0;
+  padding-bottom:3px;
+  margin-left:0;
+  margin-bottom:0px;
+  padding-left:.5em;
+  border-left: 1px solid silver;
+}
+
+div.wrap>dl>dt {
+  width:10em;
+  overflow-wrap: break-word;
+}
+
+dd p {
+  padding:0;
+  margin:0;
+  margin-top:1px
+}
+
+dd dt {
+  text-align:right;
+  width:6em;
+  overflow-wrap: break-word;
+}
+
+dd dd {
+  width:calc(100% - 7em);
+}
+
+div.wide>dl>dt {
+  width:auto;
+}
+
+div.wide>dl>dd {
+  margin:0;
+  width:calc(100% - 11em);
+}
+
+div.functions>dl>dt {
+  float:none;
+  margin-top:.5em;
+  background-color:silver;
+  padding-left:.5em;
+}
+
+div.functions>dl>dd {
+  float:none;
+  width:auto;
+}
+
+div.examples>dl>dt {
+  font-style:italic;
+  float:initial;
+  width:initial;
+  text-align:initial;
+  margin-top:16px;
+}
+
+div.examples>dl>dd {
+  float:initial;
+  width:initial;
+  margin-left:2em;
+  border:initial;
+}
+
+span.nowrap {
+  white-space:nowrap;
+}
+
+div.columns {
+  column-count: 3;
+  columns: 100px 3;
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  -webkit-column-width: 10em;
+
+}
+div.columns>p>code {
+  display: block;
+}

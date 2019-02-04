@@ -1,0 +1,208 @@
+﻿Примеры
+=======
+
+~~~lua
+Macro {
+  description="Переход в меню выбора дисков на противоположной панели";
+  area="Disks"; key="Tab";
+  action=function()
+    local left = Drv.ShowPos==1
+    Keys("Esc F9")
+    if left==APanel.Left then
+      Keys("Tab")
+    end
+    Keys("Enter End Enter")
+  end;
+}
+~~~
+
+~~~lua
+Macro {
+  description="выделить/(снять выделение) слово(а) под курсором";
+  area="Editor"; key="RAlt";
+  action=function()
+    Keys(Object.Selected and "CtrlU" or "SelWord")
+  end;
+}
+~~~
+
+~~~lua
+local datefmt = "%Y%m0%d" --в формате `YYYYMMDD`
+local APANEL = 0
+Macro {
+  description="создание папки с именем, равным текущей дате";
+  area="Shell"; key="ShiftF7"; flags="NoPluginPanels";
+  action=function()
+    local folder = mf.date(datefmt);
+    if 0==Panel.FExist(APANEL,folder) then
+      Keys("F7 CtrlY")
+      mf.print(folder)
+      Keys("Enter")
+    else -- если папка существует - позиционировать на неё курсор
+      Panel.SetPos(APANEL,folder)
+    end
+  end;
+}
+~~~
+
+~~~lua
+local PPANEL = 0
+Macro {
+  description="искать тот же файл на другой панели что и на активной";
+  area="Shell"; key="CtrlAltLeft CtrlAltRight";
+  action=function()
+    if (not APanel.Bof or APanel.Root) and PPanel.Visible then
+      if 0~=Panel.SetPos(PPANEL,APanel.Current) then
+        Keys("Tab")
+      end
+    end
+  end;
+}
+~~~
+
+~~~lua
+local APANEL = 0
+local SELECT = 1
+local IDX = 1
+Macro {
+  description="Выделение следующих нижних 30 файлов";
+  area="Shell"; key="CtrlDown";
+  action=function()
+    local cur = APanel.CurPos
+    local count = APanel.ItemCount
+    local last = math.min(cur+N,count)
+    for i=cur,last do
+      Panel.Select(APANEL,SELECT,IDX,i)
+    end
+    Panel.SetPosIdx(APANEL,math.min(last+1,count))
+  end;
+}
+
+Macro {
+  description="Выделение следующих верхних 30 файлов";
+  area="Shell"; key="CtrlUp";
+  action=function()
+    local cur = APanel.CurPos
+    local last = math.max(cur-N,1)
+    for i=cur,last,-1 do
+      Panel.Select(APANEL,SELECT,IDX,i)
+    end
+    Panel.SetPosIdx(APANEL,math.max(last-1,1))
+  end;
+}
+~~~
+
+~~~lua
+local folder = win.GetEnv("FARPROFILE").."\\"
+local filename = "far-screen.out"
+
+local GET,SWITCH_INTERNAL = 0,5
+local APANEL = 0
+Macro {
+  description="сграбить весь экран в текстовый файл far-screen.out";
+  area="Common"; key="AltP";
+  action=function()
+    mf.clip(SWITCH_INTERNAL)
+    Keys("AltIns CtrlA CtrlIns")
+    local file = assert(io.open(folder..filename,"w"))
+    file:write(mf.clip(GET),"\n")
+    file:close()
+    mf.beep()
+    Panel.SetPath(APANEL,folder,filename)
+  end;
+}
+~~~
+
+~~~lua
+Macro {
+  description="удаление файла/папки по клавише Del";
+  area="Shell"; key="Del";
+  action=function()
+    -- если не в конце ком строки то удаляем символы в ней
+    if not CmdLine.Eof then
+      Keys("Del")
+    else
+      -- если стояли на элементе .. то пытаемся удалить вышестоящую папку
+      if not APanel.Selected and APanel.Bof and (not APanel.Root or APanel.Plugin) then
+        Keys("CtrlPgUp")
+      end
+      Keys("F8")
+    end
+  end;
+}
+~~~
+
+~~~lua
+-- перед вызовом быстрого просмотра сделать пассивную панель
+-- максимально большего размера.
+-- для обратной операции восстановить панели.
+local min_width = 11
+local QView = 2
+local DefaultMode = "Ctrl2"
+Macro {
+  description="QView: максимизировать панель";
+  area="Shell"; key="CtrlQ";
+  priority=100;
+  action=function()
+    Keys("AKey")
+    if PPanel.Type==QView then
+      Keys("Ctrl6") --режим с одной колонкой
+      local key = APanel.Left and "CtrlLeft" or "CtrlRight"
+      Keys(("%i*%s"):format(APanel.Width-min_width,key))
+    else
+      Keys(DefaultMode,"CtrlClear")
+    end
+  end;
+}
+~~~
+
+~~~lua
+local APANEL = 0
+local EXT,NAME = 8,4 --fsplit
+local SELECTED = 8   --Panel.Item
+local NAMES = 2      --Panel.Select
+-- При непустой командной строке макрос не вызывается чтобы можно пользоваться первоначальной
+-- функцией сочетания CtrlShiftIns - Поместить помеченные имена в Буфер Обмена
+Macro {
+  description="Пометить вместе с htm-файлом и парную ему папку";
+  area="Shell"; key="CtrlShiftIns"; flags="EmptyCommandLine";
+  action=function()
+    local Current = APanel.Current
+    local len = ("_files"):len()
+    local Ext = Current:sub(-len)
+    local Name
+    if Ext=="_files" then
+      Name = Current:sub(1,-len)
+    else
+      Ext = mf.fsplit(Current,EXT)
+      Name = mf.fsplit(Current,NAME)
+    end
+    local pair1,pair2
+    if Ext==".htm" or Ext==".html" then
+      pair1,pair2 = ".files","_files"
+    elseif Ext==".files" or Ext=="_files" then
+      pair1,pair2 = ".htm",".html"
+    end
+    if pair1 then
+      local action = Panel.Item(APANEL,0,SELECTED) and 0 or 1
+      local items = { APanel.Current, Name..pair1, Name..pair2}
+      Panel.Select(APANEL,action,NAMES,table.concat(items,"\n"))
+    end
+  end;
+}
+~~~
+
+~~~lua
+local GET,SET = 0,1
+local LEFTPOS = 5
+local SCROLL = 2
+Macro {
+  description="ScrollLock: Скроллинг текста по горизонтали";
+  area="Editor"; key="Left Right";
+  condition=function() return band(1,mf.flock(SCROLL,-1))==1 end;
+  action=function()
+    local dir = mf.akey(1,1)=="Right" and 1 or -1
+    Editor.Pos(SET,LEFTPOS,Editor.Pos(GET,LEFTPOS)+dir)
+  end;
+}
+~~~
