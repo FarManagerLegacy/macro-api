@@ -26,6 +26,7 @@
   `chr`
   `clip`
   `date`
+  `deserialize`
   `env`
   `eval`
   `exit`
@@ -58,6 +59,7 @@
   `prompt`
   `replace`
   `rindex`
+  `serialize`
   `size2str`
   `sleep`
   `string`
