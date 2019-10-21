@@ -54,6 +54,7 @@
   `msgbox`
   `postmacro`
   `print`
+  `printconsole`
   `prompt`
   `replace`
   `rindex`
