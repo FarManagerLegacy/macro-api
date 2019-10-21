@@ -1,4 +1,6 @@
-﻿-- Links ----------------------------------------------------------------------
+--https://pandoc.org/lua-filters.html
+
+-- Links ----------------------------------------------------------------------
 function Link(el)
   if FORMAT:match"html" then
     el.target = el.target:gsub("%.md$",".html")
