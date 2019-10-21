@@ -44,7 +44,7 @@ clean:
 #$(addprefix %.,$(filter-out $(TARGET_EXT),bbcode)): %.$(SOURCE_EXT)
 
 .SECONDEXPANSION: #https://www.gnu.org/software/make/manual/html_node/Secondary-Expansion.html#Secondary-Expansion
-%:: $$(basename %).$(SOURCE_EXT) makefile typo.lua
-	$(PANDOC) $(FLAGS) $(EXTRA_FLAGS) -o $@ $<
+%:: $$(basename %).$(SOURCE_EXT) Makefile typo.lua
 	$(info $@)
+	@$(PANDOC) $(FLAGS) $(EXTRA_FLAGS) -o $@ $<
 
