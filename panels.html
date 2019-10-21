@@ -173,7 +173,7 @@
 <dd>имена файлов выровнены по правому краю
 </dd>
 <dt><code>0x00000100</code></dt>
-<dd><p>имена файлов показаны в оригинальном регистре (независимо от настроек FAR)</p>
+<dd><p>имена файлов показаны в оригинальном регистре (независимо от настроек FAR).</p>
 <p>Если панель не плагиновая, то значение будет = <code>0</code></p>
 </dd>
 </dl>
@@ -181,7 +181,8 @@
 <dt><code>APanel.Path0</code>, <code>PPanel.Path0</code></dt>
 <dd><code>string</code>
 </dd>
-<dd>содержит путь на реальной файловой системе, до вызова плагинов, создающих свою панель (без заключительного ‘<code>\</code>’)
+<dd><p>содержит путь на реальной файловой системе, до вызова плагинов, создающих свою панель (без заключительного ‘<code>\</code>’).</p>
+<p>Примечание: путь в корне диска будет содержать заключительный ‘<code>\</code>’.</p>
 </dd>
 <dt><code>APanel.Prefix</code>, <code>PPanel.Prefix</code></dt>
 <dd><code>string</code>
@@ -378,7 +379,7 @@
 <dt><code>9</code></dt>
 <dd><code>number</code>
 </dd>
-<dd>Количество линков
+<dd>Количество жёстких ссылок (hard links)
 </dd>
 <dt><code>10</code></dt>
 <dd><code>number</code>
@@ -398,7 +399,7 @@
 <dt><code>13</code></dt>
 <dd><code>number</code>
 </dd>
-<dd>CRC32
+<dd>CRC32 — контрольная сумма, может использоваться панельными плагинами. (Far Manager не использует это поле)
 </dd>
 <dt><code>14</code></dt>
 <dd><code>number</code>
@@ -416,14 +417,14 @@
 <dd>Размер потоков
 </dd>
 <dt><code>22</code></dt>
-<dd>Var
+<dd><del>Var</del>
 </dd>
-<dd>Значение Custom-колонки
+<dd><del>Значение Custom-колонки</del> (Не адаптировано для текущего API колонок)
 </dd>
 <dt><code>23</code></dt>
 <dd><code>number</code>
 </dd>
-<dd>Значение ReparseTag (актуально только для ссылок)
+<dd>Значение <a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/c8e77b37-3909-4fe6-a4ea-2b9d423b1ee4"><code>ReparseTag</code></a> (актуально только для ссылок)
 </dd>
 </dl>
 <p>Для панели “<em>Дерево папок</em>” возвращается только имя файла (<code>Property=0</code>), остальные значения <code>Property</code> игнорируются.</p>

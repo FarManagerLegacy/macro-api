@@ -60,7 +60,7 @@
 </dl>
 <p>В случае ошибки возвращает <code>0</code></p>
 <p>Например, поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер):</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> FILENAME<span class="ot">,</span>ATTRIB<span class="ot">,</span>SIZE<span class="ot">,</span>SELECTED <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">2</span><span class="ot">,</span><span class="dv">6</span><span class="ot">,</span><span class="dv">8</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">local</span> DIRECTORY <span class="ot">=</span> <span class="dv">0x00000010</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">local</span> <span class="kw">function</span> isFolder<span class="ot">(</span>panel<span class="ot">,</span>idx<span class="ot">)</span></a>
@@ -78,7 +78,7 @@
 <a class="sourceLine" id="cb1-16" data-line-number="16">      <span class="kw">end</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="ot">}</span></a></code></pre></div>
 </dd>
 <dt><code>S=mf.env(Name[,Mode[,Value]])</code></dt>
 <dd><p>Позволяет работать с переменной среды <code>Name</code>. Если <code>Mode</code> не указан или равен <code>0</code>, то функция возвращает значение переменной среды (<code>Value</code> в этом случае игнорируется). Если <code>Mode</code> указан и отличен от <code>0</code>, то функция устанавливает значение или удаляет переменную среды.</p>
@@ -87,26 +87,26 @@
 <div class="examples">
 <dl>
 <dt>Получить значение переменной среды <code>Foo</code></dt>
-<dd><pre class="sourceCode lua" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">)</span></a>
+<dd><div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="kw">nil</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a></code></pre>
+<a class="sourceLine" id="cb2-4" data-line-number="4">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="kw">nil</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a></code></pre></div>
 </dd>
 <dt>Установить значение переменной среды <code>Foo</code> в “<code>bar</code>”</dt>
 <dd><code>mf.env(&quot;Foo&quot;,1,&quot;Bar&quot;)</code>
 </dd>
 <dt>Удалить переменную среды <code>Foo</code></dt>
-<dd><pre class="sourceCode lua" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;&quot;</span><span class="ot">)</span></a></code></pre>
+<dd><div class="sourceCode" id="cb3"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;&quot;</span><span class="ot">)</span></a></code></pre></div>
 </dd>
 <dt>Установить значение переменной среды <code>Foo</code> в “<code>0</code>”</dt>
-<dd><pre class="sourceCode lua" id="cb4"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;0&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a></code></pre>
+<dd><div class="sourceCode" id="cb4"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;0&quot;</span><span class="ot">)</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a></code></pre></div>
 </dd>
 <dt>Если выбран английский язык интерфейса Far Manager, то что-то делаем</dt>
-<dd><pre class="sourceCode lua" id="cb5"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">if</span> mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;FARLANG&quot;</span><span class="ot">)==</span><span class="st">&quot;English&quot;</span> <span class="kw">then</span></a>
+<dd><div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">if</span> mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;FARLANG&quot;</span><span class="ot">)==</span><span class="st">&quot;English&quot;</span> <span class="kw">then</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="do">-- что-то делаем</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">end</span></a></code></pre>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">end</span></a></code></pre></div>
 </dd>
 </dl>
 </div>
@@ -145,7 +145,7 @@
 <p>Примечание:</p>
 <p>Особенности текущей реализации: чтобы изменить состояние режима в момент удержания клавиши может понадобиться повторный вызов функции.</p>
 <p>Поэтому, например, макрос, назначенный на <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>CapsLock</kbd></span> может быть таким:</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb6"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> Caps<span class="ot">,</span>toggle <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> Caps<span class="ot">,</span>toggle <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;переключение между окнами&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell Info QView Tree Editor Viewer&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlCapsLock&quot;</span><span class="ot">;</span></a>
@@ -154,9 +154,9 @@
 <a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw">local</span> mode <span class="ot">=</span> band<span class="ot">(</span>mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span>toggle<span class="ot">),</span><span class="dv">1</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">    mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span><span class="dv">1</span><span class="ot">-</span>mode<span class="ot">)</span></a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="ot">}</span></a></code></pre></div>
 </dd>
-<dt id="Far.KbdLayout"><code>N=Far.KbdLayout ([V])</code></dt>
+<dt><code>N=Far.KbdLayout ([V])</code></dt>
 <dd><p>Управление раскладкой клавиатуры.</p>
 <p>Параметр <code>V</code>:</p>
 <dl>

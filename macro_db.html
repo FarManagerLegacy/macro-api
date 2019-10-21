@@ -16,6 +16,51 @@
 <h1 id="работа-с-базой-данных">Работа с базой данных</h1>
 <div class="functions">
 <dl>
+<dt><code>ret = mf.serialize (value)</code></dt>
+<dd><p>Функция <code>serialize</code> преобразует переданное значение в строку.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>value</code></dt>
+<dd><code>nil</code>, <code>boolean</code>, <code>number</code>, <code>string</code>, <code>table</code>, <code>int64</code>
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>ret</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>При сохранении таблиц будут сохраняться:</p>
+<ul>
+<li>ключи типов: <code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code></li>
+<li>значения типов: <code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code>, <code>int64</code></li>
+</ul>
+<p>Сохраняются вложенные таблицы, при этом рекурсивные вложения корректно обрабатываются.</p>
+<p>Сохраняется связь таблицы с её метатаблицей.</p>
+<p>Примечание</p>
+<p><code>int64</code> — особый тип <code>userdata</code>, создаваемый библиотекой <code>bit64</code>.</p>
+</dd>
+<dt><code>value, errmsg = mf.deserialize (str)</code></dt>
+<dd><p>Функция deserialize восстанавливает ранее сериализованное значение.</p>
+<p>Если 2-е возвращаемое значение nil, то 1-е возвращаемое значение валидно.</p>
+<p>Параметры:</p>
+<dl>
+<dt><code>str</code></dt>
+<dd><code>string</code>
+</dd>
+</dl>
+<p>Возвращает:</p>
+<dl>
+<dt><code>value</code></dt>
+<dd><code>number</code>, <code>string</code>, <code>boolean</code>, <code>table</code>, <code>int64</code> or <code>nil</code>.
+</dd>
+<dt><code>errmsg</code></dt>
+<dd><code>nil</code> в случае успеха, <code>string</code> в случае неудачи.
+</dd>
+</dl>
+<p>Примечание</p>
+<p><code>int64</code> — особый тип <code>userdata</code>, создаваемый библиотекой <code>bit64</code>.</p>
+</dd>
 <dt><code>ret = mf.mdelete (key, name[, location])</code></dt>
 <dd><p>Функция удаляет значение или ключ из базы данных.</p>
 <p>Для удаления ключа следует указать параметр <code>name</code> ≡ “<code>*</code>” (звёздочку).</p>

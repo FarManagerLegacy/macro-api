@@ -98,16 +98,16 @@
 </dd>
 </dl>
 <p>Например,</p>
-<pre class="sourceCode lua" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Editor<span class="ot">.</span>State<span class="ot">,</span><span class="dv">0x8</span><span class="ot">)</span> <span class="kw">then</span> </a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Editor<span class="ot">.</span>State<span class="ot">,</span><span class="dv">0x8</span><span class="ot">)</span> <span class="kw">then</span> </a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="do">-- выполнить действия, если файл модифицирован</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">end</span></a></code></pre>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">end</span></a></code></pre></div>
 </dd>
 <dt><code>Editor.Value</code></dt>
 <dd><code>string</code>
 </dd>
 <dd><p>содержимое текущей строки в редакторе под курсором. Например, показать текущий символ под курсором:</p>
-<pre class="sourceCode lua" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> pos <span class="ot">=</span> Editor<span class="ot">.</span>CurPos</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="kw">nil</span><span class="ot">,</span>Editor<span class="ot">.</span>Value:sub<span class="ot">(</span>pos<span class="ot">,</span>pos<span class="ot">))</span></a></code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> pos <span class="ot">=</span> Editor<span class="ot">.</span>CurPos</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="kw">nil</span><span class="ot">,</span>Editor<span class="ot">.</span>Value:sub<span class="ot">(</span>pos<span class="ot">,</span>pos<span class="ot">))</span></a></code></pre></div>
 </dd>
 </dl>
 <h2 id="функции">Функции</h2>
@@ -239,7 +239,7 @@
 <p>В случае ошибки (в т. ч. функция вызвана не из “редактора”) возвращаемое значение равно <code>0</code>, иначе <code>1</code>.</p>
 <p>Для <code>Action=0</code> возвращается запрошенное значение.</p>
 <p>Например, повторим некоторые сочетания клавиш из Turbo-сред (<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>B</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>K</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>C</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>Y</kbd></span>):</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> SET <span class="ot">=</span> <span class="dv">2</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> SET <span class="ot">=</span> <span class="dv">2</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> START<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;повторим некоторые сочетания клавиш из Turbo-сред&quot;</span><span class="ot">;</span></a>
@@ -261,7 +261,7 @@
 <a class="sourceLine" id="cb3-20" data-line-number="20">      Keys<span class="ot">(</span><span class="st">&quot;F1&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb3-21" data-line-number="21">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="ot">}</span></a></code></pre></div>
 </dd>
 <dt><code>V=Editor.Set(Option[,Value])</code></dt>
 <dd><p>Получить/изменить настройки текущей копии редактора.</p>
@@ -376,7 +376,7 @@
 <p>Возвращает предыдущее значение опций или <code>-1</code>, если данные указаны некорректно, или функция вызвана не из редактора.</p>
 <p>Значения опции <code>16</code> изменить нельзя.</p>
 <p>Например, макрос, перемещающий выделенный фрагмент на одну строку (сохраняет выделение вне зависимости от настроек постоянных блоков):</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb4"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PERSISTENT <span class="ot">=</span> <span class="dv">2</span></a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PERSISTENT <span class="ot">=</span> <span class="dv">2</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;перемещение выделенного фрагмента на одну строку вниз/вверх&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftDown CtrlShiftUp&quot;</span><span class="ot">;</span> flags<span class="ot">=</span><span class="st">&quot;NoSendKeysToPlugins&quot;</span><span class="ot">;</span></a>
@@ -390,7 +390,7 @@
 <a class="sourceLine" id="cb4-12" data-line-number="12">    Keys<span class="ot">(</span><span class="st">&quot;CtrlX&quot;</span><span class="ot">,</span>key<span class="ot">,</span><span class="st">&quot;CtrlV&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13">    Editor<span class="ot">.</span>Set<span class="ot">(</span>PERSISTENT<span class="ot">,</span>a<span class="ot">)</span>           <span class="do">-- вернуть предыдущий режим</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="ot">}</span></a></code></pre></div>
 </dd>
 <dt><code>N=Editor.SetStr([S[,Line]])</code></dt>
 <dd>Заменить строку с номером <code>Line</code> на значение <code>S</code>. Если <code>S</code> не указан, то строка будет пустой. Если <code>Line</code> не указан или меньше <code>1</code>, то заменяется текущая строка. Позиция курсора в редакторе не меняется. Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — если редактор не в фокусе/редактор залочен/нет строки с запрашиваемым номером.
@@ -422,7 +422,7 @@
 </dl>
 </div>
 <p>Удаление пустых строк:</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb5"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> GET <span class="ot">=</span> <span class="dv">0</span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> GET <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">local</span> START_LINE<span class="ot">,</span> END_LINE <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">2</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">local</span> BEGIN<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">Macro <span class="ot">{</span></a>
@@ -442,7 +442,7 @@
 <a class="sourceLine" id="cb5-18" data-line-number="18">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb5-19" data-line-number="19">    Editor<span class="ot">.</span>Undo<span class="ot">(</span>END<span class="ot">)</span></a>
 <a class="sourceLine" id="cb5-20" data-line-number="20">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="ot">}</span></a></code></pre></div>
 <h2 id="стековые-закладки">Стековые закладки</h2>
 <div class="functions">
 <dl>
@@ -510,12 +510,12 @@
 </div>
 <p>Пример работы с закладками:</p>
 <p>Для редактируемого файла <code>newarc.ModuleManager.cpp</code> вставляет в начало</p>
-<pre class="sourceCode cpp" id="cb6"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="pp">#ifndef __NEWARC_MODULEMANAGER_CPP__</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="pp">#define __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="pp">#ifndef __NEWARC_MODULEMANAGER_CPP__</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="pp">#define __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre></div>
 <p>в конец</p>
-<pre class="sourceCode cpp" id="cb7"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#endif </span><span class="co">//! __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#endif </span><span class="co">//! __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre></div>
 <p>при наличии строки “<code>#pragma once</code>” в начале файла, строки вставляются после неё.</p>
-<pre class="sourceCode numberSource lua numberLines" id="cb8"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">local</span> ptnNameExt <span class="ot">=</span> <span class="st">&quot;[^</span><span class="ot">\\</span><span class="st">/]$&quot;</span></a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">local</span> ptnNameExt <span class="ot">=</span> <span class="st">&quot;[^</span><span class="ot">\\</span><span class="st">/]$&quot;</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">local</span> ptnTrim <span class="ot">=</span> <span class="st">&quot;^%s*(.-)%s*$&quot;</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;Пример работы с закладками&quot;</span><span class="ot">;</span></a>
@@ -534,7 +534,7 @@
 <a class="sourceLine" id="cb8-17" data-line-number="17">    BM<span class="ot">.</span>Next<span class="ot">()</span></a>
 <a class="sourceLine" id="cb8-18" data-line-number="18">    BM<span class="ot">.</span>Del<span class="ot">()</span></a>
 <a class="sourceLine" id="cb8-19" data-line-number="19">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="ot">}</span></a></code></pre></div>
 <h3 id="замечания">Замечания</h3>
 <ul>
 <li>Нумерация строк в редакторе начинается с <code>1</code>.</li>

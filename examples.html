@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1 id="примеры">Примеры</h1>
-<pre class="sourceCode numberSource lua numberLines" id="cb1"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Переход в меню выбора дисков на противоположной панели&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Disks&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Tab&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
@@ -26,15 +26,15 @@
 <a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">    Keys<span class="ot">(</span><span class="st">&quot;Enter End Enter&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb2"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;выделить/(снять выделение) слово(а) под курсором&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;RAlt&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">    Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlU&quot;</span> <span class="kw">or</span> <span class="st">&quot;SelWord&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb3"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> datefmt <span class="ot">=</span> <span class="st">&quot;%Y%m0%d&quot;</span> <span class="do">--в формате `YYYYMMDD`</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> datefmt <span class="ot">=</span> <span class="st">&quot;%Y%m0%d&quot;</span> <span class="do">--в формате `YYYYMMDD`</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;создание папки с именем, равным текущей дате&quot;</span><span class="ot">;</span></a>
@@ -49,8 +49,8 @@
 <a class="sourceLine" id="cb3-13" data-line-number="13">      Panel<span class="ot">.</span>SetPos<span class="ot">(</span>APANEL<span class="ot">,</span>folder<span class="ot">)</span></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb4"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PPANEL <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PPANEL <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;искать тот же файл на другой панели что и на активной&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlAltLeft CtrlAltRight&quot;</span><span class="ot">;</span></a>
@@ -61,8 +61,8 @@
 <a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw">end</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb5"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">local</span> SELECT <span class="ot">=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">local</span> IDX <span class="ot">=</span> <span class="dv">1</span></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">Macro <span class="ot">{</span></a>
@@ -90,8 +90,8 @@
 <a class="sourceLine" id="cb5-26" data-line-number="26">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb5-27" data-line-number="27">    Panel<span class="ot">.</span>SetPosIdx<span class="ot">(</span>APANEL<span class="ot">,</span><span class="fu">math.max</span><span class="ot">(</span>last<span class="ot">-</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">))</span></a>
 <a class="sourceLine" id="cb5-28" data-line-number="28">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb6"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> folder <span class="ot">=</span> win<span class="ot">.</span>GetEnv<span class="ot">(</span><span class="st">&quot;FARPROFILE&quot;</span><span class="ot">)..</span><span class="st">&quot;</span><span class="ot">\\</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> folder <span class="ot">=</span> win<span class="ot">.</span>GetEnv<span class="ot">(</span><span class="st">&quot;FARPROFILE&quot;</span><span class="ot">)..</span><span class="st">&quot;</span><span class="ot">\\</span><span class="st">&quot;</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">local</span> filename <span class="ot">=</span> <span class="st">&quot;far-screen.out&quot;</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">local</span> GET<span class="ot">,</span>SWITCH_INTERNAL <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">5</span></a>
@@ -108,8 +108,8 @@
 <a class="sourceLine" id="cb6-15" data-line-number="15">    mf<span class="ot">.</span>beep<span class="ot">()</span></a>
 <a class="sourceLine" id="cb6-16" data-line-number="16">    Panel<span class="ot">.</span>SetPath<span class="ot">(</span>APANEL<span class="ot">,</span>folder<span class="ot">,</span>filename<span class="ot">)</span></a>
 <a class="sourceLine" id="cb6-17" data-line-number="17">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb7"><code class="sourceCode lua"><a class="sourceLine" id="cb7-1" data-line-number="1">Macro <span class="ot">{</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb7-1" data-line-number="1">Macro <span class="ot">{</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;удаление файла/папки по клавише Del&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Del&quot;</span><span class="ot">;</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
@@ -124,8 +124,8 @@
 <a class="sourceLine" id="cb7-13" data-line-number="13">      Keys<span class="ot">(</span><span class="st">&quot;F8&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb7-14" data-line-number="14">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb7-15" data-line-number="15">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb8"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="do">-- перед вызовом быстрого просмотра сделать пассивную панель</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="do">-- перед вызовом быстрого просмотра сделать пассивную панель</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="do">-- максимально большего размера.</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="do">-- для обратной операции восстановить панели.</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">local</span> min_width <span class="ot">=</span> <span class="dv">11</span></a>
@@ -145,8 +145,8 @@
 <a class="sourceLine" id="cb8-18" data-line-number="18">      Keys<span class="ot">(</span>DefaultMode<span class="ot">,</span><span class="st">&quot;CtrlClear&quot;</span><span class="ot">)</span></a>
 <a class="sourceLine" id="cb8-19" data-line-number="19">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb8-20" data-line-number="20">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb9"><code class="sourceCode lua"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">local</span> EXT<span class="ot">,</span>NAME <span class="ot">=</span> <span class="dv">8</span><span class="ot">,</span><span class="dv">4</span> <span class="do">--fsplit</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">local</span> SELECTED <span class="ot">=</span> <span class="dv">8</span>   <span class="do">--Panel.Item</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">local</span> NAMES <span class="ot">=</span> <span class="dv">2</span>      <span class="do">--Panel.Select</span></a>
@@ -178,8 +178,8 @@
 <a class="sourceLine" id="cb9-30" data-line-number="30">      Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>action<span class="ot">,</span>NAMES<span class="ot">,</span><span class="fu">table.concat</span><span class="ot">(</span>items<span class="ot">,</span><span class="st">&quot;</span><span class="ot">\n</span><span class="st">&quot;</span><span class="ot">))</span></a>
 <a class="sourceLine" id="cb9-31" data-line-number="31">    <span class="kw">end</span></a>
 <a class="sourceLine" id="cb9-32" data-line-number="32">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="ot">}</span></a></code></pre>
-<pre class="sourceCode numberSource lua numberLines" id="cb10"><code class="sourceCode lua"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">local</span> GET<span class="ot">,</span>SET <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">local</span> GET<span class="ot">,</span>SET <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">local</span> LEFTPOS <span class="ot">=</span> <span class="dv">5</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">local</span> SCROLL <span class="ot">=</span> <span class="dv">2</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">Macro <span class="ot">{</span></a>
@@ -190,6 +190,6 @@
 <a class="sourceLine" id="cb10-9" data-line-number="9">    <span class="kw">local</span> dir <span class="ot">=</span> mf<span class="ot">.</span>akey<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)==</span><span class="st">&quot;Right&quot;</span> <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="ot">-</span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10">    Editor<span class="ot">.</span>Pos<span class="ot">(</span>SET<span class="ot">,</span>LEFTPOS<span class="ot">,</span>Editor<span class="ot">.</span>Pos<span class="ot">(</span>GET<span class="ot">,</span>LEFTPOS<span class="ot">)+</span>dir<span class="ot">)</span></a>
 <a class="sourceLine" id="cb10-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="ot">}</span></a></code></pre>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
 </body>
 </html>
