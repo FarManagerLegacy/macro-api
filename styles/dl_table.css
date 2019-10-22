@@ -97,3 +97,8 @@ div.columns {
 div.columns>p>code {
   display: block;
 }
+
+/* fix line numbers */
+pre.sourceCode{ overflow:unset }
+code.sourceCode > span > a:first-child::before {text-decoration: initial}
+code.sourceCode > span > a:first-child:hover::before {text-decoration: underline}

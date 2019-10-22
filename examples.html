@@ -6,190 +6,190 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Примеры</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <h1 id="примеры">Примеры</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Переход в меню выбора дисков на противоположной панели&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Disks&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Tab&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">local</span> left <span class="ot">=</span> Drv<span class="ot">.</span>ShowPos<span class="ot">==</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    Keys<span class="ot">(</span><span class="st">&quot;Esc F9&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw">if</span> left<span class="ot">==</span>APanel<span class="ot">.</span>Left <span class="kw">then</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">      Keys<span class="ot">(</span><span class="st">&quot;Tab&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">    Keys<span class="ot">(</span><span class="st">&quot;Enter End Enter&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;выделить/(снять выделение) слово(а) под курсором&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;RAlt&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlU&quot;</span> <span class="kw">or</span> <span class="st">&quot;SelWord&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> datefmt <span class="ot">=</span> <span class="st">&quot;%Y%m0%d&quot;</span> <span class="do">--в формате `YYYYMMDD`</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;создание папки с именем, равным текущей дате&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;ShiftF7&quot;</span><span class="ot">;</span> flags<span class="ot">=</span><span class="st">&quot;NoPluginPanels&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="kw">local</span> folder <span class="ot">=</span> mf<span class="ot">.</span>date<span class="ot">(</span>datefmt<span class="ot">);</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="kw">if</span> <span class="dv">0</span><span class="ot">==</span>Panel<span class="ot">.</span>FExist<span class="ot">(</span>APANEL<span class="ot">,</span>folder<span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">      Keys<span class="ot">(</span><span class="st">&quot;F7 CtrlY&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">      mf<span class="ot">.</span>print<span class="ot">(</span>folder<span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">      Keys<span class="ot">(</span><span class="st">&quot;Enter&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="kw">else</span> <span class="do">-- если папка существует - позиционировать на неё курсор</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">      Panel<span class="ot">.</span>SetPos<span class="ot">(</span>APANEL<span class="ot">,</span>folder<span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PPANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;искать тот же файл на другой панели что и на активной&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlAltLeft CtrlAltRight&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">if</span> <span class="ot">(</span><span class="kw">not</span> APanel<span class="ot">.</span>Bof <span class="kw">or</span> APanel<span class="ot">.</span>Root<span class="ot">)</span> <span class="kw">and</span> PPanel<span class="ot">.</span>Visible <span class="kw">then</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">      <span class="kw">if</span> <span class="dv">0</span><span class="ot">~=</span>Panel<span class="ot">.</span>SetPos<span class="ot">(</span>PPANEL<span class="ot">,</span>APanel<span class="ot">.</span>Current<span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">        Keys<span class="ot">(</span><span class="st">&quot;Tab&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">local</span> SELECT <span class="ot">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">local</span> IDX <span class="ot">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;Выделение следующих нижних 30 файлов&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlDown&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw">local</span> cur <span class="ot">=</span> APanel<span class="ot">.</span>CurPos</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw">local</span> count <span class="ot">=</span> APanel<span class="ot">.</span>ItemCount</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="kw">local</span> last <span class="ot">=</span> <span class="fu">math.min</span><span class="ot">(</span>cur<span class="ot">+</span>N<span class="ot">,</span>count<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">    <span class="kw">for</span> i<span class="ot">=</span>cur<span class="ot">,</span>last <span class="kw">do</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">      Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>SELECT<span class="ot">,</span>IDX<span class="ot">,</span>i<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">    Panel<span class="ot">.</span>SetPosIdx<span class="ot">(</span>APANEL<span class="ot">,</span><span class="fu">math.min</span><span class="ot">(</span>last<span class="ot">+</span><span class="dv">1</span><span class="ot">,</span>count<span class="ot">))</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="ot">}</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19">  description<span class="ot">=</span><span class="st">&quot;Выделение следующих верхних 30 файлов&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlUp&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22">    <span class="kw">local</span> cur <span class="ot">=</span> APanel<span class="ot">.</span>CurPos</a>
-<a class="sourceLine" id="cb5-23" data-line-number="23">    <span class="kw">local</span> last <span class="ot">=</span> <span class="fu">math.max</span><span class="ot">(</span>cur<span class="ot">-</span>N<span class="ot">,</span><span class="dv">1</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24">    <span class="kw">for</span> i<span class="ot">=</span>cur<span class="ot">,</span>last<span class="ot">,-</span><span class="dv">1</span> <span class="kw">do</span></a>
-<a class="sourceLine" id="cb5-25" data-line-number="25">      Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>SELECT<span class="ot">,</span>IDX<span class="ot">,</span>i<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-26" data-line-number="26">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27">    Panel<span class="ot">.</span>SetPosIdx<span class="ot">(</span>APANEL<span class="ot">,</span><span class="fu">math.max</span><span class="ot">(</span>last<span class="ot">-</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">))</span></a>
-<a class="sourceLine" id="cb5-28" data-line-number="28">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> folder <span class="ot">=</span> win<span class="ot">.</span>GetEnv<span class="ot">(</span><span class="st">&quot;FARPROFILE&quot;</span><span class="ot">)..</span><span class="st">&quot;</span><span class="ot">\\</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">local</span> filename <span class="ot">=</span> <span class="st">&quot;far-screen.out&quot;</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">local</span> GET<span class="ot">,</span>SWITCH_INTERNAL <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">  description<span class="ot">=</span><span class="st">&quot;сграбить весь экран в текстовый файл far-screen.out&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">  area<span class="ot">=</span><span class="st">&quot;Common&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;AltP&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">    mf<span class="ot">.</span>clip<span class="ot">(</span>SWITCH_INTERNAL<span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">    Keys<span class="ot">(</span><span class="st">&quot;AltIns CtrlA CtrlIns&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">    <span class="kw">local</span> file <span class="ot">=</span> <span class="fu">assert</span><span class="ot">(</span><span class="fu">io.open</span><span class="ot">(</span>folder<span class="ot">..</span>filename<span class="ot">,</span><span class="st">&quot;w&quot;</span><span class="ot">))</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">    file:<span class="fu">write</span><span class="ot">(</span>mf<span class="ot">.</span>clip<span class="ot">(</span>GET<span class="ot">),</span><span class="st">&quot;</span><span class="ot">\n</span><span class="st">&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">    file:<span class="fu">close</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15">    mf<span class="ot">.</span>beep<span class="ot">()</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16">    Panel<span class="ot">.</span>SetPath<span class="ot">(</span>APANEL<span class="ot">,</span>folder<span class="ot">,</span>filename<span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb7-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;удаление файла/папки по клавише Del&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Del&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="do">-- если не в конце ком строки то удаляем символы в ней</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="kw">if</span> <span class="kw">not</span> CmdLine<span class="ot">.</span>Eof <span class="kw">then</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">      Keys<span class="ot">(</span><span class="st">&quot;Del&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="kw">else</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">      <span class="do">-- если стояли на элементе .. то пытаемся удалить вышестоящую папку</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">      <span class="kw">if</span> <span class="kw">not</span> APanel<span class="ot">.</span>Selected <span class="kw">and</span> APanel<span class="ot">.</span>Bof <span class="kw">and</span> <span class="ot">(</span><span class="kw">not</span> APanel<span class="ot">.</span>Root <span class="kw">or</span> APanel<span class="ot">.</span>Plugin<span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">        Keys<span class="ot">(</span><span class="st">&quot;CtrlPgUp&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">      Keys<span class="ot">(</span><span class="st">&quot;F8&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="do">-- перед вызовом быстрого просмотра сделать пассивную панель</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="do">-- максимально большего размера.</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="do">-- для обратной операции восстановить панели.</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">local</span> min_width <span class="ot">=</span> <span class="dv">11</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">local</span> QView <span class="ot">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw">local</span> DefaultMode <span class="ot">=</span> <span class="st">&quot;Ctrl2&quot;</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">  description<span class="ot">=</span><span class="st">&quot;QView: максимизировать панель&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlQ&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  priority<span class="ot">=</span><span class="dv">100</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">    Keys<span class="ot">(</span><span class="st">&quot;AKey&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">    <span class="kw">if</span> PPanel<span class="ot">.</span>Type<span class="ot">==</span>QView <span class="kw">then</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">      Keys<span class="ot">(</span><span class="st">&quot;Ctrl6&quot;</span><span class="ot">)</span> <span class="do">--режим с одной колонкой</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">      <span class="kw">local</span> key <span class="ot">=</span> APanel<span class="ot">.</span>Left <span class="kw">and</span> <span class="st">&quot;CtrlLeft&quot;</span> <span class="kw">or</span> <span class="st">&quot;CtrlRight&quot;</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">      Keys<span class="ot">((</span><span class="st">&quot;%i*%s&quot;</span><span class="ot">)</span>:<span class="fu">format</span><span class="ot">(</span>APanel<span class="ot">.</span>Width<span class="ot">-</span>min_width<span class="ot">,</span>key<span class="ot">))</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">    <span class="kw">else</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">      Keys<span class="ot">(</span>DefaultMode<span class="ot">,</span><span class="st">&quot;CtrlClear&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">local</span> EXT<span class="ot">,</span>NAME <span class="ot">=</span> <span class="dv">8</span><span class="ot">,</span><span class="dv">4</span> <span class="do">--fsplit</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">local</span> SELECTED <span class="ot">=</span> <span class="dv">8</span>   <span class="do">--Panel.Item</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">local</span> NAMES <span class="ot">=</span> <span class="dv">2</span>      <span class="do">--Panel.Select</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="do">-- При непустой командной строке макрос не вызывается чтобы можно пользоваться первоначальной</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="do">-- функцией сочетания CtrlShiftIns - Поместить помеченные имена в Буфер Обмена</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">  description<span class="ot">=</span><span class="st">&quot;Пометить вместе с htm-файлом и парную ему папку&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftIns&quot;</span><span class="ot">;</span> flags<span class="ot">=</span><span class="st">&quot;EmptyCommandLine&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">    <span class="kw">local</span> Current <span class="ot">=</span> APanel<span class="ot">.</span>Current</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12">    <span class="kw">local</span> len <span class="ot">=</span> <span class="ot">(</span><span class="st">&quot;_files&quot;</span><span class="ot">)</span>:len<span class="ot">()</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13">    <span class="kw">local</span> Ext <span class="ot">=</span> Current:sub<span class="ot">(-</span>len<span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">    <span class="kw">local</span> Name</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">    <span class="kw">if</span> Ext<span class="ot">==</span><span class="st">&quot;_files&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16">      Name <span class="ot">=</span> Current:sub<span class="ot">(</span><span class="dv">1</span><span class="ot">,-</span>len<span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">    <span class="kw">else</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">      Ext <span class="ot">=</span> mf<span class="ot">.</span>fsplit<span class="ot">(</span>Current<span class="ot">,</span>EXT<span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-19" data-line-number="19">      Name <span class="ot">=</span> mf<span class="ot">.</span>fsplit<span class="ot">(</span>Current<span class="ot">,</span>NAME<span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-20" data-line-number="20">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb9-21" data-line-number="21">    <span class="kw">local</span> pair1<span class="ot">,</span>pair2</a>
-<a class="sourceLine" id="cb9-22" data-line-number="22">    <span class="kw">if</span> Ext<span class="ot">==</span><span class="st">&quot;.htm&quot;</span> <span class="kw">or</span> Ext<span class="ot">==</span><span class="st">&quot;.html&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb9-23" data-line-number="23">      pair1<span class="ot">,</span>pair2 <span class="ot">=</span> <span class="st">&quot;.files&quot;</span><span class="ot">,</span><span class="st">&quot;_files&quot;</span></a>
-<a class="sourceLine" id="cb9-24" data-line-number="24">    <span class="kw">elseif</span> Ext<span class="ot">==</span><span class="st">&quot;.files&quot;</span> <span class="kw">or</span> Ext<span class="ot">==</span><span class="st">&quot;_files&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb9-25" data-line-number="25">      pair1<span class="ot">,</span>pair2 <span class="ot">=</span> <span class="st">&quot;.htm&quot;</span><span class="ot">,</span><span class="st">&quot;.html&quot;</span></a>
-<a class="sourceLine" id="cb9-26" data-line-number="26">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb9-27" data-line-number="27">    <span class="kw">if</span> pair1 <span class="kw">then</span></a>
-<a class="sourceLine" id="cb9-28" data-line-number="28">      <span class="kw">local</span> action <span class="ot">=</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span><span class="dv">0</span><span class="ot">,</span>SELECTED<span class="ot">)</span> <span class="kw">and</span> <span class="dv">0</span> <span class="kw">or</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb9-29" data-line-number="29">      <span class="kw">local</span> items <span class="ot">=</span> <span class="ot">{</span> APanel<span class="ot">.</span>Current<span class="ot">,</span> Name<span class="ot">..</span>pair1<span class="ot">,</span> Name<span class="ot">..</span>pair2<span class="ot">}</span></a>
-<a class="sourceLine" id="cb9-30" data-line-number="30">      Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>action<span class="ot">,</span>NAMES<span class="ot">,</span><span class="fu">table.concat</span><span class="ot">(</span>items<span class="ot">,</span><span class="st">&quot;</span><span class="ot">\n</span><span class="st">&quot;</span><span class="ot">))</span></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="ot">}</span></a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">local</span> GET<span class="ot">,</span>SET <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">local</span> LEFTPOS <span class="ot">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">local</span> SCROLL <span class="ot">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;ScrollLock: Скроллинг текста по горизонтали&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Left Right&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">  condition<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span> <span class="kw">return</span> band<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span>mf<span class="ot">.</span>flock<span class="ot">(</span>SCROLL<span class="ot">,-</span><span class="dv">1</span><span class="ot">))==</span><span class="dv">1</span> <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">    <span class="kw">local</span> dir <span class="ot">=</span> mf<span class="ot">.</span>akey<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)==</span><span class="st">&quot;Right&quot;</span> <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="ot">-</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">    Editor<span class="ot">.</span>Pos<span class="ot">(</span>SET<span class="ot">,</span>LEFTPOS<span class="ot">,</span>Editor<span class="ot">.</span>Pos<span class="ot">(</span>GET<span class="ot">,</span>LEFTPOS<span class="ot">)+</span>dir<span class="ot">)</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a>Macro <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  description<span class="op">=</span><span class="st">&quot;Переход в меню выбора дисков на противоположной панели&quot;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  area<span class="op">=</span><span class="st">&quot;Disks&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;Tab&quot;</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="kw">local</span> left <span class="op">=</span> Drv<span class="op">.</span>ShowPos<span class="op">==</span><span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    Keys<span class="op">(</span><span class="st">&quot;Esc F9&quot;</span><span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="cf">if</span> left<span class="op">==</span>APanel<span class="op">.</span>Left <span class="cf">then</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>      Keys<span class="op">(</span><span class="st">&quot;Tab&quot;</span><span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="cf">end</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    Keys<span class="op">(</span><span class="st">&quot;Enter End Enter&quot;</span><span class="op">)</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a>Macro <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  description<span class="op">=</span><span class="st">&quot;выделить/(снять выделение) слово(а) под курсором&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;RAlt&quot;</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    Keys<span class="op">(</span>Object<span class="op">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlU&quot;</span> <span class="kw">or</span> <span class="st">&quot;SelWord&quot;</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">local</span> datefmt <span class="op">=</span> <span class="st">&quot;%Y%m0%d&quot;</span> <span class="co">--в формате `YYYYMMDD`</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">local</span> <span class="cn">APANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>Macro <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  description<span class="op">=</span><span class="st">&quot;создание папки с именем, равным текущей дате&quot;</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;ShiftF7&quot;</span><span class="op">;</span> flags<span class="op">=</span><span class="st">&quot;NoPluginPanels&quot;</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="kw">local</span> folder <span class="op">=</span> mf<span class="op">.</span>date<span class="op">(</span>datefmt<span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="cf">if</span> <span class="dv">0</span><span class="op">==</span>Panel<span class="op">.</span>FExist<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>folder<span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>      Keys<span class="op">(</span><span class="st">&quot;F7 CtrlY&quot;</span><span class="op">)</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>      mf<span class="op">.</span>print<span class="op">(</span>folder<span class="op">)</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>      Keys<span class="op">(</span><span class="st">&quot;Enter&quot;</span><span class="op">)</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">else</span> <span class="co">-- если папка существует - позиционировать на неё курсор</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>      Panel<span class="op">.</span>SetPos<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>folder<span class="op">)</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="cf">end</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">local</span> <span class="cn">PPANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>Macro <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  description<span class="op">=</span><span class="st">&quot;искать тот же файл на другой панели что и на активной&quot;</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlAltLeft CtrlAltRight&quot;</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="cf">if</span> <span class="op">(</span><span class="kw">not</span> APanel<span class="op">.</span>Bof <span class="kw">or</span> APanel<span class="op">.</span>Root<span class="op">)</span> <span class="kw">and</span> PPanel<span class="op">.</span>Visible <span class="cf">then</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>      <span class="cf">if</span> <span class="dv">0</span><span class="op">~=</span>Panel<span class="op">.</span>SetPos<span class="op">(</span><span class="cn">PPANEL</span><span class="op">,</span>APanel<span class="op">.</span>Current<span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>        Keys<span class="op">(</span><span class="st">&quot;Tab&quot;</span><span class="op">)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>      <span class="cf">end</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="cf">end</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">local</span> <span class="cn">APANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">local</span> <span class="cn">SELECT</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">local</span> <span class="cn">IDX</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>Macro <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  description<span class="op">=</span><span class="st">&quot;Выделение следующих нижних 30 файлов&quot;</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlDown&quot;</span><span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="kw">local</span> cur <span class="op">=</span> APanel<span class="op">.</span>CurPos</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="kw">local</span> count <span class="op">=</span> APanel<span class="op">.</span>ItemCount</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="kw">local</span> last <span class="op">=</span> <span class="fu">math.min</span><span class="op">(</span>cur<span class="op">+</span><span class="cn">N</span><span class="op">,</span>count<span class="op">)</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="cf">for</span> i<span class="op">=</span>cur<span class="op">,</span>last <span class="cf">do</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>      Panel<span class="op">.</span>Select<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="cn">SELECT</span><span class="op">,</span><span class="cn">IDX</span><span class="op">,</span>i<span class="op">)</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="cf">end</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    Panel<span class="op">.</span>SetPosIdx<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="fu">math.min</span><span class="op">(</span>last<span class="op">+</span><span class="dv">1</span><span class="op">,</span>count<span class="op">))</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="op">}</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a>Macro <span class="op">{</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  description<span class="op">=</span><span class="st">&quot;Выделение следующих верхних 30 файлов&quot;</span><span class="op">;</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlUp&quot;</span><span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="kw">local</span> cur <span class="op">=</span> APanel<span class="op">.</span>CurPos</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    <span class="kw">local</span> last <span class="op">=</span> <span class="fu">math.max</span><span class="op">(</span>cur<span class="op">-</span><span class="cn">N</span><span class="op">,</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a>    <span class="cf">for</span> i<span class="op">=</span>cur<span class="op">,</span>last<span class="op">,-</span><span class="dv">1</span> <span class="cf">do</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>      Panel<span class="op">.</span>Select<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="cn">SELECT</span><span class="op">,</span><span class="cn">IDX</span><span class="op">,</span>i<span class="op">)</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="cf">end</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>    Panel<span class="op">.</span>SetPosIdx<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="fu">math.max</span><span class="op">(</span>last<span class="op">-</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">))</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">local</span> folder <span class="op">=</span> win<span class="op">.</span>GetEnv<span class="op">(</span><span class="st">&quot;FARPROFILE&quot;</span><span class="op">)..</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">local</span> filename <span class="op">=</span> <span class="st">&quot;far-screen.out&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">local</span> <span class="cn">GET</span><span class="op">,</span><span class="cn">SWITCH_INTERNAL</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">5</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">local</span> <span class="cn">APANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>Macro <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  description<span class="op">=</span><span class="st">&quot;сграбить весь экран в текстовый файл far-screen.out&quot;</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  area<span class="op">=</span><span class="st">&quot;Common&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;AltP&quot;</span><span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    mf<span class="op">.</span>clip<span class="op">(</span><span class="cn">SWITCH_INTERNAL</span><span class="op">)</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    Keys<span class="op">(</span><span class="st">&quot;AltIns CtrlA CtrlIns&quot;</span><span class="op">)</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>    <span class="kw">local</span> file <span class="op">=</span> <span class="fu">assert</span><span class="op">(</span><span class="fu">io.open</span><span class="op">(</span>folder<span class="op">..</span>filename<span class="op">,</span><span class="st">&quot;w&quot;</span><span class="op">))</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>    file<span class="op">:</span><span class="fu">write</span><span class="op">(</span>mf<span class="op">.</span>clip<span class="op">(</span><span class="cn">GET</span><span class="op">),</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    file<span class="op">:</span><span class="fu">close</span><span class="op">()</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>    mf<span class="op">.</span>beep<span class="op">()</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>    Panel<span class="op">.</span>SetPath<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>folder<span class="op">,</span>filename<span class="op">)</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb7-1"><a href="#cb7-1"></a>Macro <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  description<span class="op">=</span><span class="st">&quot;удаление файла/папки по клавише Del&quot;</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;Del&quot;</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="co">-- если не в конце ком строки то удаляем символы в ней</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="cf">if</span> <span class="kw">not</span> CmdLine<span class="op">.</span>Eof <span class="cf">then</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>      Keys<span class="op">(</span><span class="st">&quot;Del&quot;</span><span class="op">)</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="cf">else</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>      <span class="co">-- если стояли на элементе .. то пытаемся удалить вышестоящую папку</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>      <span class="cf">if</span> <span class="kw">not</span> APanel<span class="op">.</span>Selected <span class="kw">and</span> APanel<span class="op">.</span>Bof <span class="kw">and</span> <span class="op">(</span><span class="kw">not</span> APanel<span class="op">.</span>Root <span class="kw">or</span> APanel<span class="op">.</span>Plugin<span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>        Keys<span class="op">(</span><span class="st">&quot;CtrlPgUp&quot;</span><span class="op">)</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>      <span class="cf">end</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>      Keys<span class="op">(</span><span class="st">&quot;F8&quot;</span><span class="op">)</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>    <span class="cf">end</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">-- перед вызовом быстрого просмотра сделать пассивную панель</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">-- максимально большего размера.</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">-- для обратной операции восстановить панели.</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">local</span> min_width <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">local</span> QView <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">local</span> DefaultMode <span class="op">=</span> <span class="st">&quot;Ctrl2&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>Macro <span class="op">{</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  description<span class="op">=</span><span class="st">&quot;QView: максимизировать панель&quot;</span><span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlQ&quot;</span><span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  priority<span class="op">=</span><span class="dv">100</span><span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>    Keys<span class="op">(</span><span class="st">&quot;AKey&quot;</span><span class="op">)</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="cf">if</span> PPanel<span class="op">.</span>Type<span class="op">==</span>QView <span class="cf">then</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>      Keys<span class="op">(</span><span class="st">&quot;Ctrl6&quot;</span><span class="op">)</span> <span class="co">--режим с одной колонкой</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>      <span class="kw">local</span> key <span class="op">=</span> APanel<span class="op">.</span>Left <span class="kw">and</span> <span class="st">&quot;CtrlLeft&quot;</span> <span class="kw">or</span> <span class="st">&quot;CtrlRight&quot;</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>      Keys<span class="op">((</span><span class="st">&quot;%i*%s&quot;</span><span class="op">):</span><span class="fu">format</span><span class="op">(</span>APanel<span class="op">.</span>Width<span class="op">-</span>min_width<span class="op">,</span>key<span class="op">))</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="cf">else</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>      Keys<span class="op">(</span>DefaultMode<span class="op">,</span><span class="st">&quot;CtrlClear&quot;</span><span class="op">)</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>    <span class="cf">end</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">local</span> <span class="cn">APANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">local</span> <span class="cn">EXT</span><span class="op">,</span><span class="cn">NAME</span> <span class="op">=</span> <span class="dv">8</span><span class="op">,</span><span class="dv">4</span> <span class="co">--fsplit</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="kw">local</span> <span class="cn">SELECTED</span> <span class="op">=</span> <span class="dv">8</span>   <span class="co">--Panel.Item</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">local</span> <span class="cn">NAMES</span> <span class="op">=</span> <span class="dv">2</span>      <span class="co">--Panel.Select</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">-- При непустой командной строке макрос не вызывается чтобы можно пользоваться первоначальной</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">-- функцией сочетания CtrlShiftIns - Поместить помеченные имена в Буфер Обмена</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>Macro <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  description<span class="op">=</span><span class="st">&quot;Пометить вместе с htm-файлом и парную ему папку&quot;</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftIns&quot;</span><span class="op">;</span> flags<span class="op">=</span><span class="st">&quot;EmptyCommandLine&quot;</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="kw">local</span> Current <span class="op">=</span> APanel<span class="op">.</span>Current</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">local</span> <span class="fu">len</span> <span class="op">=</span> <span class="op">(</span><span class="st">&quot;_files&quot;</span><span class="op">):</span><span class="fu">len</span><span class="op">()</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="kw">local</span> Ext <span class="op">=</span> Current<span class="op">:</span><span class="fu">sub</span><span class="op">(-</span><span class="fu">len</span><span class="op">)</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="kw">local</span> Name</span>
+<span id="cb9-15"><a href="#cb9-15"></a>    <span class="cf">if</span> Ext<span class="op">==</span><span class="st">&quot;_files&quot;</span> <span class="cf">then</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>      Name <span class="op">=</span> Current<span class="op">:</span><span class="fu">sub</span><span class="op">(</span><span class="dv">1</span><span class="op">,-</span><span class="fu">len</span><span class="op">)</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a>    <span class="cf">else</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>      Ext <span class="op">=</span> mf<span class="op">.</span>fsplit<span class="op">(</span>Current<span class="op">,</span><span class="cn">EXT</span><span class="op">)</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a>      Name <span class="op">=</span> mf<span class="op">.</span>fsplit<span class="op">(</span>Current<span class="op">,</span><span class="cn">NAME</span><span class="op">)</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a>    <span class="cf">end</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>    <span class="kw">local</span> pair1<span class="op">,</span>pair2</span>
+<span id="cb9-22"><a href="#cb9-22"></a>    <span class="cf">if</span> Ext<span class="op">==</span><span class="st">&quot;.htm&quot;</span> <span class="kw">or</span> Ext<span class="op">==</span><span class="st">&quot;.html&quot;</span> <span class="cf">then</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>      pair1<span class="op">,</span>pair2 <span class="op">=</span> <span class="st">&quot;.files&quot;</span><span class="op">,</span><span class="st">&quot;_files&quot;</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>    <span class="cf">elseif</span> Ext<span class="op">==</span><span class="st">&quot;.files&quot;</span> <span class="kw">or</span> Ext<span class="op">==</span><span class="st">&quot;_files&quot;</span> <span class="cf">then</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>      pair1<span class="op">,</span>pair2 <span class="op">=</span> <span class="st">&quot;.htm&quot;</span><span class="op">,</span><span class="st">&quot;.html&quot;</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>    <span class="cf">end</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a>    <span class="cf">if</span> pair1 <span class="cf">then</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a>      <span class="kw">local</span> action <span class="op">=</span> Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="cn">SELECTED</span><span class="op">)</span> <span class="kw">and</span> <span class="dv">0</span> <span class="kw">or</span> <span class="dv">1</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>      <span class="kw">local</span> items <span class="op">=</span> <span class="op">{</span> APanel<span class="op">.</span>Current<span class="op">,</span> Name<span class="op">..</span>pair1<span class="op">,</span> Name<span class="op">..</span>pair2<span class="op">}</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>      Panel<span class="op">.</span>Select<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>action<span class="op">,</span><span class="cn">NAMES</span><span class="op">,</span><span class="fu">table.concat</span><span class="op">(</span>items<span class="op">,</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">))</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>    <span class="cf">end</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">local</span> <span class="cn">GET</span><span class="op">,</span><span class="cn">SET</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">1</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">local</span> <span class="cn">LEFTPOS</span> <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">local</span> <span class="cn">SCROLL</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>Macro <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  description<span class="op">=</span><span class="st">&quot;ScrollLock: Скроллинг текста по горизонтали&quot;</span><span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;Left Right&quot;</span><span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  condition<span class="op">=</span><span class="kw">function</span><span class="op">()</span> <span class="cf">return</span> band<span class="op">(</span><span class="dv">1</span><span class="op">,</span>mf<span class="op">.</span>flock<span class="op">(</span><span class="cn">SCROLL</span><span class="op">,-</span><span class="dv">1</span><span class="op">))==</span><span class="dv">1</span> <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>    <span class="kw">local</span> dir <span class="op">=</span> mf<span class="op">.</span>akey<span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">)==</span><span class="st">&quot;Right&quot;</span> <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>    Editor<span class="op">.</span>Pos<span class="op">(</span><span class="cn">SET</span><span class="op">,</span><span class="cn">LEFTPOS</span><span class="op">,</span>Editor<span class="op">.</span>Pos<span class="op">(</span><span class="cn">GET</span><span class="op">,</span><span class="cn">LEFTPOS</span><span class="op">)+</span>dir<span class="op">)</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="op">}</span></span></code></pre></div>
 </body>
 </html>

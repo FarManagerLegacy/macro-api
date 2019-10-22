@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Свойства и функции для работы с меню и списками</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -24,7 +24,7 @@
 <dt><code>Menu.Id</code></dt>
 <dd><code>string</code>
 </dd>
-<dd>строковое представление идентификатора текущего меню в формате <code>&quot;{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}&quot;</code> (см. <a href="https://api.farmanager.com/ru/defs/guid.html">GUID объектов</a>)
+<dd>строковое представление идентификатора текущего меню в формате <code>"{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}"</code> (см. <a href="https://api.farmanager.com/ru/defs/guid.html">GUID объектов</a>)
 </dd>
 <dt><code>Menu.Value</code></dt>
 <dd><code>string</code>
@@ -90,23 +90,23 @@
 <p>Например:</p>
 <p>В меню вызова плагинов (<span class="nowrap"><kbd>F11</kbd></span>) плагину <em>S&amp;R</em> назначена горячая клавиша <code>7</code>.</p>
 <p>Следующая последовательность макрокоманд для редактора вызовет плагин (если хоткей назначен) или стандартный диалог поиска (если хоткей не назначен):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Продолжить поиск/замену в обратном направлении [S&amp;R]&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;AltF7&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    Keys<span class="ot">(</span><span class="st">&quot;F11&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">if</span> Object<span class="ot">.</span>CheckHotkey<span class="ot">(</span><span class="st">&quot;7&quot;</span><span class="ot">)~=</span><span class="dv">0</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">      Keys<span class="ot">(</span><span class="st">&quot;7 1&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">else</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">      Keys<span class="ot">(</span><span class="st">&quot;Esc AKey&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a>Macro <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  description<span class="op">=</span><span class="st">&quot;Продолжить поиск/замену в обратном направлении [S&amp;R]&quot;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;AltF7&quot;</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    Keys<span class="op">(</span><span class="st">&quot;F11&quot;</span><span class="op">)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">if</span> Object<span class="op">.</span>CheckHotkey<span class="op">(</span><span class="st">&quot;7&quot;</span><span class="op">)~=</span><span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>      Keys<span class="op">(</span><span class="st">&quot;7 1&quot;</span><span class="op">)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="cf">else</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>      Keys<span class="op">(</span><span class="st">&quot;Esc AKey&quot;</span><span class="op">)</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="cf">end</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>S=Object.GetHotkey([Pos])</code></dt>
 <dd><p>Возвращает горячую клавишу <code>S</code> для пункта меню с номером <code>Pos</code>.</p>
 <p>Если <code>Pos</code> не указан, или равен <code>0</code> — подразумевается текущий пункт.</p>
-<p>Если горячая клавиша для пункта меню не задана, то возвращается пустая строка (<code>&quot;&quot;</code>).</p>
+<p>Если горячая клавиша для пункта меню не задана, то возвращается пустая строка (<code>""</code>).</p>
 <p>В случае ошибки (не меню; нет хоткея; <code>Pos</code> больше чем количество пунктов меню) также возвращается пустая строка.</p>
 </dd>
 <dt><code>N=Menu.Filter([Action[,Mode]])</code></dt>
@@ -204,11 +204,11 @@
 <li>Если выставлен флаг <code>0x00000002</code> и старшее слово <em>равно</em> <code>0</code>, то Far использует символ пометки <code>√</code> (<code>U+221A</code>).</li>
 <li>Если выставлен флаг <code>0x00000002</code> и старшее слово <em>не равно</em> <code>0</code>, то Far использует символ пометки из старшего слова.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Menu<span class="ot">.</span>ItemStatus<span class="ot">(),</span><span class="dv">0x00000002</span><span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="st">&quot;Selected&quot;</span><span class="ot">,</span> unicode<span class="ot">.</span>utf8<span class="ot">.</span>char<span class="ot">(</span>rshift<span class="ot">(</span>Menu<span class="ot">.</span>ItemStatus<span class="ot">(),</span><span class="dv">16</span><span class="ot">)))</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">else</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="st">&quot;Not Selected&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">end</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> band<span class="op">(</span>Menu<span class="op">.</span>ItemStatus<span class="op">(),</span><span class="dv">0x00000002</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  mf<span class="op">.</span>msgbox<span class="op">(</span><span class="st">&quot;Selected&quot;</span><span class="op">,</span> unicode<span class="op">.</span>utf8<span class="op">.</span>char<span class="op">(</span>rshift<span class="op">(</span>Menu<span class="op">.</span>ItemStatus<span class="op">(),</span><span class="dv">16</span><span class="op">)))</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="cf">else</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  mf<span class="op">.</span>msgbox<span class="op">(</span><span class="st">&quot;Not Selected&quot;</span><span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="cf">end</span></span></code></pre></div>
 <p>Функция работает со всеми пунктами меню, в том числе с теми, которые в данный момент не отображаются (скрытые пункты учитываются в позиции).</p>
 <p>Если текущий “объект” не <em>меню</em> или позиция <code>Pos</code> невалидна (меньше <code>0</code> или больше количества пунктов в меню), то функция возвращает значение <code>-1</code> (все биты установлены).</p>
 </dd>
@@ -245,10 +245,10 @@
 </dd>
 </dl>
 <p>Возвращает позицию пункта меню (если найден), <code>0</code> — ошибка при позиционировании (нет пункта или пункт задисаблен), <code>-1</code> — функция вызвана не для меню.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">Keys<span class="ot">(</span><span class="st">&quot;F11&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">if</span> Menu<span class="ot">.</span>Select<span class="ot">(</span><span class="st">&quot;Advanced compare&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)&gt;</span><span class="dv">0</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  Keys<span class="ot">(</span><span class="st">&quot;Enter&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">end</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1"></a>Keys<span class="op">(</span><span class="st">&quot;F11&quot;</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="cf">if</span> Menu<span class="op">.</span>Select<span class="op">(</span><span class="st">&quot;Advanced compare&quot;</span><span class="op">,</span><span class="dv">0</span><span class="op">)&gt;</span><span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  Keys<span class="op">(</span><span class="st">&quot;Enter&quot;</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="cf">end</span></span></code></pre></div>
 </dd>
 </dl>
 </div>

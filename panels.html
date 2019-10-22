@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Свойства и функции для работы с панелями</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -435,21 +435,21 @@
 <li>как 64-разрядное число. В старших 32-х битах — дата, в младших — время.</li>
 </ol>
 <p>Пример — выделить все файлы/папки новее текущего:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL<span class="ot">,</span>CUR_ITEM <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">0</span>  <span class="do">-- common</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> MOD_TIME <span class="ot">=</span> <span class="dv">17</span>          <span class="do">-- Panel.Item</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">local</span> SELECT<span class="ot">,</span>MODE_IDX <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">1</span>  <span class="do">-- Panel.Select</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;выделить все файлы/папки новее текущего&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftAdd&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">local</span> d <span class="ot">=</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>CUR_ITEM<span class="ot">,</span>MOD_TIME<span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>APanel<span class="ot">.</span>ItemCount <span class="kw">do</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw">if</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>MOD_TIME<span class="ot">)&gt;</span>d <span class="kw">then</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">        Panel<span class="ot">.</span>Select<span class="ot">(</span>APANEL<span class="ot">,</span>SELECT<span class="ot">,</span>MODE_IDX<span class="ot">,</span>i<span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">local</span> <span class="cn">APANEL</span><span class="op">,</span><span class="cn">CUR_ITEM</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">0</span>  <span class="co">-- common</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">local</span> <span class="cn">MOD_TIME</span> <span class="op">=</span> <span class="dv">17</span>          <span class="co">-- Panel.Item</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">local</span> <span class="cn">SELECT</span><span class="op">,</span><span class="cn">MODE_IDX</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span><span class="dv">1</span>  <span class="co">-- Panel.Select</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>Macro <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  description<span class="op">=</span><span class="st">&quot;выделить все файлы/папки новее текущего&quot;</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftAdd&quot;</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="kw">local</span> d <span class="op">=</span> Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="cn">CUR_ITEM</span><span class="op">,</span><span class="cn">MOD_TIME</span><span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="dv">1</span><span class="op">,</span>APanel<span class="op">.</span>ItemCount <span class="cf">do</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>      <span class="cf">if</span> Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>i<span class="op">,</span><span class="cn">MOD_TIME</span><span class="op">)&gt;</span>d <span class="cf">then</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>        Panel<span class="op">.</span>Select<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span><span class="cn">SELECT</span><span class="op">,</span><span class="cn">MODE_IDX</span><span class="op">,</span>i<span class="op">)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>      <span class="cf">end</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="cf">end</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>N=Panel.Select(panelType,Action[,Mode[,Items]])</code></dt>
 <dd><p>Операции с выделением элементов на активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
@@ -503,7 +503,7 @@
 <p>Для строковых значений <code>Items</code>:</p>
 <ul>
 <li>Элементы должны быть разделены с помощью <code>Lf</code> (“<code>\n</code>”) или <code>CrLf</code> (“<code>\r\n</code>”).</li>
-<li>В случае если <code>Items</code> равно <code>&quot;&quot;</code> (или отсутствует) — действие не выполняется.</li>
+<li>В случае если <code>Items</code> равно <code>""</code> (или отсутствует) — действие не выполняется.</li>
 </ul>
 <p>Функция возвращает количество элементов, над которыми производилось <code>Action</code>.</p>
 <p>Примеры:</p>
@@ -537,9 +537,9 @@
 <dd><p>На активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели выставляет путь <code>path</code> и позиционирует курсор на элемент с именем <code>filename</code> (если указан).</p>
 <p>Возвращает <code>true</code> в случае успешной установки пути, и <code>false</code>, если папка не существует.</p>
 <p>Например, на активной панели выставить папку <code>C:\WINDOWS</code>, на пассивной — <code>C:\Program Files</code>, активную панель сделать слева и установить курсор на папку <code>FAR</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">if</span> APanel<span class="ot">.</span>Left <span class="kw">then</span> Keys<span class="ot">(</span><span class="st">&quot;CtrlU&quot;</span><span class="ot">)</span> <span class="kw">end</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">Panel<span class="ot">.</span>SetPath<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;C:</span><span class="ot">\\</span><span class="st">WINDOWS&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">Panel<span class="ot">.</span>SetPath<span class="ot">(</span><span class="dv">0</span><span class="ot">,</span><span class="st">&quot;C:</span><span class="ot">\\</span><span class="st">Program Files&quot;</span><span class="ot">,</span><span class="st">&quot;FAR&quot;</span><span class="ot">)</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> APanel<span class="op">.</span>Left <span class="cf">then</span> Keys<span class="op">(</span><span class="st">&quot;CtrlU&quot;</span><span class="op">)</span> <span class="cf">end</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>Panel<span class="op">.</span>SetPath<span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">WINDOWS&quot;</span><span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>Panel<span class="op">.</span>SetPath<span class="op">(</span><span class="dv">0</span><span class="op">,</span><span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">Program Files&quot;</span><span class="op">,</span><span class="st">&quot;FAR&quot;</span><span class="op">)</span></span></code></pre></div>
 </dd>
 <dt><code>itemIdx=Panel.SetPos(panelType,filename)</code></dt>
 <dd><p>Позиционирует курсор на элемент с именем <code>filename</code> на активной (<code>panelType=0</code>) или пассивной (<code>panelType=1</code>) панели.</p>
@@ -636,18 +636,18 @@
 <li><p>Пользовательские режимы сортировки принудительно выгружаются при выгрузке макросов.</p></li>
 </ol>
 <p>Пример:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="do">-- Загрузить сортировку по длине имени файла.</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> ffi <span class="ot">=</span> <span class="fu">require</span> <span class="st">&quot;ffi&quot;</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">local</span> C <span class="ot">=</span> ffi<span class="ot">.</span>C</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">Panel<span class="ot">.</span>LoadCustomSortMode <span class="ot">(</span><span class="dv">100</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="ot">{</span> </a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">    Compare <span class="ot">=</span> <span class="kw">function</span><span class="ot">(</span>p1<span class="ot">,</span> p2<span class="ot">,</span> opt<span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">      <span class="kw">local</span> l1<span class="ot">,</span> l2 <span class="ot">=</span> C<span class="ot">.</span>wcslen<span class="ot">(</span>p1<span class="ot">.</span>FileName<span class="ot">),</span> C<span class="ot">.</span>wcslen<span class="ot">(</span>p2<span class="ot">.</span>FileName<span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">      <span class="kw">return</span> l1<span class="ot">&lt;</span>l2 <span class="kw">and</span> <span class="ot">-</span><span class="dv">1</span> <span class="kw">or</span> l1<span class="ot">&gt;</span>l2 <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">    Description <span class="ot">=</span> <span class="st">&quot;sorting by file name length&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    Indicator <span class="ot">=</span> <span class="st">&quot;bB&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="ot">})</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">-- Загрузить сортировку по длине имени файла.</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">local</span> ffi <span class="op">=</span> <span class="fu">require</span> <span class="st">&quot;ffi&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">local</span> <span class="cn">C</span> <span class="op">=</span> ffi<span class="op">.</span><span class="cn">C</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>Panel<span class="op">.</span>LoadCustomSortMode <span class="op">(</span><span class="dv">100</span><span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="op">{</span> </span>
+<span id="cb3-6"><a href="#cb3-6"></a>    Compare <span class="op">=</span> <span class="kw">function</span><span class="op">(</span>p1<span class="op">,</span> p2<span class="op">,</span> opt<span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>      <span class="kw">local</span> l1<span class="op">,</span> l2 <span class="op">=</span> <span class="cn">C</span><span class="op">.</span>wcslen<span class="op">(</span>p1<span class="op">.</span>FileName<span class="op">),</span> <span class="cn">C</span><span class="op">.</span>wcslen<span class="op">(</span>p2<span class="op">.</span>FileName<span class="op">)</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>      <span class="cf">return</span> l1<span class="op">&lt;</span>l2 <span class="kw">and</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span> l1<span class="op">&gt;</span>l2 <span class="kw">and</span> <span class="dv">1</span> <span class="kw">or</span> <span class="dv">0</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    Description <span class="op">=</span> <span class="st">&quot;sorting by file name length&quot;</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    Indicator <span class="op">=</span> <span class="st">&quot;bB&quot;</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="op">})</span></span></code></pre></div>
 </dd>
 <dt><code>Panel.SetCustomSortMode(Mode,whatpanel[,order])</code></dt>
 <dd><p>установка пользовательского режима сортировки <code>Mode</code> в заданной панели</p>
@@ -672,12 +672,12 @@
 </dl>
 <p>Возвращает: Ничего</p>
 <p>Пример:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="do">-- Установить заданную пользовательскую сортировку в активной панели.</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;Sort files by their name length&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftF1&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span> Panel<span class="ot">.</span>SetCustomSortMode<span class="ot">(</span><span class="dv">100</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span> <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">-- Установить заданную пользовательскую сортировку в активной панели.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>Macro <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  description<span class="op">=</span><span class="st">&quot;Sort files by their name length&quot;</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftF1&quot;</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span> Panel<span class="op">.</span>SetCustomSortMode<span class="op">(</span><span class="dv">100</span><span class="op">,</span><span class="dv">0</span><span class="op">)</span> <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 </dl>
 </div>

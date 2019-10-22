@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Взаимодействие с системой</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -60,25 +60,25 @@
 </dl>
 <p>В случае ошибки возвращает <code>0</code></p>
 <p>Например, поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> APANEL <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">local</span> FILENAME<span class="ot">,</span>ATTRIB<span class="ot">,</span>SIZE<span class="ot">,</span>SELECTED <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">2</span><span class="ot">,</span><span class="dv">6</span><span class="ot">,</span><span class="dv">8</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">local</span> DIRECTORY <span class="ot">=</span> <span class="dv">0x00000010</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">local</span> <span class="kw">function</span> isFolder<span class="ot">(</span>panel<span class="ot">,</span>idx<span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">return</span> band<span class="ot">(</span>DIRECTORY<span class="ot">,</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>panel<span class="ot">,</span>idx<span class="ot">,</span>ATTRIB<span class="ot">))==</span>DIRECTORY</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">local</span> PUT<span class="ot">,</span>ADD <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">  description<span class="ot">=</span><span class="st">&quot;поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер)&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">  area<span class="ot">=</span><span class="st">&quot;Shell&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftIns&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    mf<span class="ot">.</span>clip<span class="ot">(</span>PUT<span class="ot">,</span><span class="st">&quot;Name;Size</span><span class="ot">\r\n</span><span class="st">&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>APanel<span class="ot">.</span>ItemCount <span class="kw">do</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">      <span class="kw">if</span> <span class="kw">not</span> isFolder<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">)</span> <span class="kw">and</span> Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>SELECTED<span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">        mf<span class="ot">.</span>clip<span class="ot">(</span>ADD<span class="ot">,</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>FILENAME<span class="ot">)..</span><span class="st">&quot;;&quot;</span><span class="ot">..</span>Panel<span class="ot">.</span>Item<span class="ot">(</span>APANEL<span class="ot">,</span>i<span class="ot">,</span>SIZE<span class="ot">)..</span><span class="st">&quot;</span><span class="ot">\r\n</span><span class="st">&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">local</span> <span class="cn">APANEL</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">local</span> <span class="cn">FILENAME</span><span class="op">,</span><span class="cn">ATTRIB</span><span class="op">,</span><span class="cn">SIZE</span><span class="op">,</span><span class="cn">SELECTED</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">8</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">local</span> <span class="cn">DIRECTORY</span> <span class="op">=</span> <span class="dv">0x00000010</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">local</span> <span class="kw">function</span> isFolder<span class="op">(</span>panel<span class="op">,</span>idx<span class="op">)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="cf">return</span> band<span class="op">(</span><span class="cn">DIRECTORY</span><span class="op">,</span>Panel<span class="op">.</span>Item<span class="op">(</span>panel<span class="op">,</span>idx<span class="op">,</span><span class="cn">ATTRIB</span><span class="op">))==</span><span class="cn">DIRECTORY</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="cf">end</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">local</span> <span class="cn">PUT</span><span class="op">,</span><span class="cn">ADD</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span><span class="dv">2</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>Macro <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  description<span class="op">=</span><span class="st">&quot;поместить в Clipboard список отмеченных файлов в формате CSV (имя и размер)&quot;</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  area<span class="op">=</span><span class="st">&quot;Shell&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftIns&quot;</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    mf<span class="op">.</span>clip<span class="op">(</span><span class="cn">PUT</span><span class="op">,</span><span class="st">&quot;Name;Size</span><span class="sc">\r\n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="dv">1</span><span class="op">,</span>APanel<span class="op">.</span>ItemCount <span class="cf">do</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>      <span class="cf">if</span> <span class="kw">not</span> isFolder<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>i<span class="op">)</span> <span class="kw">and</span> Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>i<span class="op">,</span><span class="cn">SELECTED</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>        mf<span class="op">.</span>clip<span class="op">(</span><span class="cn">ADD</span><span class="op">,</span>Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>i<span class="op">,</span><span class="cn">FILENAME</span><span class="op">)..</span><span class="st">&quot;;&quot;</span><span class="op">..</span>Panel<span class="op">.</span>Item<span class="op">(</span><span class="cn">APANEL</span><span class="op">,</span>i<span class="op">,</span><span class="cn">SIZE</span><span class="op">)..</span><span class="st">&quot;</span><span class="sc">\r\n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>      <span class="cf">end</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">end</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>S=mf.env(Name[,Mode[,Value]])</code></dt>
 <dd><p>Позволяет работать с переменной среды <code>Name</code>. Если <code>Mode</code> не указан или равен <code>0</code>, то функция возвращает значение переменной среды (<code>Value</code> в этом случае игнорируется). Если <code>Mode</code> указан и отличен от <code>0</code>, то функция устанавливает значение или удаляет переменную среды.</p>
@@ -87,26 +87,26 @@
 <div class="examples">
 <dl>
 <dt>Получить значение переменной среды <code>Foo</code></dt>
-<dd><div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">0</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="kw">nil</span><span class="ot">,</span>любое_значение<span class="ot">)</span></a></code></pre></div>
+<dd><div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">0</span><span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span>любое<span class="cn">_</span>значение<span class="op">)</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="kw">nil</span><span class="op">,</span>любое<span class="cn">_</span>значение<span class="op">)</span></span></code></pre></div>
 </dd>
 <dt>Установить значение переменной среды <code>Foo</code> в “<code>bar</code>”</dt>
-<dd><code>mf.env(&quot;Foo&quot;,1,&quot;Bar&quot;)</code>
+<dd><code>mf.env("Foo",1,"Bar")</code>
 </dd>
 <dt>Удалить переменную среды <code>Foo</code></dt>
-<dd><div class="sourceCode" id="cb3"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;&quot;</span><span class="ot">)</span></a></code></pre></div>
+<dd><div class="sourceCode" id="cb3"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="st">&quot;&quot;</span><span class="op">)</span></span></code></pre></div>
 </dd>
 <dt>Установить значение переменной среды <code>Foo</code> в “<code>0</code>”</dt>
-<dd><div class="sourceCode" id="cb4"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="st">&quot;0&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;Foo&quot;</span><span class="ot">,</span><span class="dv">1</span><span class="ot">,</span><span class="dv">0</span><span class="ot">)</span></a></code></pre></div>
+<dd><div class="sourceCode" id="cb4"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="st">&quot;0&quot;</span><span class="op">)</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;Foo&quot;</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">)</span></span></code></pre></div>
 </dd>
 <dt>Если выбран английский язык интерфейса Far Manager, то что-то делаем</dt>
-<dd><div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">if</span> mf<span class="ot">.</span>env<span class="ot">(</span><span class="st">&quot;FARLANG&quot;</span><span class="ot">)==</span><span class="st">&quot;English&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="do">-- что-то делаем</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">end</span></a></code></pre></div>
+<dd><div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">if</span> mf<span class="op">.</span>env<span class="op">(</span><span class="st">&quot;FARLANG&quot;</span><span class="op">)==</span><span class="st">&quot;English&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="co">-- что-то делаем</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="cf">end</span></span></code></pre></div>
 </dd>
 </dl>
 </div>
@@ -145,16 +145,16 @@
 <p>Примечание:</p>
 <p>Особенности текущей реализации: чтобы изменить состояние режима в момент удержания клавиши может понадобиться повторный вызов функции.</p>
 <p>Поэтому, например, макрос, назначенный на <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>CapsLock</kbd></span> может быть таким:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">local</span> Caps<span class="ot">,</span>toggle <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;переключение между окнами&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Shell Info QView Tree Editor Viewer&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlCapsLock&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    Keys<span class="ot">(</span><span class="st">&quot;CtrlShiftTab&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw">local</span> mode <span class="ot">=</span> band<span class="ot">(</span>mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span>toggle<span class="ot">),</span><span class="dv">1</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    mf<span class="ot">.</span>flock<span class="ot">(</span>Caps<span class="ot">,</span><span class="dv">1</span><span class="ot">-</span>mode<span class="ot">)</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">local</span> Caps<span class="op">,</span>toggle <span class="op">=</span> <span class="dv">1</span><span class="op">,</span><span class="dv">2</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>Macro <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  description<span class="op">=</span><span class="st">&quot;переключение между окнами&quot;</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  area<span class="op">=</span><span class="st">&quot;Shell Info QView Tree Editor Viewer&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlCapsLock&quot;</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    Keys<span class="op">(</span><span class="st">&quot;CtrlShiftTab&quot;</span><span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="kw">local</span> mode <span class="op">=</span> band<span class="op">(</span>mf<span class="op">.</span>flock<span class="op">(</span>Caps<span class="op">,</span>toggle<span class="op">),</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    mf<span class="op">.</span>flock<span class="op">(</span>Caps<span class="op">,</span><span class="dv">1</span><span class="op">-</span>mode<span class="op">)</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>N=Far.KbdLayout ([V])</code></dt>
 <dd><p>Управление раскладкой клавиатуры.</p>

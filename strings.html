@@ -5,9 +5,9 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Строковые функции</title>
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -166,8 +166,8 @@
 </dl>
 <p>В функции <code>date</code> допускается применение следующих escape-последовательностей:</p>
 <dl>
-<dt><code>\&quot;</code></dt>
-<dd>Символ ‘<code>&quot;</code>’
+<dt><code>\"</code></dt>
+<dd>Символ ‘<code>"</code>’
 </dd>
 <dt><code>\'</code></dt>
 <dd>Символ ‘<code>'</code>’
@@ -200,7 +200,7 @@
 <dd>16-ричные символы из <code>OEM</code> кодировки
 </dd>
 </dl>
-<p>Если аргумент <code>format</code> не указан, то Far Manager будет использовать форматную строку <code>&quot;%a %b %d %H:%M:%S %Z %Y&quot;</code> (см.)</p>
+<p>Если аргумент <code>format</code> не указан, то Far Manager будет использовать форматную строку <code>"%a %b %d %H:%M:%S %Z %Y"</code> (см.)</p>
 </dd>
 <dt><code>N=mf.index(S1,S2[,CaseSensitive])</code></dt>
 <dd><p>Если подстрока <code>S2</code> содержится в строке <code>S1</code>, то возвращается её позиция, иначе <code>-1</code>.</p>
@@ -273,7 +273,7 @@
 <p>Примеры:</p>
 <div class="examples">
 <dl>
-<dt><code>mf.strwrap(&quot;Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.&quot;,7)</code></dt>
+<dt><code>mf.strwrap("Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.",7)</code></dt>
 <dd><pre><code> +-------+
  |Пример
  |строки,
@@ -289,7 +289,7 @@
 &gt;|символов.
  +-------+</code></pre>
 </dd>
-<dt><code>mf.strwrap(&quot;Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.&quot;,7,nil,1)</code></dt>
+<dt><code>mf.strwrap("Пример строки, которая будет разбита на несколько строк по ширине в 7 символов.",7,nil,1)</code></dt>
 <dd><pre><code>  1234567
  +-------+
  |Пример
@@ -308,7 +308,7 @@
  |в.
  +-------+</code></pre>
 </dd>
-<dt><code>mf.strwrap(&quot;Эта строка содержит оооооооооооооччччччччеееень длинное слово&quot;,9,nil,0x1)</code></dt>
+<dt><code>mf.strwrap("Эта строка содержит оооооооооооооччччччччеееень длинное слово",9,nil,0x1)</code></dt>
 <dd><pre><code>  123456789
  +---------+
  |Эта
@@ -343,28 +343,28 @@
 <p>Примеры:</p>
 <div class="examples">
 <dl>
-<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;*&quot;,2)</code></dt>
+<dt><code>mf.strpad("Foo",10,"*",2)</code></dt>
 <dd><code>'***Foo****'</code>
 </dd>
-<dt><code>mf.strpad(&quot;&quot;,10,&quot;-*-&quot;,2)</code></dt>
+<dt><code>mf.strpad("",10,"-*-",2)</code></dt>
 <dd><code>'-*--*--*--'</code>
 </dd>
-<dt><code>mf.strpad(,10,&quot;-*-&quot;)</code></dt>
+<dt><code>mf.strpad(,10,"-*-")</code></dt>
 <dd><code>'-*--*--*--'</code>
 </dd>
-<dt><code>mf.strpad(&quot;Foo&quot;,10)</code></dt>
+<dt><code>mf.strpad("Foo",10)</code></dt>
 <dd><code>'Foo       '</code>
 </dd>
-<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;-&quot;)</code></dt>
+<dt><code>mf.strpad("Foo",10,"-")</code></dt>
 <dd><code>'Foo-------'</code>
 </dd>
-<dt><code>mf.strpad(&quot;Foo&quot;,10,nil,1)</code></dt>
+<dt><code>mf.strpad("Foo",10,nil,1)</code></dt>
 <dd><code>'       Foo'</code>
 </dd>
-<dt><code>mf.strpad(&quot;Foo&quot;,10,nil,2)</code></dt>
+<dt><code>mf.strpad("Foo",10,nil,2)</code></dt>
 <dd><code>'   Foo    '</code>
 </dd>
-<dt><code>mf.strpad(&quot;Foo&quot;,10,&quot;1234567890&quot;,2)</code></dt>
+<dt><code>mf.strpad("Foo",10,"1234567890",2)</code></dt>
 <dd><code>'123Foo1234'</code>
 </dd>
 </dl>
@@ -380,37 +380,37 @@
 <p>Примеры</p>
 <div class="examples">
 <dl>
-<dt><code>mf.substr(&quot;abcdef&quot;, 1)</code></dt>
+<dt><code>mf.substr("abcdef", 1)</code></dt>
 <dd>возвращает “<code>bcdef</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 1, 3)</code></dt>
+<dt><code>mf.substr("abcdef", 1, 3)</code></dt>
 <dd>возвращает “<code>bcd</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 0, 4)</code></dt>
+<dt><code>mf.substr("abcdef", 0, 4)</code></dt>
 <dd>возвращает “<code>abcd</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 0, 8)</code></dt>
+<dt><code>mf.substr("abcdef", 0, 8)</code></dt>
 <dd>возвращает “<code>abcdef</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, -1)</code></dt>
+<dt><code>mf.substr("abcdef", -1)</code></dt>
 <dd>возвращает “<code>f</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, -2)</code></dt>
+<dt><code>mf.substr("abcdef", -2)</code></dt>
 <dd>возвращает “<code>ef</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, -3, 1)</code></dt>
+<dt><code>mf.substr("abcdef", -3, 1)</code></dt>
 <dd>возвращает “<code>d</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 0, -1)</code></dt>
+<dt><code>mf.substr("abcdef", 0, -1)</code></dt>
 <dd>возвращает “<code>abcde</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 2, -1)</code></dt>
+<dt><code>mf.substr("abcdef", 2, -1)</code></dt>
 <dd>возвращает “<code>cde</code>”
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, 4, -4)</code></dt>
-<dd>возвращает <code>&quot;&quot;</code>
+<dt><code>mf.substr("abcdef", 4, -4)</code></dt>
+<dd>возвращает <code>""</code>
 </dd>
-<dt><code>mf.substr(&quot;abcdef&quot;, -3, -1)</code></dt>
+<dt><code>mf.substr("abcdef", -3, -1)</code></dt>
 <dd>возвращает “<code>de</code>”
 </dd>
 </dl>
@@ -436,7 +436,7 @@
 </dd>
 <dt><code>S=mf.xlat(S[,Flags])</code></dt>
 <dd><p>Возвращает транслитерируемую строку <code>S</code>.</p>
-<p>Функция подобна макрокоманде <code>Keys(&quot;XLat&quot;)</code>, но используется в выражениях.</p>
+<p>Функция подобна макрокоманде <code>Keys("XLat")</code>, но используется в выражениях.</p>
 <p>Необязательный аргумент <code>Flags</code> позволяет уточнять поведение функции:</p>
 <dl>
 <dt><code>1</code></dt>

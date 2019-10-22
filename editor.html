@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Свойства и функции для работы с редактором</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -98,16 +98,16 @@
 </dd>
 </dl>
 <p>Например,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">if</span> band<span class="ot">(</span>Editor<span class="ot">.</span>State<span class="ot">,</span><span class="dv">0x8</span><span class="ot">)</span> <span class="kw">then</span> </a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="do">-- выполнить действия, если файл модифицирован</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">end</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> band<span class="op">(</span>Editor<span class="op">.</span>State<span class="op">,</span><span class="dv">0x8</span><span class="op">)</span> <span class="cf">then</span> </span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="co">-- выполнить действия, если файл модифицирован</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="cf">end</span></span></code></pre></div>
 </dd>
 <dt><code>Editor.Value</code></dt>
 <dd><code>string</code>
 </dd>
 <dd><p>содержимое текущей строки в редакторе под курсором. Например, показать текущий символ под курсором:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> pos <span class="ot">=</span> Editor<span class="ot">.</span>CurPos</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span><span class="kw">nil</span><span class="ot">,</span>Editor<span class="ot">.</span>Value:sub<span class="ot">(</span>pos<span class="ot">,</span>pos<span class="ot">))</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">local</span> pos <span class="op">=</span> Editor<span class="op">.</span>CurPos</span>
+<span id="cb2-2"><a href="#cb2-2"></a>mf<span class="op">.</span>msgbox<span class="op">(</span><span class="kw">nil</span><span class="op">,</span>Editor<span class="op">.</span>Value<span class="op">:</span><span class="fu">sub</span><span class="op">(</span>pos<span class="op">,</span>pos<span class="op">))</span></span></code></pre></div>
 </dd>
 </dl>
 <h2 id="функции">Функции</h2>
@@ -239,29 +239,29 @@
 <p>В случае ошибки (в т. ч. функция вызвана не из “редактора”) возвращаемое значение равно <code>0</code>, иначе <code>1</code>.</p>
 <p>Для <code>Action=0</code> возвращается запрошенное значение.</p>
 <p>Например, повторим некоторые сочетания клавиш из Turbo-сред (<span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>B</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>K</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>C</kbd></span>, <span class="nowrap"><kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>Y</kbd></span>):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">local</span> SET <span class="ot">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local</span> START<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;повторим некоторые сочетания клавиш из Turbo-сред&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlK&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="kw">local</span> k <span class="ot">=</span> mf<span class="ot">.</span>waitkey<span class="ot">()</span>:lower<span class="ot">()</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="kw">local</span> <span class="kw">function</span> KeyIs<span class="ot">(</span>key<span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">      <span class="kw">return</span> k<span class="ot">==</span>key <span class="kw">or</span> k<span class="ot">==</span><span class="st">&quot;ctrl&quot;</span><span class="ot">..</span>key</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="kw">if</span> KeyIs<span class="ot">(</span><span class="st">&quot;b&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">      Editor<span class="ot">.</span>Sel<span class="ot">(</span>SET<span class="ot">,</span>START<span class="ot">)</span>             <span class="do">-- пометить начало блока</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;k&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">      Editor<span class="ot">.</span>Sel<span class="ot">(</span>SET<span class="ot">,</span>END<span class="ot">)</span>               <span class="do">-- пометить конец блока</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;c&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">      Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlC&quot;</span><span class="ot">)</span> <span class="do">-- копировать</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">    <span class="kw">elseif</span> KeyIs<span class="ot">(</span><span class="st">&quot;y&quot;</span><span class="ot">)</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">      Keys<span class="ot">(</span>Object<span class="ot">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlD&quot;</span><span class="ot">)</span> <span class="do">-- удалить</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">    <span class="kw">else</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">      Keys<span class="ot">(</span><span class="st">&quot;F1&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">local</span> <span class="cn">SET</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">local</span> <span class="cn">START</span><span class="op">,</span><span class="cn">END</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>Macro <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  description<span class="op">=</span><span class="st">&quot;повторим некоторые сочетания клавиш из Turbo-сред&quot;</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlK&quot;</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="kw">local</span> k <span class="op">=</span> mf<span class="op">.</span>waitkey<span class="op">():</span><span class="fu">lower</span><span class="op">()</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="kw">local</span> <span class="kw">function</span> KeyIs<span class="op">(</span>key<span class="op">)</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>      <span class="cf">return</span> k<span class="op">==</span>key <span class="kw">or</span> k<span class="op">==</span><span class="st">&quot;ctrl&quot;</span><span class="op">..</span>key</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="cf">end</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="cf">if</span> KeyIs<span class="op">(</span><span class="st">&quot;b&quot;</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>      Editor<span class="op">.</span>Sel<span class="op">(</span><span class="cn">SET</span><span class="op">,</span><span class="cn">START</span><span class="op">)</span>             <span class="co">-- пометить начало блока</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="cf">elseif</span> KeyIs<span class="op">(</span><span class="st">&quot;k&quot;</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>      Editor<span class="op">.</span>Sel<span class="op">(</span><span class="cn">SET</span><span class="op">,</span><span class="cn">END</span><span class="op">)</span>               <span class="co">-- пометить конец блока</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    <span class="cf">elseif</span> KeyIs<span class="op">(</span><span class="st">&quot;c&quot;</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>      Keys<span class="op">(</span>Object<span class="op">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlC&quot;</span><span class="op">)</span> <span class="co">-- копировать</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="cf">elseif</span> KeyIs<span class="op">(</span><span class="st">&quot;y&quot;</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>      Keys<span class="op">(</span>Object<span class="op">.</span>Selected <span class="kw">and</span> <span class="st">&quot;CtrlD&quot;</span><span class="op">)</span> <span class="co">-- удалить</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="cf">else</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>      Keys<span class="op">(</span><span class="st">&quot;F1&quot;</span><span class="op">)</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="cf">end</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>V=Editor.Set(Option[,Value])</code></dt>
 <dd><p>Получить/изменить настройки текущей копии редактора.</p>
@@ -325,7 +325,7 @@
 <dt><code>12</code></dt>
 <dd><code>string</code>
 </dd>
-<dd><code>System.WordDiv</code> (<code>far:config</code>). Символы разделители слов. По умолчанию: <code>~!%^&amp;*()+|{}:&quot;&lt;&gt;?`-=\[];',./</code>
+<dd><code>System.WordDiv</code> (<code>far:config</code>). Символы разделители слов. По умолчанию: <code>~!%^&amp;*()+|{}:"&lt;&gt;?`-=\[];',./</code>
 </dd>
 <dt><code>14</code></dt>
 <dd><code>number</code>
@@ -376,21 +376,21 @@
 <p>Возвращает предыдущее значение опций или <code>-1</code>, если данные указаны некорректно, или функция вызвана не из редактора.</p>
 <p>Значения опции <code>16</code> изменить нельзя.</p>
 <p>Например, макрос, перемещающий выделенный фрагмент на одну строку (сохраняет выделение вне зависимости от настроек постоянных блоков):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">local</span> PERSISTENT <span class="ot">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  description<span class="ot">=</span><span class="st">&quot;перемещение выделенного фрагмента на одну строку вниз/вверх&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftDown CtrlShiftUp&quot;</span><span class="ot">;</span> flags<span class="ot">=</span><span class="st">&quot;NoSendKeysToPlugins&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">if</span> <span class="kw">not</span> Object<span class="ot">.</span>Selected <span class="kw">then</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">      Keys<span class="ot">(</span><span class="st">&quot;Home CtrlIns&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="kw">local</span> key <span class="ot">=</span> mf<span class="ot">.</span>akey<span class="ot">(</span><span class="dv">1</span><span class="ot">,</span><span class="dv">1</span><span class="ot">)</span>:match<span class="ot">(</span><span class="st">&quot;Down&quot;</span><span class="ot">)</span> <span class="kw">or</span> <span class="st">&quot;Up&quot;</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">    mf<span class="ot">.</span>clip<span class="ot">(</span><span class="dv">5</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="kw">local</span> a <span class="ot">=</span> Editor<span class="ot">.</span>Set<span class="ot">(</span>PERSISTENT<span class="ot">,</span><span class="dv">1</span><span class="ot">)</span> <span class="do">-- включить постоянные блоки</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">    Keys<span class="ot">(</span><span class="st">&quot;CtrlX&quot;</span><span class="ot">,</span>key<span class="ot">,</span><span class="st">&quot;CtrlV&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">    Editor<span class="ot">.</span>Set<span class="ot">(</span>PERSISTENT<span class="ot">,</span>a<span class="ot">)</span>           <span class="do">-- вернуть предыдущий режим</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">local</span> <span class="cn">PERSISTENT</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>Macro <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  description<span class="op">=</span><span class="st">&quot;перемещение выделенного фрагмента на одну строку вниз/вверх&quot;</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftDown CtrlShiftUp&quot;</span><span class="op">;</span> flags<span class="op">=</span><span class="st">&quot;NoSendKeysToPlugins&quot;</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="cf">if</span> <span class="kw">not</span> Object<span class="op">.</span>Selected <span class="cf">then</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>      Keys<span class="op">(</span><span class="st">&quot;Home CtrlIns&quot;</span><span class="op">)</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="cf">end</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="kw">local</span> key <span class="op">=</span> mf<span class="op">.</span>akey<span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">):</span><span class="fu">match</span><span class="op">(</span><span class="st">&quot;Down&quot;</span><span class="op">)</span> <span class="kw">or</span> <span class="st">&quot;Up&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    mf<span class="op">.</span>clip<span class="op">(</span><span class="dv">5</span><span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="kw">local</span> a <span class="op">=</span> Editor<span class="op">.</span>Set<span class="op">(</span><span class="cn">PERSISTENT</span><span class="op">,</span><span class="dv">1</span><span class="op">)</span> <span class="co">-- включить постоянные блоки</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    Keys<span class="op">(</span><span class="st">&quot;CtrlX&quot;</span><span class="op">,</span>key<span class="op">,</span><span class="st">&quot;CtrlV&quot;</span><span class="op">)</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>    Editor<span class="op">.</span>Set<span class="op">(</span><span class="cn">PERSISTENT</span><span class="op">,</span>a<span class="op">)</span>           <span class="co">-- вернуть предыдущий режим</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 <dt><code>N=Editor.SetStr([S[,Line]])</code></dt>
 <dd>Заменить строку с номером <code>Line</code> на значение <code>S</code>. Если <code>S</code> не указан, то строка будет пустой. Если <code>Line</code> не указан или меньше <code>1</code>, то заменяется текущая строка. Позиция курсора в редакторе не меняется. Возвращает <code>1</code> для успешно выполненной операции или <code>0</code> — если редактор не в фокусе/редактор залочен/нет строки с запрашиваемым номером.
@@ -422,27 +422,27 @@
 </dl>
 </div>
 <p>Удаление пустых строк:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> GET <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">local</span> START_LINE<span class="ot">,</span> END_LINE <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">local</span> BEGIN<span class="ot">,</span>END <span class="ot">=</span> <span class="dv">0</span><span class="ot">,</span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  description<span class="ot">=</span><span class="st">&quot;Удаление пустых строк&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftX&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="kw">local</span> StartLine<span class="ot">,</span> EndLine <span class="ot">=</span> <span class="dv">1</span><span class="ot">,</span> Editor<span class="ot">.</span>Lines</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw">if</span> Object<span class="ot">.</span>Selected <span class="kw">then</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">      StartLine <span class="ot">=</span> Editor<span class="ot">.</span>Sel<span class="ot">(</span>GET<span class="ot">,</span>START_LINE<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">      EndLine <span class="ot">=</span> Editor<span class="ot">.</span>Sel<span class="ot">(</span>GET<span class="ot">,</span>END_LINE<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">    Editor<span class="ot">.</span>Undo<span class="ot">(</span>BEGIN<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">    <span class="kw">for</span> i<span class="ot">=</span>EndLine<span class="ot">,</span>StartLine<span class="ot">,-</span><span class="dv">1</span> <span class="kw">do</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">      <span class="kw">if</span> Editor<span class="ot">.</span>GetStr<span class="ot">(</span>i<span class="ot">)</span>:match<span class="st">&quot;^%s*$&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">        Editor<span class="ot">.</span>DelLine<span class="ot">(</span>i<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19">    Editor<span class="ot">.</span>Undo<span class="ot">(</span>END<span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">local</span> <span class="cn">GET</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">local</span> <span class="cn">START_LINE</span><span class="op">,</span> <span class="cn">END_LINE</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">local</span> <span class="cn">BEGIN</span><span class="op">,</span><span class="cn">END</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span><span class="dv">1</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>Macro <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  description<span class="op">=</span><span class="st">&quot;Удаление пустых строк&quot;</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftX&quot;</span><span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="kw">local</span> StartLine<span class="op">,</span> EndLine <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> Editor<span class="op">.</span>Lines</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="cf">if</span> Object<span class="op">.</span>Selected <span class="cf">then</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>      StartLine <span class="op">=</span> Editor<span class="op">.</span>Sel<span class="op">(</span><span class="cn">GET</span><span class="op">,</span><span class="cn">START_LINE</span><span class="op">)</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>      EndLine <span class="op">=</span> Editor<span class="op">.</span>Sel<span class="op">(</span><span class="cn">GET</span><span class="op">,</span><span class="cn">END_LINE</span><span class="op">)</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>    <span class="cf">end</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    Editor<span class="op">.</span>Undo<span class="op">(</span><span class="cn">BEGIN</span><span class="op">)</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="cf">for</span> i<span class="op">=</span>EndLine<span class="op">,</span>StartLine<span class="op">,-</span><span class="dv">1</span> <span class="cf">do</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>      <span class="cf">if</span> Editor<span class="op">.</span>GetStr<span class="op">(</span>i<span class="op">):</span><span class="fu">match</span><span class="st">&quot;^%s*$&quot;</span> <span class="cf">then</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>        Editor<span class="op">.</span>DelLine<span class="op">(</span>i<span class="op">)</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>      <span class="cf">end</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="cf">end</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>    Editor<span class="op">.</span>Undo<span class="op">(</span><span class="cn">END</span><span class="op">)</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="стековые-закладки">Стековые закладки</h2>
 <div class="functions">
 <dl>
@@ -510,31 +510,31 @@
 </div>
 <p>Пример работы с закладками:</p>
 <p>Для редактируемого файла <code>newarc.ModuleManager.cpp</code> вставляет в начало</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="pp">#ifndef __NEWARC_MODULEMANAGER_CPP__</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="pp">#define __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a><span class="pp">#ifndef __NEWARC_MODULEMANAGER_CPP__</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="pp">#define __NEWARC_MODULEMANAGER_CPP__</span></span></code></pre></div>
 <p>в конец</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#endif </span><span class="co">//! __NEWARC_MODULEMANAGER_CPP__</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a><span class="pp">#endif </span><span class="co">//! __NEWARC_MODULEMANAGER_CPP__</span></span></code></pre></div>
 <p>при наличии строки “<code>#pragma once</code>” в начале файла, строки вставляются после неё.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">local</span> ptnNameExt <span class="ot">=</span> <span class="st">&quot;[^</span><span class="ot">\\</span><span class="st">/]$&quot;</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">local</span> ptnTrim <span class="ot">=</span> <span class="st">&quot;^%s*(.-)%s*$&quot;</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  description<span class="ot">=</span><span class="st">&quot;Пример работы с закладками&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;CtrlShiftV&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  filemask<span class="ot">=</span><span class="st">&quot;newarc.ModuleManager.cpp&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="kw">local</span> d <span class="ot">=</span> <span class="ot">(</span><span class="st">&quot;__%s__</span><span class="ot">\n</span><span class="st">&quot;</span><span class="ot">)</span>:<span class="fu">format</span><span class="ot">(</span>Editor<span class="ot">.</span>FileName:match<span class="ot">(</span>ptnNameExt<span class="ot">)</span>:upper<span class="ot">()</span>:<span class="fu">gsub</span><span class="ot">(</span><span class="st">&quot;%.&quot;</span><span class="ot">,</span><span class="st">&quot;_&quot;</span><span class="ot">))</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">    BM<span class="ot">.</span>Add<span class="ot">()</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">    Keys<span class="ot">(</span><span class="st">&quot;CtrlHome&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">    <span class="kw">if</span> Editor<span class="ot">.</span>Value:lower<span class="ot">()</span>:match<span class="ot">(</span>ptnTrim<span class="ot">)==</span><span class="st">&quot;#pragma once&quot;</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">      Keys<span class="ot">(</span><span class="st">&quot;Down&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">    mf<span class="ot">.</span>print<span class="ot">((</span><span class="st">&quot;#ifndef %s</span><span class="ot">\t</span><span class="st">define %s&quot;</span><span class="ot">)</span>:<span class="fu">format</span><span class="ot">(</span>d<span class="ot">,</span>d<span class="ot">))</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">    Keys<span class="ot">(</span><span class="st">&quot;CtrlEnd Enter Home&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">    mf<span class="ot">.</span>print<span class="ot">(</span><span class="st">&quot;#endif //! &quot;</span><span class="ot">..</span>d<span class="ot">)</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">    BM<span class="ot">.</span>Next<span class="ot">()</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">    BM<span class="ot">.</span>Del<span class="ot">()</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">local</span> ptnNameExt <span class="op">=</span> <span class="st">&quot;[^</span><span class="sc">\\</span><span class="st">/]$&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">local</span> ptnTrim <span class="op">=</span> <span class="st">&quot;^%s*(.-)%s*$&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>Macro <span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  description<span class="op">=</span><span class="st">&quot;Пример работы с закладками&quot;</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;CtrlShiftV&quot;</span><span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  filemask<span class="op">=</span><span class="st">&quot;newarc.ModuleManager.cpp&quot;</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="kw">local</span> d <span class="op">=</span> <span class="op">(</span><span class="st">&quot;__%s__</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">):</span><span class="fu">format</span><span class="op">(</span>Editor<span class="op">.</span>FileName<span class="op">:</span><span class="fu">match</span><span class="op">(</span>ptnNameExt<span class="op">):</span><span class="fu">upper</span><span class="op">():</span><span class="fu">gsub</span><span class="op">(</span><span class="st">&quot;%.&quot;</span><span class="op">,</span><span class="st">&quot;_&quot;</span><span class="op">))</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="cn">BM</span><span class="op">.</span>Add<span class="op">()</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    Keys<span class="op">(</span><span class="st">&quot;CtrlHome&quot;</span><span class="op">)</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="cf">if</span> Editor<span class="op">.</span>Value<span class="op">:</span><span class="fu">lower</span><span class="op">():</span><span class="fu">match</span><span class="op">(</span>ptnTrim<span class="op">)==</span><span class="st">&quot;#pragma once&quot;</span> <span class="cf">then</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>      Keys<span class="op">(</span><span class="st">&quot;Down&quot;</span><span class="op">)</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="cf">end</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>    mf<span class="op">.</span>print<span class="op">((</span><span class="st">&quot;#ifndef %s</span><span class="sc">\t</span><span class="st">define %s&quot;</span><span class="op">):</span><span class="fu">format</span><span class="op">(</span>d<span class="op">,</span>d<span class="op">))</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>    Keys<span class="op">(</span><span class="st">&quot;CtrlEnd Enter Home&quot;</span><span class="op">)</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>    mf<span class="op">.</span>print<span class="op">(</span><span class="st">&quot;#endif //! &quot;</span><span class="op">..</span>d<span class="op">)</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    <span class="cn">BM</span><span class="op">.</span>Next<span class="op">()</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>    <span class="cn">BM</span><span class="op">.</span>Del<span class="op">()</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="op">}</span></span></code></pre></div>
 <h3 id="замечания">Замечания</h3>
 <ul>
 <li>Нумерация строк в редакторе начинается с <code>1</code>.</li>

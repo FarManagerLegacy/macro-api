@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Общие свойства и функции</title>
   <link rel="stylesheet" href="styles/tango.css">
-  <link rel="stylesheet" href="styles/pandoc.css">
-  <link rel="stylesheet" href="styles/github.css">
-  <link rel="stylesheet" href="styles/dl_table.css">
+  <link rel="stylesheet" href="styles/pandoc.css" />
+  <link rel="stylesheet" href="styles/github.css" />
+  <link rel="stylesheet" href="styles/dl_table.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -117,8 +117,8 @@
 </dd>
 </dl>
 <p>Пример:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">local</span> mykeys <span class="ot">=</span> <span class="st">&quot;CtrlF5 Esc&quot;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">Keys<span class="ot">(</span><span class="st">&quot;AKey A b CtrlC ShiftEnter&quot;</span><span class="ot">,</span> mykeys<span class="ot">)</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">local</span> mykeys <span class="op">=</span> <span class="st">&quot;CtrlF5 Esc&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>Keys<span class="op">(</span><span class="st">&quot;AKey A b CtrlC ShiftEnter&quot;</span><span class="op">,</span> mykeys<span class="op">)</span></span></code></pre></div>
 <p>См. также:</p>
 <p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
 </dd>
@@ -159,8 +159,8 @@
 <dd><p>Функция предназначена для вставки произвольного текста <code>Str</code> в редактор, командную строку, элементы ввода в диалогах, etc.</p>
 <p>Допускается применение следующих escape-последовательностей:</p>
 <dl>
-<dt><code>\&quot;</code></dt>
-<dd>Символ ‘<code>&quot;</code>’
+<dt><code>\"</code></dt>
+<dd>Символ ‘<code>"</code>’
 </dd>
 <dt><code>\'</code></dt>
 <dd>Символ ‘<code>'</code>’
@@ -231,8 +231,8 @@
 </dl>
 <p>Функция возвращает строку (введённое пользователем значение) или <code>false</code>, если пользователь нажал <code>Esc</code>.</p>
 <p>Например, запросить пароль и вывести его:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">local</span> s <span class="ot">=</span> mf<span class="ot">.</span>prompt<span class="ot">(</span><span class="st">&quot;Password&quot;</span><span class="ot">,</span><span class="st">&quot;Input password:&quot;</span><span class="ot">,</span><span class="dv">0x02</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">mf<span class="ot">.</span>msgbox<span class="ot">(</span>s<span class="ot">)</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">local</span> s <span class="op">=</span> mf<span class="op">.</span>prompt<span class="op">(</span><span class="st">&quot;Password&quot;</span><span class="op">,</span><span class="st">&quot;Input password:&quot;</span><span class="op">,</span><span class="dv">0x02</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>mf<span class="op">.</span>msgbox<span class="op">(</span>s<span class="op">)</span></span></code></pre></div>
 </dd>
 <dt><code>mf.usermenu(mode,filename)</code></dt>
 <dd><p>Открывает или создаёт пользовательское меню.</p>
@@ -421,29 +421,29 @@
 </dl>
 </div>
 <p>Пример использования — навигация по установленным закладкам редактора:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb4-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;Стековые закладки&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Editor&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;AltB&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">local</span> S <span class="ot">=</span> <span class="st">&quot;&quot;</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">local</span> N <span class="ot">=</span> BM<span class="ot">.</span>Stat<span class="ot">(</span><span class="dv">0</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="kw">for</span> i<span class="ot">=</span><span class="dv">1</span><span class="ot">,</span>N <span class="kw">do</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">      BM<span class="ot">.</span>Goto<span class="ot">(</span>i<span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">      S <span class="ot">=</span> S<span class="ot">..</span>Editor<span class="ot">.</span>Value<span class="ot">..</span><span class="st">&quot;</span><span class="ot">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="kw">end</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="kw">local</span> title <span class="ot">=</span> <span class="st">&quot;Стековые закладки</span><span class="ot">\n</span><span class="st">Навигация - Up/Down, Выход - Esc, F10&quot;</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">    <span class="kw">local</span> I <span class="ot">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">    <span class="kw">repeat</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">      I <span class="ot">=</span> Menu<span class="ot">.</span>Show<span class="ot">(</span>S<span class="ot">,</span>title<span class="ot">,</span><span class="dv">0x600</span><span class="ot">,</span><span class="fu">math.abs</span><span class="ot">(</span>I<span class="ot">),</span><span class="dv">80</span><span class="ot">,</span>Far<span class="ot">.</span>Height<span class="ot">-</span>N<span class="ot">-</span><span class="dv">5</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">      <span class="kw">if</span> I<span class="ot">&gt;</span><span class="dv">0</span> <span class="kw">then</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">        BM<span class="ot">.</span>Goto<span class="ot">(</span>I<span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">        Keys<span class="ot">(</span><span class="st">&quot;SelWord&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">      <span class="kw">else</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19">        I <span class="ot">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20">      <span class="kw">end</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21">    <span class="kw">until</span> i<span class="ot">==</span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb4-1"><a href="#cb4-1"></a>Macro <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  description<span class="op">=</span><span class="st">&quot;Стековые закладки&quot;</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  area<span class="op">=</span><span class="st">&quot;Editor&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;AltB&quot;</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="kw">local</span> <span class="cn">S</span> <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="kw">local</span> <span class="cn">N</span> <span class="op">=</span> <span class="cn">BM</span><span class="op">.</span>Stat<span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="cf">for</span> i<span class="op">=</span><span class="dv">1</span><span class="op">,</span><span class="cn">N</span> <span class="cf">do</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>      <span class="cn">BM</span><span class="op">.</span>Goto<span class="op">(</span>i<span class="op">)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>      <span class="cn">S</span> <span class="op">=</span> <span class="cn">S</span><span class="op">..</span>Editor<span class="op">.</span>Value<span class="op">..</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="cf">end</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="kw">local</span> title <span class="op">=</span> <span class="st">&quot;Стековые закладки</span><span class="sc">\n</span><span class="st">Навигация - Up/Down, Выход - Esc, F10&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="kw">local</span> <span class="cn">I</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="cf">repeat</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>      <span class="cn">I</span> <span class="op">=</span> Menu<span class="op">.</span>Show<span class="op">(</span><span class="cn">S</span><span class="op">,</span>title<span class="op">,</span><span class="dv">0x600</span><span class="op">,</span><span class="fu">math.abs</span><span class="op">(</span><span class="cn">I</span><span class="op">),</span><span class="dv">80</span><span class="op">,</span>Far<span class="op">.</span>Height<span class="op">-</span><span class="cn">N</span><span class="op">-</span><span class="dv">5</span><span class="op">)</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>      <span class="cf">if</span> <span class="cn">I</span><span class="op">&gt;</span><span class="dv">0</span> <span class="cf">then</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>        <span class="cn">BM</span><span class="op">.</span>Goto<span class="op">(</span><span class="cn">I</span><span class="op">)</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>        Keys<span class="op">(</span><span class="st">&quot;SelWord&quot;</span><span class="op">)</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>      <span class="cf">else</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>        <span class="cn">I</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>      <span class="cf">end</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="cf">until</span> i<span class="op">==</span><span class="dv">0</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 </dl>
 </div>
@@ -465,9 +465,9 @@
 <li>Если в процессе исполнения макроса было добавлено несколько обработчиков, то они будут вызваны в порядке, обратном порядку их добавления.</li>
 </ul>
 <p>Пример применения:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">local</span> fp <span class="ot">=</span> <span class="fu">assert</span><span class="ot">(</span><span class="fu">io.open</span><span class="ot">(</span><span class="st">&quot;some file.txt&quot;</span><span class="ot">))</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">mf<span class="ot">.</span>AddExitHandler<span class="ot">(</span><span class="kw">function</span><span class="ot">()</span> fp:<span class="fu">close</span><span class="ot">()</span> <span class="kw">end</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="do">-- use fp; return from multiple places; do not care about closing fp</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">local</span> fp <span class="op">=</span> <span class="fu">assert</span><span class="op">(</span><span class="fu">io.open</span><span class="op">(</span><span class="st">&quot;some file.txt&quot;</span><span class="op">))</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>mf<span class="op">.</span>AddExitHandler<span class="op">(</span><span class="kw">function</span><span class="op">()</span> fp<span class="op">:</span><span class="fu">close</span><span class="op">()</span> <span class="cf">end</span><span class="op">)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">-- use fp; return from multiple places; do not care about closing fp</span></span></code></pre></div>
 <p>См. также:</p>
 <p><a href="async_limits.html">Ограничения в использовании некоторых функций</a></p>
 </dd>
@@ -478,13 +478,13 @@
 <p>Например,</p>
 <div class="examples">
 <dl>
-<dt><code>Far.Cfg_Get(&quot;System.KnownIDs&quot;,&quot;Network&quot;)</code></dt>
+<dt><code>Far.Cfg_Get("System.KnownIDs","Network")</code></dt>
 <dd>вернёт значение “<code>773B5051-7C5F-4920-A201-68051C4176A4</code>”, которое соответствует <code>ID</code> плагина Network.
 </dd>
-<dt><code>Far.Cfg_Get(&quot;Macros&quot;,&quot;DateFormat&quot;)</code></dt>
+<dt><code>Far.Cfg_Get("Macros","DateFormat")</code></dt>
 <dd>вернёт значение формат преобразования даты по умолчанию для функции <code>mf.date</code>.
 </dd>
-<dt><code>Far.Cfg_Get(&quot;Macros&quot;,&quot;TimeFormat&quot;)</code></dt>
+<dt><code>Far.Cfg_Get("Macros","TimeFormat")</code></dt>
 <dd>вернёт <code>false</code>, т.к. значения с именем “<code>TimeFormat</code>” не существует.
 </dd>
 </dl>
@@ -508,13 +508,13 @@
 <p>Преобразование типов между Far Manager и Lua осуществляются следующим образом:</p>
 <ul>
 <li><code>boolean</code> ⟶ <code>boolean</code></li>
-<li><code>3-state</code> ⟶ <code>0</code>,<code>1</code>,<code>2</code> преобразуются соответственно в <code>false</code>,<code>true</code>,<code>&quot;other&quot;</code></li>
+<li><code>3-state</code> ⟶ <code>0</code>,<code>1</code>,<code>2</code> преобразуются соответственно в <code>false</code>,<code>true</code>,<code>"other"</code></li>
 <li><code>string</code> ⟶ <code>string</code></li>
 <li><code>integer</code> ⟶ <code>number</code> (если возможно преобразование без потери точности) или <code>userdata</code> (<code>int64</code>) — величина, создаваемая библиотекой <code>bit64</code>.</li>
 </ul>
 </dd>
 <dt><code>tp</code></dt>
-<dd><code>string</code> (<code>&quot;boolean&quot;</code>, <code>&quot;3-state&quot;</code>, <code>&quot;string&quot;</code>, <code>&quot;integer&quot;</code>) Это тип оригинальной величины в Far Manager.
+<dd><code>string</code> (<code>"boolean"</code>, <code>"3-state"</code>, <code>"string"</code>, <code>"integer"</code>) Это тип оригинальной величины в Far Manager.
 </dd>
 </dl>
 <p>Примечание:</p>
@@ -609,11 +609,11 @@
 <p>Параметр <code>S</code> задаётся форматом “<code>[Area/]Key</code>”. Здесь <code>Area</code> — макрообласть, из которой будет исполнен макрос; <code>/</code> — разделитель; <code>Key</code> — название клавиши.</p>
 <ul>
 <li><p>Если “<code>Area/</code>” указан, то будет вызван макрос, назначенный на <code>Key</code> только в указанной области <code>Area</code>.</p>
-<p>Пример: <code>mf.eval(&quot;Shell/CtrlP&quot;,2)</code></p></li>
+<p>Пример: <code>mf.eval("Shell/CtrlP",2)</code></p></li>
 <li><p>Если в качестве “<code>Area/</code>” указана строка “<code>./</code>”, то будет вызван макрос, назначенный на <code>Key</code> только в <em>текущей</em> области.</p>
-<p>Пример: <code>mf.eval(&quot;./CtrlP&quot;,2)</code></p></li>
+<p>Пример: <code>mf.eval("./CtrlP",2)</code></p></li>
 <li><p>Если “<code>Area/</code>” не указан, то будет вызван макрос, назначенный на <code>Key</code> в текущей области. Если в текущей области <code>Key</code> не обнаружен, то будет выполнен макрос, назначенный на <code>Key</code> из области <code>Common</code>.</p>
-<p>Пример: <code>eval(&quot;CtrlP&quot;,2)</code></p></li>
+<p>Пример: <code>eval("CtrlP",2)</code></p></li>
 </ul>
 <p>Если <code>Key</code> не обнаружен, то функция вернёт целочисленное значение <code>-2</code>.</p>
 <p>Если <code>Key</code> обнаружен, то состояние текущего макроса сохраняется и начинает выполняться макрос, назначенный на сочетание клавиш <code>S</code>. После исполнения <code>S</code> прерванный макрос продолжает работать.</p>
@@ -638,7 +638,7 @@
 <li>Выражения должны использовать тот же язык программирования, что и файл-скрипт.</li>
 </ul>
 <p>Пример:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode lua"><code class="sourceCode lua"><a class="sourceLine" id="cb7-1" data-line-number="1">mf<span class="ot">.</span>eval<span class="ot">(</span><span class="st">&quot;@%MyFarScripts%</span><span class="ot">\\</span><span class="st">calc.moon &#39;factorial&#39;, 3+5&quot;</span><span class="ot">,</span> <span class="dv">0</span><span class="ot">,</span> <span class="st">&quot;moonscript&quot;</span><span class="ot">)</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode lua"><code class="sourceCode lua"><span id="cb7-1"><a href="#cb7-1"></a>mf<span class="op">.</span>eval<span class="op">(</span><span class="st">&quot;@%MyFarScripts%</span><span class="sc">\\</span><span class="st">calc.moon &#39;factorial&#39;, 3+5&quot;</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="st">&quot;moonscript&quot;</span><span class="op">)</span></span></code></pre></div></li>
 </ul>
 <p>Для всех режимов, кроме <code>Mode=3</code>, функция возвращает следующие значения:</p>
 <dl>
@@ -919,15 +919,15 @@ for k,v in pairs(Editor.properties) do .... end -- для свойств</code><
 </dl>
 <p>Действие функции актуально только для текущих панелей, редакторов, вьюеров.</p>
 <p>Например:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><a class="sourceLine" id="cb9-1" data-line-number="1">Macro <span class="ot">{</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">  description<span class="ot">=</span><span class="st">&quot;при погашенных панелях гасить и кейбар&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">  area<span class="ot">=</span><span class="st">&quot;Shell QView Info Tree&quot;</span><span class="ot">;</span> key<span class="ot">=</span><span class="st">&quot;Esc&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  flags<span class="ot">=</span><span class="st">&quot;EmptyCommandLine&quot;</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  action<span class="ot">=</span><span class="kw">function</span><span class="ot">()</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">    Keys<span class="ot">(</span><span class="st">&quot;CtrlO&quot;</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">    Far<span class="ot">.</span>KeyBar_Show<span class="ot">(</span><span class="kw">not</span> APanel<span class="ot">.</span>Visible <span class="kw">and</span> <span class="dv">2</span> <span class="kw">or</span> <span class="dv">1</span><span class="ot">)</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">  <span class="kw">end</span><span class="ot">;</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="ot">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource lua numberLines"><code class="sourceCode lua"><span id="cb9-1"><a href="#cb9-1"></a>Macro <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  description<span class="op">=</span><span class="st">&quot;при погашенных панелях гасить и кейбар&quot;</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  area<span class="op">=</span><span class="st">&quot;Shell QView Info Tree&quot;</span><span class="op">;</span> key<span class="op">=</span><span class="st">&quot;Esc&quot;</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  flags<span class="op">=</span><span class="st">&quot;EmptyCommandLine&quot;</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  action<span class="op">=</span><span class="kw">function</span><span class="op">()</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    Keys<span class="op">(</span><span class="st">&quot;CtrlO&quot;</span><span class="op">)</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>    Far<span class="op">.</span>KeyBar_Show<span class="op">(</span><span class="kw">not</span> APanel<span class="op">.</span>Visible <span class="kw">and</span> <span class="dv">2</span> <span class="kw">or</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="cf">end</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="op">}</span></span></code></pre></div>
 </dd>
 </dl>
 </div>

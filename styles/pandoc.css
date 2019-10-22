@@ -1,6 +1,7 @@
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
-      div.line-block{white-space: pre-line;}
+      span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
 
       q { quotes: "“" "”" "‘" "’"; }
+
