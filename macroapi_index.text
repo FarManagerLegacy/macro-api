@@ -28,6 +28,7 @@
   `date`
   `deserialize`
   `env`
+  `EnumScripts`
   `eval`
   `exit`
   `fattr`
