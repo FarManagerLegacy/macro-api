@@ -100,5 +100,5 @@ div.columns>p>code {
 
 /* fix line numbers */
 pre.sourceCode{ overflow:unset }
-code.sourceCode > span > a:first-child::before {text-decoration: initial}
+pre code.sourceCode > span > a:first-child::before {text-decoration: initial}
 code.sourceCode > span > a:first-child:hover::before {text-decoration: underline}
