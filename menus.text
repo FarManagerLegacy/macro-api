@@ -18,7 +18,7 @@
 `Menu.Id`
 :	`string`
 :	строковое представление идентификатора текущего меню в формате
-	`"{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}"` (см. [GUID объектов])
+	`"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"` (см. [GUID объектов])
 
 `Menu.Value`
 :	`string`
