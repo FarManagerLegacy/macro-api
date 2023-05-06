@@ -567,7 +567,7 @@
 	Параметры:
 
 	`Mode`
-	:	режим сортировки, целое число >=`100` и <=`0x7FFFFFFF`
+	:	режим сортировки, целое число >=`SM_USER` и <=`0x7FFFFFFF`
 
 	`Settings`
 	:	таблица, содержит следующие поля:
@@ -664,7 +664,8 @@
 	-- Загрузить сортировку по длине имени файла.
 	local ffi = require "ffi"
 	local C = ffi.C
-	Panel.LoadCustomSortMode (100,
+	local F = far.Flags
+	Panel.LoadCustomSortMode (F.SM_USER+10,
 	  { 
 	    Compare = function(p1, p2, opt)
 	      local l1, l2 = C.wcslen(p1.FileName), C.wcslen(p2.FileName)
@@ -684,7 +685,7 @@
 	Параметры
 
 	`Mode`
-	:	режим сортировки, целое число >=`100` и <=`0x7FFFFFFF`
+	:	режим сортировки, целое число >=`SM_USER` и <=`0x7FFFFFFF`
 
 	`whatpanel`
 	:	`0`=активная панель, `1`=пассивная панель
@@ -704,7 +705,7 @@
 	Macro {
 	  description="Sort files by their name length";
 	  area="Shell"; key="CtrlShiftF1";
-	  action=function() Panel.SetCustomSortMode(100,0) end;
+	  action=function() Panel.SetCustomSortMode(F.SM_USER+10,0) end;
 	}
 	~~~
 :::
