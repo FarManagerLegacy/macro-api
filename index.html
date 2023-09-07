@@ -19,7 +19,11 @@
   window.markprompt = {
     projectKey: 'kcEcTe2Xg9ghaQyyEy7bbIAzPZe6plbN',
     container: '#markprompt',
-    options: { /* Options */ }
+    options: {
+      search: { enabled: true },
+      prompt: { model: "gpt-4" },
+      feedback: { enabled: true },
+      trigger: { floating: false }
   };
 </script>
 <script type="module" src="https://esm.sh/@markprompt/web/init" async></script>
