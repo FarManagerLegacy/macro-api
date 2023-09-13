@@ -46,7 +46,7 @@ Macro {
 ~~~
 
 ~~~lua
-local PPANEL = 0
+local PPANEL = 1
 Macro {
   description="искать тот же файл на другой панели что и на активной";
   area="Shell"; key="CtrlAltLeft CtrlAltRight";
