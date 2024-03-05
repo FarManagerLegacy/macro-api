@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>GitHub Copilot Token Generator</h1>
+<p id="message"><em>Loading...</em></p>
+<p id="status"></p>
+
+<script>
+const message = document.getElementById("message");
+const status = document.getElementById("status");
+const makeCopyable = (el, text) => {
+    el.setAttribute("title", "Click to copy");
+    el.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(text);
+        status.innerHTML = "<em>copied!</em>";
+    });
+};
+const safeFetch = async (...args) => {
+    let data;
+    try {
+        const response = await fetch(...args);
+        if (response.ok) {
+            data = await response.json();
+        } else {
+            console.error(response.status, response.statusText);
+            data = { error: await response.text() };
+        }
+    } catch (error) {
+        data = { error };
+    }
+    return data;
+};
+
+setTimeout(async () => {
+    const clientId = "Iv1.b507a08c87ecfe98"; // GitHub Copilot Plugin by GitHub
+    let url = "https://github.com/login/device/code";
+    let body = JSON.stringify({
+        client_id: clientId,
+        scope: "read:user"
+    });
+    let headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    };
+    let data = await safeFetch(url, { method: "POST", headers, body });
+    if (data.error) {
+        message.textContent = "Error: " + data.error;
+        return;
+    }
+    const htmlUrl = `<a href="${data.verification_uri}" target="_blank">${data.verification_uri}</a>`;
+    const htmlCode = `<code id="code">${data.user_code}</code>`;
+    message.innerHTML = `<span>Please</span> open ${htmlUrl} and enter ${htmlCode}`;
+    makeCopyable(document.getElementById("code"), data.user_code);
+    url = "https://github.com/login/oauth/access_token";
+    body = JSON.stringify({
+        client_id: clientId,
+        device_code: data.device_code,
+        grant_type: "urn:ietf:params:oauth:grant-type:device_code"
+    });
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    };
+    let timeout = Date.now() / 1000 + data.expires_in;
+    const countdown = setInterval(() => {
+        let date = new Date(0);
+        date.setSeconds(timeout - Date.now() / 1000);
+        status.textContent = "Waiting login: " + date.toISOString().substring(11, 19);
+    }, 1000);
+    const interval = data.interval;
+    const poll = async () => {
+        data = await safeFetch(url, { method: "POST", headers, body });
+        if (data.access_token) {
+            message.innerHTML = `Your token is: <code id="token">${data.access_token}</code>`;
+            makeCopyable(document.getElementById("token"), data.access_token);
+            clearInterval(countdown);
+            return;
+        } else if (data.error !== "authorization_pending" && data.error !== "slow_down") {
+            console.error(data);
+            message.textContent = "Error: " + (data.error_description || data.error);
+            clearInterval(countdown);
+            return;
+        }
+        setTimeout(poll, (data.interval || interval) * 1000);
+    };
+    setTimeout(poll, interval * 1000);
+});
+</script>
+</body>
+</html>
